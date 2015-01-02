@@ -11,5 +11,5 @@ Specification:
 - PoS interest 50% Annually
 - PoS Min Stake Time: 2 Day
 - Pos Max Stake Time: 14 Days
-- 30 minute block target
-- 
+
+
