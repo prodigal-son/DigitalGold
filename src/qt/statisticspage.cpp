@@ -72,7 +72,7 @@ void StatisticsPage::updateStatistics()
     }
 		else if(pindexBest->nHeight < 15000)
     {
-        subsidy = "200 CON";
+        subsidy = "150 CON";
     }
         else if(pindexBest->nHeight < 30000)
     {
