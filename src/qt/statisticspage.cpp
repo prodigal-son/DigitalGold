@@ -170,9 +170,9 @@ void StatisticsPage::updateStatistics()
 
     if(volume > volumePrevious)
     {
-        ui->volumeBox->setText("<b><font color=\"green\">" + qVolume + " Gimp" + "</font></b>");
+        ui->volumeBox->setText("<b><font color=\"green\">" + qVolume + " CON" + "</font></b>");
     } else if(volume < volumePrevious) {
-        ui->volumeBox->setText("<b><font color=\"red\">" + qVolume + " Gimp" + "</font></b>");
+        ui->volumeBox->setText("<b><font color=\"red\">" + qVolume + " CON" + "</font></b>");
     } else {
         ui->volumeBox->setText(qVolume + " CON");
     }
