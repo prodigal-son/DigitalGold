@@ -52,7 +52,7 @@ void StatisticsPage::updateStatistics()
     QString stakemin = QString::number(nMinWeight);
     QString stakemax = QString::number(nNetworkWeight);
     QString phase = "";
-    if (pindexBest->nHeight < 14400)
+    if (pindexBest->nHeight < 7200)
     {
         phase = "X13 POW";
     }
