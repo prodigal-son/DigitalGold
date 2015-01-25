@@ -28,7 +28,7 @@ class CRequestTracker;
 class CNode;
 
 static const int LAST_POW_BLOCK = 60480;
-static const int DIFF_SWITCH_BLOCK = ;
+static const int DIFF_SWITCH_BLOCK = 50000;
 
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
@@ -40,7 +40,7 @@ static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 static const int64_t MAX_MONEY = 20000000 * COIN;
 static const int64_t MAX_MINT_PROOF_OF_STAKE = 50 * CENT; // 50% per year
 static const int64_t MAX_MINT_PROOF_OF_STAKE2 = 100 * CENT; // 100% per year
-static const unsigned int REWARD_SWITCH_TIME = ; //01/29/2015 @ 2:53am (UTC)
+static const unsigned int REWARD_SWITCH_TIME = 1422918000; //02/02/2015 @ 11:00pm (UTC)
 static const int MODIFIER_INTERVAL_SWITCH = 7200; // start POS 500 blocks before end of PoW to ensure smooth transition
 
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
