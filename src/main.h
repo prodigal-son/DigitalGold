@@ -28,6 +28,7 @@ class CRequestTracker;
 class CNode;
 
 static const int LAST_POW_BLOCK = 60480;
+static const int DIFF_SWITCH_BLOCK = ;
 
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
@@ -37,11 +38,10 @@ static const unsigned int MAX_INV_SZ = 50000;
 static const int64_t MIN_TX_FEE = 10000;
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 static const int64_t MAX_MONEY = 20000000 * COIN;
-static const int64_t COIN_YEAR_REWARD = 50 * CENT; // 1% per year
-static const int64_t MAX_MINT_PROOF_OF_STAKE = 0.50 * COIN;	// 50% annual interest
+static const int64_t MAX_MINT_PROOF_OF_STAKE = 50 * CENT; // 50% per year
+static const int64_t MAX_MINT_PROOF_OF_STAKE2 = 100 * CENT; // 100% per year
+static const unsigned int REWARD_SWITCH_TIME = ; //01/29/2015 @ 2:53am (UTC)
 static const int MODIFIER_INTERVAL_SWITCH = 7200; // start POS 500 blocks before end of PoW to ensure smooth transition
-
-
 
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
@@ -57,8 +57,6 @@ static const uint256 hashGenesisBlock("00000174b4ac95cc6334f5fe62e951dda9fcf9306
 static const uint256 hashGenesisBlockTestNet("00000174b4ac95cc6334f5fe62e951dda9fcf930601df174f2940d990aa1a563");
 
 //static const uint256 CheckBlock1 ("0"); // Checkpoint at block 0
-
-
 inline int64_t PastDrift(int64_t nTime)   { return nTime - 1 * 30 * 60; } // up to 30 minutes from the past
 inline int64_t FutureDrift(int64_t nTime) { return nTime + 1 * 30 * 60; } // up to 30 minutes from the future
 
@@ -120,8 +118,10 @@ bool LoadExternalBlockFile(FILE* fileIn);
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits);
 unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfStake);
+unsigned int GetNextTargetRequiredV1(const CBlockIndex* pindexLast, bool fProofOfStake);
+unsigned int GetNextTargetRequiredV2(const CBlockIndex* pindexLast, bool fProofOfStake);
 int64_t GetProofOfWorkReward(int64_t nFees);
-int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees);
+int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, unsigned int nTime, int64_t nFees, bool bCoinYearOnly=false);
 unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime);
 unsigned int ComputeMinStake(unsigned int nBase, int64_t nTime, unsigned int nBlockTime);
 int GetNumBlocksOfPeers();
