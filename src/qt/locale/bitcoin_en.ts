@@ -5,19 +5,19 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Czecoin</source>
-        <translation>About Czecoin</translation>
+        <source>About PayCon</source>
+        <translation>About PayCon</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Czecoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Czecoin&lt;/b&gt; version</translation>
+        <source>&lt;b&gt;PayCon&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;PayCon&lt;/b&gt; version</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The Czecoin developers</source>
+Copyright © 2014 The PayCon developers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -65,8 +65,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your Czecoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>These are your Czecoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
+        <source>These are your PayCon addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>These are your PayCon addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -80,8 +80,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Czecoin address</source>
-        <translation>Sign a message to prove you own a Czecoin address</translation>
+        <source>Sign a message to prove you own a PayCon address</source>
+        <translation>Sign a message to prove you own a PayCon address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -95,8 +95,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified Czecoin address</source>
-        <translation>Verify a message to ensure it was signed with a specified Czecoin address</translation>
+        <source>Verify a message to ensure it was signed with a specified PayCon address</source>
+        <translation>Verify a message to ensure it was signed with a specified PayCon address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -263,8 +263,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-58"/>
-        <source>Czecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>Czecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</translation>
+        <source>PayCon will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>PayCon will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -377,8 +377,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+6"/>
-        <source>Show information about Czecoin</source>
-        <translation>Show information about Czecoin</translation>
+        <source>Show information about PayCon</source>
+        <translation>Show information about PayCon</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -430,13 +430,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-64"/>
-        <source>Send coins to a Czecoin address</source>
-        <translation>Send coins to a Czecoin address</translation>
+        <source>Send coins to a PayCon address</source>
+        <translation>Send coins to a PayCon address</translation>
     </message>
     <message>
         <location line="+47"/>
-        <source>Modify configuration options for Czecoin</source>
-        <translation>Modify configuration options for Czecoin</translation>
+        <source>Modify configuration options for PayCon</source>
+        <translation>Modify configuration options for PayCon</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -475,8 +475,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-202"/>
-        <source>Czecoin</source>
-        <translation>Czecoin</translation>
+        <source>PayCon</source>
+        <translation>PayCon</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -485,8 +485,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+180"/>
-        <source>&amp;About Czecoin</source>
-        <translation>&amp;About Czecoin</translation>
+        <source>&amp;About PayCon</source>
+        <translation>&amp;About PayCon</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -542,15 +542,15 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>Czecoin client</source>
-        <translation>Czecoin client</translation>
+        <source>PayCon client</source>
+        <translation>PayCon client</translation>
     </message>
     <message numerus="yes">
         <location line="+75"/>
-        <source>%n active connection(s) to Czecoin network</source>
+        <source>%n active connection(s) to PayCon network</source>
         <translation>
-            <numerusform>%n active connection to Czecoin network</numerusform>
-            <numerusform>%n active connections to Czecoin network</numerusform>
+            <numerusform>%n active connection to PayCon network</numerusform>
+            <numerusform>%n active connections to PayCon network</numerusform>
         </translation>
     </message>
     <message>
@@ -593,12 +593,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-312"/>
-        <source>About Czecoin card</source>
+        <source>About PayCon card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show information about Czecoin card</source>
+        <source>Show information about PayCon card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -687,8 +687,8 @@ Address: %4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid Czecoin address or malformed URI parameters.</source>
-        <translation>URI can not be parsed! This can be caused by an invalid Czecoin address or malformed URI parameters.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid PayCon address or malformed URI parameters.</source>
+        <translation>URI can not be parsed! This can be caused by an invalid PayCon address or malformed URI parameters.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -759,8 +759,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. Czecoin can no longer continue safely and will quit.</source>
-        <translation>A fatal error occurred. Czecoin can no longer continue safely and will quit.</translation>
+        <source>A fatal error occurred. PayCon can no longer continue safely and will quit.</source>
+        <translation>A fatal error occurred. PayCon can no longer continue safely and will quit.</translation>
     </message>
 </context>
 <context>
@@ -1079,8 +1079,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Czecoin address.</source>
-        <translation>The entered address &quot;%1&quot; is not a valid Czecoin address.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid PayCon address.</source>
+        <translation>The entered address &quot;%1&quot; is not a valid PayCon address.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1098,8 +1098,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
-        <source>Czecoin-Qt</source>
-        <translation>Czecoin-Qt</translation>
+        <source>PayCon-Qt</source>
+        <translation>PayCon-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1171,13 +1171,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Czecoin after logging in to the system.</source>
-        <translation>Automatically start Czecoin after logging in to the system.</translation>
+        <source>Automatically start PayCon after logging in to the system.</source>
+        <translation>Automatically start PayCon after logging in to the system.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Czecoin on system login</source>
-        <translation>&amp;Start Czecoin on system login</translation>
+        <source>&amp;Start PayCon on system login</source>
+        <translation>&amp;Start PayCon on system login</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1196,8 +1196,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Czecoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the Czecoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <source>Automatically open the PayCon client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the PayCon client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1206,8 +1206,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Czecoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Connect to the Czecoin network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
+        <source>Connect to the PayCon network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Connect to the PayCon network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1281,8 +1281,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Czecoin.</source>
-        <translation>The user interface language can be set here. This setting will take effect after restarting Czecoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting PayCon.</source>
+        <translation>The user interface language can be set here. This setting will take effect after restarting PayCon.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1296,8 +1296,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Czecoin addresses in the transaction list or not.</source>
-        <translation>Whether to show Czecoin addresses in the transaction list or not.</translation>
+        <source>Whether to show PayCon addresses in the transaction list or not.</source>
+        <translation>Whether to show PayCon addresses in the transaction list or not.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1343,8 +1343,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Czecoin.</source>
-        <translation>This setting will take effect after restarting Czecoin.</translation>
+        <source>This setting will take effect after restarting PayCon.</source>
+        <translation>This setting will take effect after restarting PayCon.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1362,8 +1362,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+33"/>
         <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Czecoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Czecoin network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the PayCon network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the PayCon network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-160"/>
@@ -1578,8 +1578,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Czecoin-Qt help message to get a list with possible Czecoin command-line options.</source>
-        <translation>Show the Czecoin-Qt help message to get a list with possible Czecoin command-line options.</translation>
+        <source>Show the PayCon-Qt help message to get a list with possible PayCon command-line options.</source>
+        <translation>Show the PayCon-Qt help message to get a list with possible PayCon command-line options.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1598,13 +1598,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="-104"/>
-        <source>Czecoin - Debug window</source>
-        <translation>Czecoin - Debug window</translation>
+        <source>PayCon - Debug window</source>
+        <translation>PayCon - Debug window</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Czecoin Core</source>
-        <translation>Czecoin Core</translation>
+        <source>PayCon Core</source>
+        <translation>PayCon Core</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1613,8 +1613,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Czecoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open the Czecoin debug log file from the current data directory. This can take a few seconds for large log files.</translation>
+        <source>Open the PayCon debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Open the PayCon debug log file from the current data directory. This can take a few seconds for large log files.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1623,8 +1623,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the Czecoin RPC console.</source>
-        <translation>Welcome to the Czecoin RPC console.</translation>
+        <source>Welcome to the PayCon RPC console.</source>
+        <translation>Welcome to the PayCon RPC console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1697,8 +1697,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+86"/>
         <location line="+86"/>
         <location line="+32"/>
-        <source>0.00 CZECO</source>
-        <translation type="unfinished">123.456 CZECO {0.00 ?}</translation>
+        <source>0.00 CON</source>
+        <translation type="unfinished">123.456 CON {0.00 ?}</translation>
     </message>
     <message>
         <location line="-191"/>
@@ -1767,8 +1767,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+16"/>
-        <source>123.456 CZECO</source>
-        <translation>123.456 CZECO</translation>
+        <source>123.456 CON</source>
+        <translation>123.456 CON</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -1782,8 +1782,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a Czecoin address (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Enter a Czecoin address (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a PayCon address (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Enter a PayCon address (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1882,7 +1882,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+251"/>
-        <source>WARNING: Invalid Czecoin address</source>
+        <source>WARNING: Invalid PayCon address</source>
         <translation></translation>
     </message>
     <message>
@@ -1926,7 +1926,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to  (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <source>The address to send the payment to  (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation></translation>
     </message>
     <message>
@@ -1956,8 +1956,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Czecoin address (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Enter a Czecoin address (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a PayCon address (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Enter a PayCon address (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
 </context>
 <context>
@@ -1980,8 +1980,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>The address to sign the message with (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address to sign the message with (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>The address to sign the message with (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2017,8 +2017,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Czecoin address</source>
-        <translation>Sign the message to prove you own this Czecoin address</translation>
+        <source>Sign the message to prove you own this PayCon address</source>
+        <translation>Sign the message to prove you own this PayCon address</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2044,13 +2044,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>The address the message was signed with (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address the message was signed with (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>The address the message was signed with (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Czecoin address</source>
-        <translation>Verify the message to ensure it was signed with the specified Czecoin address</translation>
+        <source>Verify the message to ensure it was signed with the specified PayCon address</source>
+        <translation>Verify the message to ensure it was signed with the specified PayCon address</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2060,8 +2060,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Czecoin address (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Enter a Czecoin address (e.g. CzecoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a PayCon address (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Enter a PayCon address (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2070,8 +2070,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Czecoin signature</source>
-        <translation>Enter Czecoin signature</translation>
+        <source>Enter PayCon signature</source>
+        <translation>Enter PayCon signature</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -2653,8 +2653,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+33"/>
-        <source>Czecoin version</source>
-        <translation>Czecoin version</translation>
+        <source>PayCon version</source>
+        <translation>PayCon version</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2663,8 +2663,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+1"/>
-        <source>Send command to -server or Czecoind</source>
-        <translation>Send command to -server or Czecoind</translation>
+        <source>Send command to -server or PayCond</source>
+        <translation>Send command to -server or PayCond</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2683,13 +2683,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+2"/>
-        <source>Specify configuration file (default: Czecoin.conf)</source>
-        <translation>Specify configuration file (default: Czecoin.conf)</translation>
+        <source>Specify configuration file (default: PayCon.conf)</source>
+        <translation>Specify configuration file (default: PayCon.conf)</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Specify pid file (default: Czecoind.pid)</source>
-        <translation>Specify pid file (default: Czecoind.pid)</translation>
+        <source>Specify pid file (default: PayCond.pid)</source>
+        <translation>Specify pid file (default: PayCond.pid)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2838,8 +2838,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+61"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Czecoin will not work properly.</source>
-        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Czecoin will not work properly.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong PayCon will not work properly.</source>
+        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong PayCon will not work properly.</translation>
     </message>
     <message>
         <location line="-31"/>
@@ -3027,13 +3027,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>%s, you must set a rpcpassword in the configuration file:
  %s
 It is recommended you use the following random password:
-rpcuser=Czecoinrpc
+rpcuser=PayConrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Czecoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.com
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3159,13 +3159,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Czecoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Cannot obtain a lock on data directory %s.  Czecoin is probably already running.</source>
-        <translation>Cannot obtain a lock on data directory %s.  Czecoin is probably already running.</translation>
+        <source>Cannot obtain a lock on data directory %s.  PayCon is probably already running.</source>
+        <translation>Cannot obtain a lock on data directory %s.  PayCon is probably already running.</translation>
     </message>
     <message>
         <location line="-98"/>
-        <source>Czecoin</source>
-        <translation>Czecoin</translation>
+        <source>PayCon</source>
+        <translation>PayCon</translation>
     </message>
     <message>
         <location line="+140"/>
@@ -3199,13 +3199,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Czecoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+4"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Czecoin</source>
-        <translation>Error loading wallet.dat: Wallet requires newer version of Czecoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of PayCon</source>
+        <translation>Error loading wallet.dat: Wallet requires newer version of PayCon</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Wallet needed to be rewritten: restart Czecoin to complete</source>
-        <translation>Wallet needed to be rewritten: restart Czecoin to complete</translation>
+        <source>Wallet needed to be rewritten: restart PayCon to complete</source>
+        <translation>Wallet needed to be rewritten: restart PayCon to complete</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3274,8 +3274,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Czecoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+122"/>
-        <source>Unable to bind to %s on this computer. Czecoin is probably already running.</source>
-        <translation>Unable to bind to %s on this computer. Czecoin is probably already running.</translation>
+        <source>Unable to bind to %s on this computer. PayCon is probably already running.</source>
+        <translation>Unable to bind to %s on this computer. PayCon is probably already running.</translation>
     </message>
     <message>
         <location line="-97"/>
