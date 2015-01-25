@@ -24,7 +24,10 @@ ChatWindow::ChatWindow(QWidget *parent)
     setFixedSize(760,600);
     ui->splitter->hide();
 
+	connect(ui->buttonConnect, SIGNAL(clicked()), this, SLOT(connecte()));
 
+	connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
+	connect(ui->actionCloseTab, SIGNAL(triggered()), this, SLOT(closeTab()));
 
 	connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(sendCommande()));
 
@@ -153,7 +156,7 @@ void ChatWindow::connecte()
 
     serveurs.insert("irc.freenode.net",serveur);
 
-	
+	serveur->pseudo=ui->editPseudo->text();
     serveur->serveur="irc.freenode.net";
     serveur->port=6667;
 	serveur->affichage=textEdit;

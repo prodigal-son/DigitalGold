@@ -60,7 +60,7 @@ void Serveur::connected()
 
 void Serveur::joins()
 {
-    join("#gimpcoinirc");
+    join("#poloniex");
 }
 
 void Serveur::readServeur()

@@ -45,7 +45,7 @@ void StatisticsPage::updateStatistics()
     uint64_t nMinWeight = 0, nMaxWeight = 0, nWeight = 0;
     pwalletMain->GetStakeWeight(*pwalletMain, nMinWeight, nMaxWeight, nWeight);
     uint64_t nNetworkWeight = GetPoSKernelPS();
-    int64_t volume = ((pindexBest->nMoneySupply)/15000000);
+    int64_t volume = (pindexBest->nMoneySupply);
     int peers = this->model->getNumConnections();
     pPawrate2 = (double)pPawrate;
     QString height = QString::number(nHeight);
@@ -80,7 +80,7 @@ void StatisticsPage::updateStatistics()
     }
         else if(pindexBest->nHeight < 60480)
     {
-        subsidy = "50 CON";
+        subsidy = "0 CON";
     }
     
 
