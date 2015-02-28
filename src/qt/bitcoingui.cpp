@@ -231,8 +231,8 @@ void BitcoinGUI::createActions()
     statisticsAction->setCheckable(true);
     tabGroup->addAction(statisticsAction);
 
-    chatAction = new QAction(QIcon(":/icons/social"), tr("&Social"), this);
-    chatAction->setToolTip(tr("View chat"));
+    chatAction = new QAction(QIcon(":/icons/social"), tr("&Social/Exchange"), this);
+    chatAction->setToolTip(tr("View chat, links to social media and exchanges"));
     chatAction->setCheckable(true);
     tabGroup->addAction(chatAction);
 
