@@ -111,6 +111,75 @@ Value getinfo(const Array& params, bool fHelp)
     return obj;
 }
 
+//Presstab's Preferred Money Supply Information
+Value moneysupply(const Array& params, bool fHelp)
+{
+	if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "moneysupply\n"
+            "Show important money supply variables.\n");
+	
+	// grab block index of last block
+	GetLastBlockIndex(pindexBest, false);
+	
+	//height of blocks
+	float h0 = pindexBest->nHeight; //present
+	float h1 = h0 - 1440; // day -- 1440 blocks should be about 1 day if blocks have 60 sec spacing
+	float h7 = h0 - 1440 * 7; // week
+	float h30 = h0 - 1440 * 30; // month
+	
+	//grab block index of past blocks
+	CBlockIndex* dayblockindex = FindBlockByHeight(h1);
+	CBlockIndex* weekblockindex = FindBlockByHeight(h7);
+	CBlockIndex* monthblockindex = FindBlockByHeight(h30);
+	
+	// money supply of blocks
+	float ms0 = pindexBest->nMoneySupply / 1000000;  //divide to convert from min divisible unit to coins
+	float ms1 = dayblockindex->nMoneySupply / 1000000;
+	float ms7 = weekblockindex->nMoneySupply / 1000000;
+	float ms30 = monthblockindex->nMoneySupply / 1000000;
+	
+	// time of blocks
+	float t0 = pindexBest->GetBlockTime();
+	float t1 = dayblockindex->GetBlockTime();
+	float t7 = weekblockindex->GetBlockTime();
+	float t30 = monthblockindex->GetBlockTime();
+	
+	// time change
+	float tc1 = (t0 - t1) / 60 / 60 / 24; // time change in days
+	float tc7 = (t0 - t7) / 60 / 60 / 24; // time change in days
+	float tc30 = (t0 - t30) / 60 / 60 / 24; // time change in days
+	
+	// money supply change 
+	float mc1 = ms0 - ms1;
+	float mc7 = ms0 - ms7;
+	float mc30 = ms0 - ms30;
+	
+	// rates of change
+	float r1 = mc1 / ms0 / tc1; //average daily money supply growth over last 1,440 blocks (~day)
+	float r7 = mc7 / ms0 / tc7; //average daily money supply growth over last 10,080 block (~7 days)
+	float r30 = mc30 / ms0 / tc30; //average daily money supply growth over last 43,200 blocks (~30 days)
+	
+	//print to console
+	Object obj;
+	obj.push_back(Pair("moneysupply - present", ms0));
+	obj.push_back(Pair("moneysupply - 1440 blocks ago", ms1));
+	obj.push_back(Pair("moneysupply - 10,080 blocks ago", ms7));
+	obj.push_back(Pair("moneysupply - 43,200 blocks ago", ms30));
+	
+	obj.push_back(Pair("time change in days (last 1,440 blocks)", tc1));
+	obj.push_back(Pair("time change in days (last 10,080 blocks)", tc7));
+	obj.push_back(Pair("time change in days (last 43,200 blocks)", tc30));
+	
+	obj.push_back(Pair("ms change (last 1,440 blocks)", mc1));
+	obj.push_back(Pair("ms change (last 10,080 blocks)", mc7));
+	obj.push_back(Pair("ms change (last 43,200 blocks)", mc30));
+	
+	obj.push_back(Pair("avg daily rate of change (last 1,440 blocks)", r1));
+	obj.push_back(Pair("avg daily rate of change (last 10,080 blocks)", r7));
+	obj.push_back(Pair("avg daily rate of change (last 43,200 blocks)", r30));
+	return obj;
+}
 
 Value getnewpubkey(const Array& params, bool fHelp)
 {
