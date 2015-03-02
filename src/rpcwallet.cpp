@@ -134,10 +134,10 @@ Value moneysupply(const Array& params, bool fHelp)
 	CBlockIndex* monthblockindex = FindBlockByHeight(h30);
 	
 	// money supply of blocks
-	float ms0 = pindexBest->nMoneySupply / 1000000;  //divide to convert from min divisible unit to coins
-	float ms1 = dayblockindex->nMoneySupply / 1000000;
-	float ms7 = weekblockindex->nMoneySupply / 1000000;
-	float ms30 = monthblockindex->nMoneySupply / 1000000;
+	float ms0 = pindexBest->nMoneySupply / 10000000;  //divide to convert from min divisible unit to coins
+	float ms1 = dayblockindex->nMoneySupply / 10000000;
+	float ms7 = weekblockindex->nMoneySupply / 10000000;
+	float ms30 = monthblockindex->nMoneySupply / 10000000;
 	
 	// time of blocks
 	float t0 = pindexBest->GetBlockTime();
