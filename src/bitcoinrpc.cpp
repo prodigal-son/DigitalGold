@@ -301,6 +301,7 @@ static const CRPCCommand vRPCCommands[] =
     { "decodescript",           &decodescript,           false,  false },
     { "signrawtransaction",     &signrawtransaction,     false,  false },
     { "sendrawtransaction",     &sendrawtransaction,     false,  false },
+    { "stakeforcharity",        &stakeforcharity,        false,  false },
     { "getcheckpoint",          &getcheckpoint,          true,   false },
     { "moneysupply",          	&moneysupply,          	 true,   false },
 	{ "getmoneysupply",         &getmoneysupply,         true,   false },
@@ -1240,6 +1241,7 @@ Array RPCConvertValues(const std::string &strMethod, const std::vector<std::stri
     if (strMethod == "createrawtransaction"   && n > 1) ConvertTo<Object>(params[1]);
     if (strMethod == "signrawtransaction"     && n > 1) ConvertTo<Array>(params[1], true);
     if (strMethod == "signrawtransaction"     && n > 2) ConvertTo<Array>(params[2], true);
+	if (strMethod == "stakeforcharity"        && n > 1) ConvertTo<int>(params[1]);
     if (strMethod == "keypoolrefill"          && n > 0) ConvertTo<boost::int64_t>(params[0]);
 
     return params;

@@ -1202,6 +1202,40 @@ int64_t CWallet::GetNewMint() const
     return nTotal;
 }
 
+bool CWallet::StakeForCharity()
+{
+
+    if ( IsInitialBlockDownload() || IsLocked() )
+        return false;
+
+    CWalletTx wtx;
+    int64_t nNet = 0;
+
+    {
+        LOCK(cs_wallet);
+        for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
+        {
+            const CWalletTx* pcoin = &(*it).second;
+            if (pcoin->IsCoinStake() && pcoin->GetBlocksToMaturity() == 0 && pcoin->GetDepthInMainChain() == nCoinbaseMaturity+10)
+            {
+                // Calculate Amount for Savings
+                nNet = ( ( pcoin->GetCredit() - pcoin->GetDebit() ) * nStakeForCharityPercent )/100;
+
+                // Do not send if amount is too low
+                if (nNet < MIN_TXOUT_AMOUNT )
+                {
+                    printf("StakeForCharity: Amount: %s is below MIN_TXOUT_AMOUNT: %s\n",FormatMoney(nNet).c_str(),FormatMoney(MIN_TXOUT_AMOUNT).c_str());
+                    return false;
+                }
+
+                printf("StakeForCharity Sending: %s to Address: %s\n", FormatMoney(nNet).c_str(), StakeForCharityAddress.ToString().c_str());
+                SendMoneyToDestination(StakeForCharityAddress.Get(), nNet, wtx, false,true);
+            }
+        }
+    }
+    return true;
+}
+
 struct LargerOrEqualThanThreshold 
 { 
     int64_t threshold; 
@@ -2140,7 +2174,7 @@ bool CWallet::CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey)
 
 
 
-string CWallet::SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, bool fAskFee)
+string CWallet::SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, bool fAskFee, bool fAllowStakeForCharity)
 {
     CReserveKey reservekey(this);
     int64_t nFeeRequired;
@@ -2151,7 +2185,7 @@ string CWallet::SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNe
         printf("SendMoney() : %s", strError.c_str());
         return strError;
     }
-    if (fWalletUnlockStakingOnly)
+    if (fWalletUnlockStakingOnly && !fAllowStakeForCharity )
     {
         string strError = _("Error: Wallet unlocked for staking only, unable to create transaction.");
         printf("SendMoney() : %s", strError.c_str());
@@ -2179,7 +2213,7 @@ string CWallet::SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNe
 
 
 
-string CWallet::SendMoneyToDestination(const CTxDestination& address, int64_t nValue, CWalletTx& wtxNew, bool fAskFee)
+string CWallet::SendMoneyToDestination(const CTxDestination& address, int64_t nValue, CWalletTx& wtxNew, bool fAskFee, bool fAllowStakeForCharity)
 {
     // Check amount
     if (nValue <= 0)
@@ -2191,7 +2225,7 @@ string CWallet::SendMoneyToDestination(const CTxDestination& address, int64_t nV
     CScript scriptPubKey;
     scriptPubKey.SetDestination(address);
 
-    return SendMoney(scriptPubKey, nValue, wtxNew, fAskFee);
+    return SendMoney(scriptPubKey, nValue, wtxNew, fAskFee, fAllowStakeForCharity);
 }
 
 
