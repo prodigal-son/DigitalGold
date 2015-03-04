@@ -11,6 +11,7 @@
 #include "signverifymessagedialog.h"
 #include "optionsdialog.h"
 #include "aboutdialog.h"
+#include "charitydialog.h"
 #include "clientmodel.h"
 #include "walletmodel.h"
 #include "editaddressdialog.h"
@@ -287,6 +288,11 @@ void BitcoinGUI::createActions()
     aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About PayCon"), this);
     aboutAction->setToolTip(tr("Show information about PayCon"));
     aboutAction->setMenuRole(QAction::AboutRole);
+	
+	charityAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Stake For Charity"), this);
+    charityAction->setToolTip(tr("Enable Stake For Charity"));
+    charityAction->setMenuRole(QAction::AboutRole);
+	
     aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
     aboutQtAction->setToolTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
@@ -315,6 +321,9 @@ void BitcoinGUI::createActions()
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
+	
+	connect(charityAction, SIGNAL(triggered()), this, SLOT(charityClicked()));
+	
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
     connect(toggleHideAction, SIGNAL(triggered()), this, SLOT(toggleHidden()));
@@ -355,6 +364,7 @@ void BitcoinGUI::createMenuBar()
     settings->addAction(lockWalletAction);
 	settings->addAction(checkWalletAction);
 	settings->addAction(repairWalletAction);
+	settings->addAction(charityAction);
     settings->addSeparator();
     settings->addAction(optionsAction);
 
@@ -517,6 +527,13 @@ void BitcoinGUI::optionsClicked()
 void BitcoinGUI::aboutClicked()
 {
     AboutDialog dlg;
+    dlg.setModel(clientModel);
+    dlg.exec();
+}
+
+void BitcoinGUI::charityClicked()
+{
+    charityDialog dlg;
     dlg.setModel(clientModel);
     dlg.exec();
 }
