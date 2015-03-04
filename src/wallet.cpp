@@ -1222,9 +1222,9 @@ bool CWallet::StakeForCharity()
                 nNet = ( ( pcoin->GetCredit() - pcoin->GetDebit() ) * nStakeForCharityPercent )/100;
 
                 // Do not send if amount is too low
-                if (nNet < MIN_TXOUT_AMOUNT )
+                if (nNet < MIN_RELAY_TX_FEE )
                 {
-                    printf("StakeForCharity: Amount: %s is below MIN_TXOUT_AMOUNT: %s\n",FormatMoney(nNet).c_str(),FormatMoney(MIN_TXOUT_AMOUNT).c_str());
+                    printf("StakeForCharity: Amount: %s is below MIN_RELAY_TX_FEE: %s\n",FormatMoney(nNet).c_str(),FormatMoney(MIN_RELAY_TX_FEE).c_str());
                     return false;
                 }
 

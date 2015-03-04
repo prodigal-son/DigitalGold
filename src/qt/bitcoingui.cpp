@@ -1068,7 +1068,7 @@ void BitcoinGUI::updateStakingIcon()
     if (nLastCoinStakeSearchInterval && nWeight)
     {
         uint64_t nNetworkWeight = GetPoSKernelPS();
-        unsigned nEstimateTime = nTargetSpacing * nNetworkWeight / nWeight;
+        unsigned nEstimateTime = nTargetSpacing * nNetworkWeight / nWeight / 10;
 
         QString text;
         if (nEstimateTime < 60)
@@ -1093,15 +1093,17 @@ void BitcoinGUI::updateStakingIcon()
     }
     else
     {
+        uint64_t nNetworkWeight = GetPoSKernelPS();
+
         labelStakingIcon->setPixmap(QIcon(":/icons/staking_off").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
         if (pwalletMain && pwalletMain->IsLocked())
-            labelStakingIcon->setToolTip(tr("Not staking because wallet is locked.<br>Network weight is %1").arg(nNetworkWeight));
+            labelStakingIcon->setToolTip(tr("Not staking because wallet is locked.<br>Network weight is %1.<br>S4C %: %2<br>S4C Address: %3").arg(nNetworkWeight).arg(nCharityPercent).arg(strCharityAddress));
         else if (vNodes.empty())
-            labelStakingIcon->setToolTip(tr("Not staking because wallet is offline.<br>Network weight is %1").arg(nNetworkWeight));
+            labelStakingIcon->setToolTip(tr("Not staking because wallet is offline.<br>Network weight is %1.<br>S4C %: %2<br>S4C Address: %3").arg(nNetworkWeight).arg(nCharityPercent).arg(strCharityAddress));
         else if (IsInitialBlockDownload())
-            labelStakingIcon->setToolTip(tr("Not staking because wallet is syncing.<br>Network weight is %1").arg(nNetworkWeight));
+            labelStakingIcon->setToolTip(tr("Not staking because wallet is syncing.<br>Network weight is %1.<br>S4C %: %2<br>S4C Address: %3").arg(nNetworkWeight).arg(nCharityPercent).arg(strCharityAddress));
         else if (!nWeight)
-            labelStakingIcon->setToolTip(tr("Not staking because you don't have mature coins.<br>Network weight is %1").arg(nNetworkWeight));
+            labelStakingIcon->setToolTip(tr("Not staking because you don't have mature coins.<br>Network weight is %1.<br>S4C %: %2<br>S4C Address: %3").arg(nNetworkWeight).arg(nCharityPercent).arg(strCharityAddress));
         else
             labelStakingIcon->setToolTip(tr("Not staking"));
     }
