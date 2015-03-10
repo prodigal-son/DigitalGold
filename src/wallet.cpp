@@ -1654,7 +1654,7 @@ bool CWallet::SelectCoinsSimple(int64_t nTargetValue, unsigned int nSpendTime, i
     return true;
 }
 
-bool CWallet::GetStakeWeightFromValue(const int64_t& nTime, const int64_t& nValue, uint64_t& nWeight)
+bool CWallet::GetStakeWeightFromValue(const int64_t nTime, const int64_t nValue, uint64_t& nWeight)
 {
 	//This is a negative value when there is no weight. But set it to zero
 	//so the user is not confused. Used in reporting in Coin Control.
