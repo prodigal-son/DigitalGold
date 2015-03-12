@@ -111,7 +111,7 @@ public:
 		fStakeForCharity = false;
         nStakeForCharityPercent = 0;
         StakeForCharityAddress = "";
-		nStakeSplitThreshold = 1000;
+		nStakeSplitThreshold = 500;
     }
     CWallet(std::string strWalletFileIn)
     {
@@ -125,7 +125,7 @@ public:
 		fStakeForCharity = false;
         nStakeForCharityPercent = 0;
         StakeForCharityAddress = "";
-		nStakeSplitThreshold = 1000;
+		nStakeSplitThreshold = 500;
     }
 
     std::map<uint256, CWalletTx> mapWallet;
