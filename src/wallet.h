@@ -90,6 +90,7 @@ public:
 	bool fStakeForCharity;
 	int nStakeForCharityPercent;
 	CBitcoinAddress StakeForCharityAddress;
+	uint64_t nStakeSplitThreshold;
 	
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
@@ -110,6 +111,7 @@ public:
 		fStakeForCharity = false;
         nStakeForCharityPercent = 0;
         StakeForCharityAddress = "";
+		nStakeSplitThreshold = 1000;
     }
     CWallet(std::string strWalletFileIn)
     {
@@ -123,6 +125,7 @@ public:
 		fStakeForCharity = false;
         nStakeForCharityPercent = 0;
         StakeForCharityAddress = "";
+		nStakeSplitThreshold = 1000;
     }
 
     std::map<uint256, CWalletTx> mapWallet;

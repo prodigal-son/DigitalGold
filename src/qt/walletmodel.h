@@ -96,10 +96,10 @@ public:
     // Wallet backup
     bool backupWallet(const QString &filename);
 	// Wallet Repair
-	void checkWallet(int& nMismatchSpent, qint64 nBalanceInQuestion, int& nOrphansFound);
-	void repairWallet(int& nMismatchSpent, qint64 nBalanceInQuestion, int& nOrphansFound);
+	void checkWallet(int& nMismatchSpent, int64_t& nBalanceInQuestion, int& nOrphansFound);
+	void repairWallet(int& nMismatchSpent, int64_t& nBalanceInQuestion, int& nOrphansFound);
 	//Stake Weight for coin control dialog
-	void getStakeWeightFromValue(const qint64 nTime, const qint64 nValue, quint64& nWeight);
+	void getStakeWeightFromValue(const int64_t nTime, const int64_t nValue, uint64_t& nWeight);
 	//Wallet Information about StakeForCharity
 	int getStakeForCharityPercent();
 	QString getStakeForCharityAddress();

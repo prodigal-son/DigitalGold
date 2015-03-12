@@ -313,7 +313,10 @@ void BitcoinGUI::createActions()
     lockWalletAction->setToolTip(tr("Lock wallet"));
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
-
+	checkWalletAction = new QAction(QIcon(":/icons/transaction_confirmed"), tr("&Check Wallet..."), this);
+	checkWalletAction->setStatusTip(tr("Check wallet integrity and report findings"));
+	repairWalletAction = new QAction(QIcon(":/icons/options"), tr("&Repair Wallet..."), this);
+	repairWalletAction->setStatusTip(tr("Fix wallet integrity and remove orphans"));
     exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
@@ -321,9 +324,7 @@ void BitcoinGUI::createActions()
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
-	
 	connect(charityAction, SIGNAL(triggered()), this, SLOT(charityClicked()));
-	
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
     connect(toggleHideAction, SIGNAL(triggered()), this, SLOT(toggleHidden()));
@@ -946,10 +947,10 @@ void BitcoinGUI::checkWallet()
     walletModel->checkWallet(nMismatchSpent, nBalanceInQuestion, nOrphansFound);
 
     if (nMismatchSpent == 0 && nOrphansFound == 0)
-        QString strMessage =
+        notificator->notify(Notificator::Warning,
 		tr("Check Wallet Information"),
                 tr("Wallet passed integrity test!\n"
-                   "Nothing found to fix.");
+                   "Nothing found to fix."));
   else
 		notificator->notify(Notificator::Warning, //tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid PayCon address or malformed URI parameters."));
 			tr("Check Wallet Information"), tr("Wallet failed integrity test!\n\n"
