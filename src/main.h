@@ -36,6 +36,7 @@ static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
 static const unsigned int MAX_INV_SZ = 50000;
 static const int64_t MIN_TX_FEE = 10000;
+static const int64_t SOFT_MIN_TX_FEE = 5 * CENT;
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 static const int64_t MAX_MONEY = 20000000 * COIN;
 static const int64_t MAX_MINT_PROOF_OF_STAKE = 50 * CENT; // 50% per year
@@ -592,7 +593,7 @@ public:
      */
     int64_t GetValueIn(const MapPrevTx& mapInputs) const;
 
-    int64_t GetMinFee(unsigned int nBlockSize=1, enum GetMinFee_mode mode=GMF_BLOCK, unsigned int nBytes = 0) const;
+    int64_t GetMinFee(unsigned int nBlockSize=1, enum GetMinFee_mode mode=GMF_BLOCK, unsigned int nBytes = 0, bool fSoftFeeIncrease = false) const;
 
     bool ReadFromDisk(CDiskTxPos pos, FILE** pfileRet=NULL)
     {

@@ -1715,9 +1715,9 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                 // if sub-cent change is required, the fee must be raised to at least MIN_TX_FEE
                 // or until nChange becomes zero
                 // NOTE: this depends on the exact behaviour of GetMinFee
-                if (nFeeRet < MIN_TX_FEE && nChange > 0 && nChange < CENT)
+                if (nFeeRet < SOFT_MIN_TX_FEE && nChange > 0 && nChange < CENT)
                 {
-                    int64_t nMoveToFee = min(nChange, MIN_TX_FEE - nFeeRet);
+                    int64_t nMoveToFee = min(nChange, SOFT_MIN_TX_FEE - nFeeRet);
                     nChange -= nMoveToFee;
                     nFeeRet += nMoveToFee;
                 }
@@ -1774,7 +1774,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
 
                 // Check that enough fee is included
                 int64_t nPayFee = nTransactionFee * (1 + (int64_t)nBytes / 1000);
-                int64_t nMinFee = wtxNew.GetMinFee(1, GMF_SEND, nBytes);
+                int64_t nMinFee = wtxNew.GetMinFee(1, GMF_SEND, nBytes, true); // true means that the soft fee increase is active here
 
                 if (nFeeRet < max(nPayFee, nMinFee))
                 {
@@ -2034,7 +2034,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                 vwtxPrev.push_back(pcoin.first);
                 txNew.vout.push_back(CTxOut(0, scriptPubKeyOut));
 
-                if (GetWeight(block.GetBlockTime(), (int64_t)txNew.nTime) < nStakeSplitAge)
+				uint64_t nTotalSize = pcoin.first->vout[pcoin.second].nValue * (1+((txNew.nTime - block.GetBlockTime()) / (60*60*24)) * (MAX_MINT_PROOF_OF_STAKE2 / COIN / 365));
+                if (nTotalSize / 2 > nStakeSplitThreshold * COIN)
                     txNew.vout.push_back(CTxOut(0, scriptPubKeyOut)); //split stake
                 if (fDebug && GetBoolArg("-printcoinstake"))
                     printf("CreateCoinStake : added kernel type=%d\n", whichType);

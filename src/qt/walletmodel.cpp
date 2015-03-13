@@ -329,12 +329,12 @@ void WalletModel::getStakeWeightFromValue(const int64_t nTime, const int64_t nVa
 	wallet->GetStakeWeightFromValue(nTime, nValue, nWeight);
 }
 
-void WalletModel::checkWallet(int& nMismatchSpent, int64_t nBalanceInQuestion, int& nOrphansFound)
+void WalletModel::checkWallet(int& nMismatchSpent, int64_t& nBalanceInQuestion, int& nOrphansFound)
 {
 	wallet->FixSpentCoins(nMismatchSpent, nBalanceInQuestion, nOrphansFound, true);
 }
 
-void WalletModel::repairWallet(int& nMismatchSpent, int64_t nBalanceInQuestion, int& nOrphansFound)
+void WalletModel::repairWallet(int& nMismatchSpent, int64_t& nBalanceInQuestion, int& nOrphansFound)
 {
 	wallet->FixSpentCoins(nMismatchSpent, nBalanceInQuestion, nOrphansFound);
 }
