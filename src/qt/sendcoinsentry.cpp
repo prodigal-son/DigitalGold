@@ -6,6 +6,7 @@
 #include "walletmodel.h"
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
+#include "stealth.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -133,6 +134,12 @@ SendCoinsRecipient SendCoinsEntry::getValue()
     rv.address = ui->payTo->text();
     rv.label = ui->addAsLabel->text();
     rv.amount = ui->payAmount->value();
+	
+ if (rv.address.length() > 75 
+        && IsStealthAddress(rv.address.toStdString()))
+        rv.typeInd = AddressTableModel::AT_Stealth;
+    else
+        rv.typeInd = AddressTableModel::AT_Normal;
 
     return rv;
 }
