@@ -286,7 +286,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=https://www.youtube.com/channel/UCz_RtJHHbaDkv2rQWfLS_rQ style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;img src=&quot;:/icons/youtube&quot;/&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=https://www.youtube.com/channel/UC9XCibYK65N7hZqEJ6XzTEw style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;img src=&quot;:/icons/youtube&quot;/&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="openExternalLinks">
       <bool>true</bool>
@@ -302,7 +302,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=http://paycon.slack.com style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;img src=&quot;:/icons/forums&quot;/&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=https://cryptoplays.com/category/7/paycon style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;img src=&quot;:/icons/forums&quot;/&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="openExternalLinks">
       <bool>true</bool>

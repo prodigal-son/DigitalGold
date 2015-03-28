@@ -189,7 +189,7 @@ void CoinControlDialog::buttonSelectAllClicked()
 void CoinControlDialog::customSelectCoins()
 {
 	QString strUserAmount = ui->lineEditCustomCC->text();
-	QString strComboText = ui->QComboBoxFilterCoins->currentText
+    QString strComboText = ui->QComboBoxFilterCoins->currentText();
 
 	double dUserAmount = QString(strUserAmount).toDouble();	
 	bool treeMode = ui->radioTreeMode->isChecked();
@@ -218,7 +218,7 @@ void CoinControlDialog::customSelectCoins()
 				double dCoinAmount = out.tx->vout[out.i].nValue;
 					
 				//Coin Weight
-				uint64 nTxWeight = 0;
+                uint64_t nTxWeight = 0;
 				model->getStakeWeightFromValue(out.tx->GetTxTime(), out.tx->vout[out.i].nValue, nTxWeight);
 					
 				//Age

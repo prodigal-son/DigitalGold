@@ -285,7 +285,7 @@ void AddressBookPage::selectionChanged()
             ui->signMessage->setVisible(true);
             ui->verifyMessage->setEnabled(false);
             ui->verifyMessage->setVisible(false);
-			ui->deleteCheckBox->setVisible(true)
+            ui->deleteCheckBox->setVisible(true);
             break;
         }
         ui->copyToClipboard->setEnabled(true);
