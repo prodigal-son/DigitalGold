@@ -41,6 +41,8 @@ static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 static const int64_t MAX_MONEY = 20000000 * COIN;
 static const int64_t MAX_MINT_PROOF_OF_STAKE = 50 * CENT; // 50% per year
 static const int64_t MAX_MINT_PROOF_OF_STAKE2 = 100 * CENT; // 100% per year
+static const int MAX_TIME_SINCE_BEST_BLOCK = 10; // how many seconds to wait before sending next PushGetBlocks()
+
 static const unsigned int REWARD_SWITCH_TIME = 1422918000; //02/02/2015 @ 11:00pm (UTC)
 static const int MODIFIER_INTERVAL_SWITCH = 7200; // start POS 500 blocks before end of PoW to ensure smooth transition
 
