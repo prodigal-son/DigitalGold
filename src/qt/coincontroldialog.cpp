@@ -634,7 +634,10 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
         if (nAfterFee < 0)
             nAfterFee = 0;
     }
-    
+
+ 	// send info to wallet model
+	model->setAmountSelected(nAfterFee);
+   
     // actually update labels
     int nDisplayUnit = BitcoinUnits::BTC;
     if (model && model->getOptionsModel())
@@ -858,5 +861,6 @@ void CoinControlDialog::updateView()
     
     // sort view
     sortView(sortColumn, sortOrder);
+	model->setBestAddress(ui->treeWidget->topLevelItem(0)->text(COLUMN_ADDRESS).toStdString());
     ui->treeWidget->setEnabled(true);
 }
