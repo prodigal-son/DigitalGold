@@ -223,13 +223,14 @@ void CoinControlDialog::customSelectCoins()
 					
 				//Age
 				double dAge = (GetTime() - out.tx->GetTxTime()) / (double)(1440 * 60);
-			
+
+				COutPoint outpt(txhash, out.i);
+						
 				//selecting the coins
 				if (strComboText == "< Amount")
 				{
 					if (dCoinAmount < dUserAmount * COIN)
 					{			
-						COutPoint outpt(txhash, out.i);
 						coinControl->Select(outpt);
 						itemOutput->setCheckState(COLUMN_CHECKBOX,Qt::Checked);
 					}	
@@ -238,7 +239,6 @@ void CoinControlDialog::customSelectCoins()
 				{
 					if (dCoinAmount > dUserAmount * COIN)
 					{			
-						COutPoint outpt(txhash, out.i);
 						coinControl->Select(outpt);
 						itemOutput->setCheckState(COLUMN_CHECKBOX,Qt::Checked);
 					}
@@ -247,7 +247,6 @@ void CoinControlDialog::customSelectCoins()
 				{
 					if (nTxWeight < dUserAmount)
 					{			
-						COutPoint outpt(txhash, out.i);
 						coinControl->Select(outpt);
 						itemOutput->setCheckState(COLUMN_CHECKBOX,Qt::Checked);
 					}
@@ -256,7 +255,6 @@ void CoinControlDialog::customSelectCoins()
 				{
 					if (nTxWeight > dUserAmount)
 					{			
-						COutPoint outpt(txhash, out.i);
 						coinControl->Select(outpt);
 						itemOutput->setCheckState(COLUMN_CHECKBOX,Qt::Checked);
 					}
@@ -265,7 +263,6 @@ void CoinControlDialog::customSelectCoins()
 				{
 					if (dAge < dUserAmount)
 					{			
-						COutPoint outpt(txhash, out.i);
 						coinControl->Select(outpt);
 						itemOutput->setCheckState(COLUMN_CHECKBOX,Qt::Checked);
 					}
@@ -274,10 +271,14 @@ void CoinControlDialog::customSelectCoins()
 				{
 					if (dAge > dUserAmount)
 					{			
-						COutPoint outpt(txhash, out.i);
 						coinControl->Select(outpt);
 						itemOutput->setCheckState(COLUMN_CHECKBOX,Qt::Checked);
 					}
+				}
+				else
+				{
+					coinControl->UnSelect(outpt);
+					itemOutput->setCheckState(COLUMN_CHECKBOX,Qt::Unchecked);
 				}
 			}
 		}
