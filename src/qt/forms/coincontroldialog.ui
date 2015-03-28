@@ -480,7 +480,7 @@
       <bool>false</bool>
      </property>
      <property name="columnCount">
-      <number>13</number>
+      <number>15</number>
      </property>
      <attribute name="headerShowSortIndicator" stdset="0">
       <bool>true</bool>
@@ -490,12 +490,12 @@
      </attribute>
      <column>
       <property name="text">
-       <string/>
+       <string>Select</string> /** checkbox **/
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Amount</string>
+       <string>Amount</string>  /** amount **/
       </property>
      </column>
 
@@ -504,37 +504,44 @@
        <string>Confirmations</string>
       </property>
       <property name="toolTip">
-       <string>Confirmed</string>
+       <string>Confirmed</string> /** confs **/
       </property>
      </column>
 
      <column>
       <property name="text">
-       <string>Weight</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Label</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Address</string>
+       <string>Age</string>  /** age **/
       </property>
      </column>
 	 
-     <column>
+	 <column>
       <property name="text">
-       <string>Date</string>
+       <string>Weight</string>  /** weight **/
       </property>
      </column>
-	 
-     
-	 
      <column>
       <property name="text">
-       <string>Priority</string>
+       <string>Label</string> /** label **/
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Address</string> /** address **/
+      </property>
+     </column> 
+     <column>
+      <property name="text">
+       <string>Date</string> /** date **/
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Priority</string> /** priority **/
+      </property>
+     </column>
+	 <column>
+      <property name="text"> /** age int 64 invisible **/
+       <string/>
       </property>
      </column>
      <column>
