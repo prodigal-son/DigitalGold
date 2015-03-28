@@ -1675,7 +1675,7 @@ bool FindTransactionsByDestination(const CTxDestination &dest, std::vector<uint2
     }
     if (!addrid)
     {
-        LogPrintf("FindTransactionsByDestination(): Couldn't parse dest into addrid\n");
+        Printf("FindTransactionsByDestination(): Couldn't parse dest into addrid\n");
         return false;
     }
 
@@ -1683,7 +1683,7 @@ bool FindTransactionsByDestination(const CTxDestination &dest, std::vector<uint2
     CTxDB txdb("r");
     if(!txdb.ReadAddrIndex(addrid, vtxhash))
     {
-	LogPrintf("FindTransactionsByDestination(): txdb.ReadAddrIndex failed\n");
+	printf("FindTransactionsByDestination(): txdb.ReadAddrIndex failed\n");
 	return false;
     }
     return true;
@@ -1714,7 +1714,7 @@ void CBlock::RebuildAddressIndex(CTxDB& txdb)
                             BOOST_FOREACH(uint160 addrId, addrIds)
 		            {
 			        if(!txdb.WriteAddrIndex(addrId, hashTx))
-				    LogPrintf("RebuildAddressIndex(): txins WriteAddrIndex failed addrId: %s txhash: %s\n", addrId.ToString().c_str(), hashTx.ToString().c_str());
+				    printf("RebuildAddressIndex(): txins WriteAddrIndex failed addrId: %s txhash: %s\n", addrId.ToString().c_str(), hashTx.ToString().c_str());
                             }
 			}
 		    }
@@ -1729,7 +1729,7 @@ void CBlock::RebuildAddressIndex(CTxDB& txdb)
 		BOOST_FOREACH(uint160 addrId, addrIds)
 		{
 		    if(!txdb.WriteAddrIndex(addrId, hashTx))
-		        LogPrintf("RebuildAddressIndex(): txouts WriteAddrIndex failed addrId: %s txhash: %s\n", addrId.ToString().c_str(), hashTx.ToString().c_str());
+		        printf("RebuildAddressIndex(): txouts WriteAddrIndex failed addrId: %s txhash: %s\n", addrId.ToString().c_str(), hashTx.ToString().c_str());
                 }
 	    }
 	}
@@ -1882,7 +1882,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
                             BOOST_FOREACH(uint160 addrId, addrIds)
 		            {
 			        if(!txdb.WriteAddrIndex(addrId, hashTx))
-				    Printf("ConnectBlock(): txins WriteAddrIndex failed addrId: %s txhash: %s\n", addrId.ToString().c_str(), hashTx.ToString().c_str());
+				    printf("ConnectBlock(): txins WriteAddrIndex failed addrId: %s txhash: %s\n", addrId.ToString().c_str(), hashTx.ToString().c_str());
                             }
 			}
 		    }
@@ -1898,7 +1898,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 		BOOST_FOREACH(uint160 addrId, addrIds)
 		{
 		    if(!txdb.WriteAddrIndex(addrId, hashTx))
-		        Printf("ConnectBlock(): txouts WriteAddrIndex failed addrId: %s txhash: %s\n", addrId.ToString().c_str(), hashTx.ToString().c_str());
+		        printf("ConnectBlock(): txouts WriteAddrIndex failed addrId: %s txhash: %s\n", addrId.ToString().c_str(), hashTx.ToString().c_str());
                 }
 	    }
 	}

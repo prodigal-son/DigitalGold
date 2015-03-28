@@ -509,7 +509,7 @@ static void NotifyAddressBookChanged(WalletModel *walletmodel, CWallet *wallet, 
     {
         CStealthAddress sxAddr = boost::get<CStealthAddress>(address);
         std::string enc = sxAddr.Encoded();
-        LogPrintf("NotifyAddressBookChanged %s %s isMine=%i status=%i\n", enc.c_str(), label.c_str(), isMine, status);
+        printf("NotifyAddressBookChanged %s %s isMine=%i status=%i\n", enc.c_str(), label.c_str(), isMine, status);
         QMetaObject::invokeMethod(walletmodel, "updateAddressBook", Qt::QueuedConnection,
                                   Q_ARG(QString, QString::fromStdString(enc)),
                                   Q_ARG(QString, QString::fromStdString(label)),
@@ -517,7 +517,7 @@ static void NotifyAddressBookChanged(WalletModel *walletmodel, CWallet *wallet, 
                                   Q_ARG(int, status));
     } else
     {
-        LogPrintf("NotifyAddressBookChanged %s %s isMine=%i status=%i\n", CBitcoinAddress(address).ToString().c_str(), label.c_str(), isMine, status);
+        printf("NotifyAddressBookChanged %s %s isMine=%i status=%i\n", CBitcoinAddress(address).ToString().c_str(), label.c_str(), isMine, status);
         QMetaObject::invokeMethod(walletmodel, "updateAddressBook", Qt::QueuedConnection,
                                   Q_ARG(QString, QString::fromStdString(CBitcoinAddress(address).ToString())),
                                   Q_ARG(QString, QString::fromStdString(label)),

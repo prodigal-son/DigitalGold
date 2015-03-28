@@ -1954,7 +1954,7 @@ Value getnewstealthaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getnewstealthaddress [label]\n"
-            "Returns a new Crave stealth address for receiving payments anonymously.  ");
+            "Returns a new PayCon stealth address for receiving payments anonymously.  ");
     
     if (pwalletMain->IsLocked())
         throw runtime_error("Failed: Wallet must be unlocked.");
@@ -2159,7 +2159,7 @@ Value sendtostealthaddress(const Array& params, bool fHelp)
     
     if (!sxAddr.SetEncoded(sEncoded))
     {
-        result.push_back(Pair("result", "Invalid Crave stealth address."));
+        result.push_back(Pair("result", "Invalid PayCon stealth address."));
         return result;
     };
     
