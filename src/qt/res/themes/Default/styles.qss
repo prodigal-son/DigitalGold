@@ -495,12 +495,14 @@ QSizeGrip {
 
 /* CharityDialog */
 
-#charityAddressEdit {
-	font-size:10px
+#charityAddressEdit, #charityPercentEdit {
+	color:#f4cc0e;
+	font-size:10px;
+	font-weight:600;
 }
 
 /* Headings in Statistics, BlockBrowser, Chatwindow */
-#StatisticsPage #label_5, #BlockBrowser #label_5, #ChatWindowClass #label_9, #ChatWindowClass #label_11, #ChatWindowClass #label_12 { 
+#StatisticsPage #label_5, #BlockBrowser #label_5, #ChatWindowClass #label_9, #ChatWindowClass #label_11, #ChatWindowClass #label_12, #charityDialog #label { 
 	color:#f4cc0e;
 	background:transparent;
 	font-size:20px;
