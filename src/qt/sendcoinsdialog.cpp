@@ -50,6 +50,7 @@ SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
     connect(ui->pushButtonCoinControl, SIGNAL(clicked()), this, SLOT(coinControlButtonClicked()));
     connect(ui->checkBoxCoinControlChange, SIGNAL(stateChanged(int)), this, SLOT(coinControlChangeChecked(int)));
     connect(ui->lineEditCoinControlChange, SIGNAL(textEdited(const QString &)), this, SLOT(coinControlChangeEdited(const QString &)));
+	connect(ui->returnChangeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(coinControlReturnChangeChecked(int)));
 
     // Coin Control: clipboard actions
     QAction *clipboardQuantityAction = new QAction(tr("Copy quantity"), this);
@@ -68,6 +69,7 @@ SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
     connect(clipboardPriorityAction, SIGNAL(triggered()), this, SLOT(coinControlClipboardPriority()));
     connect(clipboardLowOutputAction, SIGNAL(triggered()), this, SLOT(coinControlClipboardLowOutput()));
     connect(clipboardChangeAction, SIGNAL(triggered()), this, SLOT(coinControlClipboardChange()));
+	
     ui->labelCoinControlQuantity->addAction(clipboardQuantityAction);
     ui->labelCoinControlAmount->addAction(clipboardAmountAction);
     ui->labelCoinControlFee->addAction(clipboardFeeAction);
@@ -433,10 +435,40 @@ void SendCoinsDialog::coinControlButtonClicked()
     coinControlUpdateLabels();
 }
 
+// Coin Control: return change
+// presstab HyperStake
+ void SendCoinsDialog::coinControlReturnChangeChecked(int state)
+ {
+     if(state == Qt::Checked && ui->checkBoxCoinControlChange->checkState() == Qt::Checked)
+	 {
+		ui->returnChangeCheckBox->setCheckState(Qt::Unchecked);
+		QMessageBox::warning(this, tr("Send Coins"),
+			tr("Cannot use custom change address and return change at the same time. Try again."),
+			QMessageBox::Ok, QMessageBox::Ok);
+		return;
+	 }
+	 
+	 if (model)
+     {
+         if (state == Qt::Checked)
+             CoinControlDialog::coinControl->fReturnChange = true;
+         else
+             CoinControlDialog::coinControl->fReturnChange = false;
+     }  
+ }
 // Coin Control: checkbox custom change address
 void SendCoinsDialog::coinControlChangeChecked(int state)
 {
-    if (model)
+    if(state == Qt::Checked && ui->returnChangeCheckBox->checkState() == Qt::Checked)
+	{
+		ui->checkBoxCoinControlChange->setCheckState(Qt::Unchecked);
+		QMessageBox::warning(this, tr("Send Coins"),
+			tr("Cannot use custom change address and return change at the same time. Try again."),
+			QMessageBox::Ok, QMessageBox::Ok);
+		return;
+	}
+	
+	if (model)
     {
         if (state == Qt::Checked)
             CoinControlDialog::coinControl->destChange = CBitcoinAddress(ui->lineEditCoinControlChange->text().toStdString()).Get();
