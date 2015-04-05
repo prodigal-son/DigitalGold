@@ -129,7 +129,7 @@ bool WalletModel::validateAddress(const QString &address)
     return addressParsed.IsValid();
 }
 
-WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipient> &recipients, const CCoinControl *coinControl)
+WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipient> &recipients, int nSplitBlock, const CCoinControl *coinControl)
 {
     qint64 total = 0;
     QSet<QString> setAddress;
@@ -193,7 +193,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         CWalletTx wtx;
         CReserveKey keyChange(wallet);
         int64_t nFeeRequired = 0;
-        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, coinControl);
+        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, nSplitBlock, coinControl);
 
         if(!fCreated)
         {
@@ -330,36 +330,15 @@ void WalletModel::getStakeWeightFromValue(const int64_t nTime, const int64_t nVa
 	wallet->GetStakeWeightFromValue(nTime, nValue, nWeight);
 }
 
-void WalletModel::setAmountSelected(qint64 nAmountSelected)
+void WalletModel::setSplitBlock(bool fSplitBlock)
 {
-	wallet->nAmountSelected = nAmountSelected;
+	wallet->fSplitBlock = fSplitBlock;
 }
 
-qint64 WalletModel::getAmountSelected()
+bool WalletModel::getSplitBlock()
 {
-	return wallet->nAmountSelected;
+	return wallet->fSplitBlock;
 }
-
-void WalletModel::setBestAddress(std::string strAddress)
-{
-	wallet->strBestAddress = strAddress;
-}
-
-QString WalletModel::getBestAddress()
-{
-	return QString::fromStdString(wallet->strBestAddress);
-}
-
-void WalletModel::setCombine(bool fCombine)
-{
-	wallet->fCombine = fCombine;
-}
-
-bool WalletModel::getCombine()
-{
-	return wallet->fCombine;
-}
-
 
 void WalletModel::checkWallet(int& nMismatchSpent, int64_t& nBalanceInQuestion, int& nOrphansFound)
 {
@@ -525,4 +504,9 @@ void WalletModel::unlockCoin(COutPoint& output)
 void WalletModel::listLockedCoins(std::vector<COutPoint>& vOutpts)
 {
     return;
+}
+
+bool WalletModel::isMine(const CBitcoinAddress &address)
+{
+	return IsMine(*wallet, address.Get());
 }
