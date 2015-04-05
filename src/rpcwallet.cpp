@@ -10,6 +10,7 @@
 #include "main.h"
 #include "init.h"
 #include "base58.h"
+#include "coincontrol.h"
 
 #include <sstream>
 #include <boost/lexical_cast.hpp>
@@ -18,6 +19,7 @@ using namespace json_spirit;
 using namespace std;
 
 int64_t nWalletUnlockTime;
+CCoinControl* coinControl = new CCoinControl;
 static CCriticalSection cs_nWalletUnlockTime;
 
 extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, json_spirit::Object& entry);
@@ -1997,3 +1999,178 @@ Value rescanfromblock(const Array& params, bool fHelp)
 	pwalletMain->ScanForWalletTransactions(FindBlockByHeight(nHeight), true);
 	return "done";
 }
+
+/** COIN CONTROL RPC **/
+// presstab HyperStake
+Value cclistcoins(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "cclistcoins\n"
+			"CoinControl: list your spendable coins and their information\n");
+	
+	Array result;
+	
+	std::vector<COutput> vCoins;
+    pwalletMain->AvailableCoins(vCoins);
+	
+	BOOST_FOREACH(const COutput& out, vCoins)
+    {
+		Object coutput;
+		int64_t nHeight = nBestHeight - out.nDepth;
+		CBlockIndex* pindex = FindBlockByHeight(nHeight);
+		
+		CTxDestination outputAddress;
+		ExtractDestination(out.tx->vout[out.i].scriptPubKey, outputAddress);
+		coutput.push_back(Pair("Address", CBitcoinAddress(outputAddress).ToString()));
+		coutput.push_back(Pair("Output Hash", out.tx->GetHash().ToString()));
+		coutput.push_back(Pair("blockIndex", out.i));
+		double dAmount = double(out.tx->vout[out.i].nValue) / double(COIN);
+		coutput.push_back(Pair("Value", dAmount));
+		coutput.push_back(Pair("Confirmations", int(out.nDepth)));
+		double dAge = double(GetTime() - pindex->nTime);
+		coutput.push_back(Pair("Age (days)", (dAge/(60*60*24))));
+		uint64_t nWeight = 0;
+		pwalletMain->GetStakeWeightFromValue(out.tx->GetTxTime(), out.tx->vout[out.i].nValue, nWeight);
+		if(dAge < nStakeMinAge)
+			nWeight = 0;
+		coutput.push_back(Pair("Weight", int(nWeight)));
+		double nReward = (MAX_MINT_PROOF_OF_STAKE2/COIN) / 365 * dAge * dAmount;
+		nReward = min(nReward, double(30));
+		coutput.push_back(Pair("Potential Stake", nReward));
+		result.push_back(coutput);
+	}
+	return result;
+}
+
+// presstab HyperStake
+Value ccselect(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 2)
+        throw runtime_error(
+            "ccselect <Output Hash> <Output Index>\n"
+			"CoinControl: select a coin");
+	
+	uint256 hash;
+    hash.SetHex(params[0].get_str());
+	unsigned int nIndex = params[1].get_int();
+	COutPoint outpt(hash, nIndex);
+	coinControl->Select(outpt);
+
+	return "Outpoint Selected";
+}
+
+// presstab HyperStake
+Value cclistselected(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "cclistselected\n"
+			"CoinControl: list selected coins");
+	
+	std::vector<COutPoint> vOutpoints;
+	coinControl->ListSelected(vOutpoints);
+	
+	Array result;
+	BOOST_FOREACH(COutPoint& outpt, vOutpoints)
+	{
+		result.push_back(outpt.hash.ToString());
+	}
+
+	return result;
+}
+
+// ssta HyperStake
+Value ccreturnchange(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 1)
+        throw runtime_error(
+            "ccreturnchange <true|false>\n"
+                        "CoinControl: sets returnchange to true or false");
+    bool rc = params[0].get_bool();
+    coinControl->fReturnChange=rc;
+    string ret = "Set ReturnChange to: ";
+    
+	if(coinControl->fReturnChange )
+		ret+= "true";
+	else
+		ret+= "false";
+		
+    return ret;
+}
+
+// ssta HyperStake
+Value cccustomchange(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 1)
+        throw runtime_error(
+            "cccustomchange <address>\n"
+                        "CoinControl: sets address to return change to");
+    CBitcoinAddress address(params[0].get_str());
+    // check it's a valid address
+    if(!address.IsValid()) throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid PayCon address");
+
+    coinControl->destChange=address.Get();
+
+    string ret = "Set change address to: ";
+    ret+=(CBitcoinAddress(coinControl->destChange).ToString());
+    return ret;
+}
+
+// ssta HyperStake
+Value ccreset(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "ccreset\n"
+                        "CoinControl: resets coin control (clears selected coins and change address)");
+    coinControl->SetNull();
+    return Value::null;
+}
+
+// presstab HyperStake
+Value ccsend(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 2)
+        throw runtime_error(
+		"ccsend <PayCon Address> <amount>\n"
+            "<amount> is a real and is rounded to the nearest 0.000001"
+            + HelpRequiringPassphrase());
+
+    CBitcoinAddress address(params[0].get_str());
+    if (!address.IsValid())
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid PayCon address");
+
+    // Amount
+    int64_t nAmount = AmountFromValue(params[1]);
+
+    if (nAmount < SOFT_MIN_TX_FEE + 1)
+        throw JSONRPCError(-101, "Send amount too small");
+
+    if (pwalletMain->IsLocked())
+        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
+
+	// Initialize things needed for the transaction
+   vector<pair<CScript, int64_t> > vecSend;
+	CWalletTx wtx;
+    CReserveKey keyChange(pwalletMain);
+    int64_t nFeeRequired = 0;
+	CScript scriptPubKey;
+        scriptPubKey.SetDestination(address.Get());
+    vecSend.push_back(make_pair(scriptPubKey, nAmount));
+	
+    bool fCreated = pwalletMain->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, coinControl); // 1 = no splitblock, false for s4c, coinControl
+    if (!fCreated)
+    {
+        if (nAmount + nFeeRequired > pwalletMain->GetBalance())
+            throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "Insufficient funds");
+        throw JSONRPCError(RPC_WALLET_ERROR, "Transaction creation failed");
+    }
+    if (!pwalletMain->CommitTransaction(wtx, keyChange))
+        throw JSONRPCError(RPC_WALLET_ERROR, "Transaction commit failed");
+	
+	coinControl->SetNull();
+    return wtx.GetHash().GetHex();
+}
+
+/** END COIN CONTROL RPC **/
