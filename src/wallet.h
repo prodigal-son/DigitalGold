@@ -94,6 +94,7 @@ public:
 	int64_t nAmountSelected;
 	std::string strBestAddress;
 	bool fCombine;
+	bool fSplitBlock;
 	
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
@@ -118,6 +119,7 @@ public:
 		nAmountSelected = 0;
 		strBestAddress = "";
 		fCombine = false;
+		fSplitBlock =  false;
     }
     CWallet(std::string strWalletFileIn)
     {
@@ -135,6 +137,7 @@ public:
 		nAmountSelected = 0;
 		strBestAddress = "";
 		fCombine = false;
+		fSplitBlock =  false;
     }
 
     std::map<uint256, CWalletTx> mapWallet;
@@ -208,7 +211,7 @@ public:
     int64_t GetStake() const;
     int64_t GetNewMint() const;
 	bool StakeForCharity();
-    bool CreateTransaction(const std::vector<std::pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL);
+    bool CreateTransaction(const std::vector<std::pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, int nSplitBlock, const CCoinControl *coinControl=NULL);
     bool CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL);
     bool CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey);
 
