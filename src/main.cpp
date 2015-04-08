@@ -2465,6 +2465,10 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
 	if (pwalletMain->fStakeForCharity)
 		if (!pwalletMain->StakeForCharity() )
 			printf("ERROR While trying to send portion of stake reward to savings account");
+		
+	if (pwalletMain->fMultiSend)
+		if (!pwalletMain->MultiSend() )
+			printf("ERROR While trying to use MultiSend");
 
     // PayCon: if responsible for sync-checkpoint send it
     if (pfrom && !CSyncCheckpoint::strMasterPrivKey.empty())
