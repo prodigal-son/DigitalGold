@@ -1219,7 +1219,7 @@ bool CWallet::MultiSend()
 			if(!ExtractDestination(out.tx->vout[out.i].scriptPubKey, address)) continue;
 			if (nBestHeight <= nLastMultiSendHeight ) 
 					return false;	
-			if (out.tx->IsCoinStake() && out.tx->GetBlocksToMaturity() == 0  && out.tx->GetDepthInMainChain() == nCoinbaseMaturity+20)
+			if (out.tx->IsCoinStake() && out.tx->GetBlocksToMaturity() == 0  && out.tx->GetDepthInMainChain() == nCoinbaseMaturity+10)
 			{
 				//Disabled Addresses won't send MultiSend transactions
 				if(vDisabledAddresses.size() > 0)
