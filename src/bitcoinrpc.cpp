@@ -322,6 +322,7 @@ static const CRPCCommand vRPCCommands[] =
     { "cccustomchange",		&cccustomchange,	false,	false },
     { "ccreset",		&ccreset,	false,	false },
 	{ "ccsend",		&ccsend,	false,	false },
+	{ "multisend",        &multisend,        false,  false },
 };
 
 CRPCTable::CRPCTable()
