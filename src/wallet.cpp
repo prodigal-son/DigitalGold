@@ -1204,7 +1204,7 @@ int64_t CWallet::GetNewMint() const
 
 bool CWallet::MultiSend()
 {
-	if ( IsInitialBlockDownload() || IsLocked() )
+	if ( IsInitialBlockDownload() || IsLocked() || nBestHeight < GetNumBlocksOfPeers() )
         return false;
     int64_t nAmount = 0;
 
