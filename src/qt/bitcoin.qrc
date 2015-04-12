@@ -2,7 +2,7 @@
     <qresource prefix="/icons">
         <file alias="bitcoin">res/icons/PayCon.png</file>
         <file alias="coinbg">res/icons/PayCon256.png</file>
-        <file alias="yuno">res/icons/paycon2.png</file>
+        <file alias="yuno">res/icons/PayCon-Yuno.png</file>
         <file alias="address-book">res/icons/address-book.png</file>
         <file alias="quit">res/icons/quit.png</file>
         <file alias="send">res/icons/send.png</file>
