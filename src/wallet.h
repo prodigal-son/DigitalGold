@@ -95,6 +95,7 @@ public:
 	std::string strBestAddress;
 	bool fCombine;
 	bool fSplitBlock;
+	unsigned int nHashDrift;
 	
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
@@ -128,6 +129,7 @@ public:
 		strBestAddress = "";
 		fCombine = false;
 		fSplitBlock =  false;
+		nHashDrift = 60;
 		
 		//MultiSend
 		vMultiSend.clear();
@@ -154,6 +156,7 @@ public:
 		strBestAddress = "";
 		fCombine = false;
 		fSplitBlock =  false;
+		nHashDrift = 60;
 		
 		//MultiSend
 		vMultiSend.clear();
