@@ -43,7 +43,8 @@ static const int64_t MAX_MINT_PROOF_OF_STAKE = 50 * CENT; // 50% per year
 static const int64_t MAX_MINT_PROOF_OF_STAKE2 = 100 * CENT; // 100% per year
 static const int MAX_TIME_SINCE_BEST_BLOCK = 10; // how many seconds to wait before sending next PushGetBlocks()
 
-static const unsigned int REWARD_SWITCH_TIME = 1422918000; //02/02/2015 @ 11:00pm (UTC)
+static const unsigned int REWARD_SWITCH_TIME = 1422918000; // 02/02/2015 @ 11:00pm (UTC)
+static const unsigned int BLOCK_SWITCH_TIME = 1430438400; // 05/01/2015 @ 12:00am (UTC)
 static const int MODIFIER_INTERVAL_SWITCH = 7200; // start POS 500 blocks before end of PoW to ensure smooth transition
 
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
@@ -60,8 +61,13 @@ static const uint256 hashGenesisBlock("00000174b4ac95cc6334f5fe62e951dda9fcf9306
 static const uint256 hashGenesisBlockTestNet("00000174b4ac95cc6334f5fe62e951dda9fcf930601df174f2940d990aa1a563");
 
 //static const uint256 CheckBlock1 ("0"); // Checkpoint at block 0
-inline int64_t PastDrift(int64_t nTime)   { return nTime - 1 * 30 * 60; } // up to 30 minutes from the past
-inline int64_t FutureDrift(int64_t nTime) { return nTime + 1 * 30 * 60; } // up to 30 minutes from the future
+inline int64_t GetClockDrift(int64_t nTime)
+{
+	if(nTime < BLOCK_SWITCH_TIME)
+		return 15 * 60;
+	else
+		return 60;
+}
 
 extern int64_t devCoin;
 extern CScript COINBASE_FLAGS;
