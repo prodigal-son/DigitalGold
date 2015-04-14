@@ -2725,7 +2725,7 @@ bool LoadBlockIndex(bool fAllowNew)
             return error("LoadBlockIndex() : failed to init sync checkpoint");
     }
 
-    string strPubKey = "VC8JZWPZHPxwX7TBF3xbxcBNwHfvzFLVHp";
+    string strPubKey = "04b97a46e34da8cfe22270fae9fc59343290e59f9ee0f1f7ad7a33ba31e5195aefb59eab10a3b6774b4d3aaf96660cb9902cec017582dfd62be4ad68f9d94a27f1";
 
     // if checkpoint master key changed must reset sync-checkpoint
     if (!txdb.ReadCheckpointPubKey(strPubKey) || strPubKey != CSyncCheckpoint::strMasterPubKey)
@@ -3014,7 +3014,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             return false;
         }
 
-        if (nTime > 1427068800 && pfrom->nVersion < 70121)
+        if (nTime > 1430124800 && pfrom->nVersion < 70122)
         {
             // Since February 20, 2012, the protocol is initiated at version 209,
             // and earlier versions are no longer supported
