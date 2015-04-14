@@ -65,6 +65,7 @@ set<pair<COutPoint, unsigned int> > setStakeSeenOrphan;
 
 map<uint256, CTransaction> mapOrphanTransactions;
 map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
+map<unsigned int, unsigned int> mapHashedBlocks; // for liteStake
 
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
@@ -2286,10 +2287,11 @@ bool CBlock::AcceptBlock()
         return DoS(100, error("AcceptBlock() : rejected by hardened checkpoint lock-in at %d", nHeight));
 
     // Verify hash target and signature of coinstake tx
-    uint256 hashProofOfStake = 0, targetProofOfStake = 0;
+    uint256 hashProofOfStake = 0;
     if (IsProofOfStake())
     {
-        if (!CheckProofOfStake(vtx[1], nBits, hashProofOfStake, targetProofOfStake))
+		
+        if (!CheckProofOfStake(vtx[1], nBits, hashProofOfStake))
         {
             printf("WARNING: ProcessBlock(): check proof-of-stake failed for block %s\n", hash.ToString().c_str());
             return false; // do not error here as we expect this during initial block download
@@ -2502,7 +2504,7 @@ bool CBlock::SignBlock(CWallet& wallet, int64_t nFees)
         {
             if (txCoinStake.nTime >= max(pindexBest->GetPastTimeLimit()+1, PastDrift(pindexBest->GetBlockTime())))
             {
-                // make sure coinstake would meet timestamp protocol
+				// make sure coinstake would meet timestamp protocol
                 //    as it would be the same as the block timestamp
                 vtx[0].nTime = nTime = txCoinStake.nTime;
                 nTime = max(pindexBest->GetPastTimeLimit()+1, GetMaxTransactionTime());
