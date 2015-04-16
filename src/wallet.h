@@ -83,6 +83,7 @@ private:
     int nWalletMaxVersion;
 
 public:
+	bool MintableCoins();
     mutable CCriticalSection cs_wallet;
 
     bool fFileBacked;
