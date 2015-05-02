@@ -3,19 +3,19 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Czecoin</source>
+        <source>About PayCon</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Czecoin&lt;/b&gt; version</source>
+        <source>&lt;b&gt;PayCon&lt;/b&gt; version</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+41"/>
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The Czecoin developers</source>
+Copyright © 2014 The PayCon developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -63,8 +63,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your Czecoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Toto jsou vaše Czecoin adresy pro příjem plateb. Možná budete chtít dát jinou adresu každému odesílateli, takže můžete sledovat, kdo vám zasílá platbu.</translation>
+        <source>These are your PayCon addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Toto jsou vaše PayCon adresy pro příjem plateb. Možná budete chtít dát jinou adresu každému odesílateli, takže můžete sledovat, kdo vám zasílá platbu.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -78,8 +78,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Czecoin address</source>
-        <translation>Podepsat zprávu k prokázání vlastnictví Czecoin adresy.</translation>
+        <source>Sign a message to prove you own a PayCon address</source>
+        <translation>Podepsat zprávu k prokázání vlastnictví PayCon adresy.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -93,8 +93,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified Czecoin address</source>
-        <translation>Ověřte zprávu, že byla podepsána s určitou Czecoin adresou</translation>
+        <source>Verify a message to ensure it was signed with a specified PayCon address</source>
+        <translation>Ověřte zprávu, že byla podepsána s určitou PayCon adresou</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -261,7 +261,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-58"/>
-        <source>Czecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <source>PayCon will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
          <translation>Peněženka se nyní zavře a dokončí proces šifrování. Nezapomeňte, že šifrování vaši peněženku nemůže plně chránit před krádeží pokud máte v počítači napadení malware.</translation>
     </message>
     <message>
@@ -390,8 +390,8 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+6"/>
-        <source>Show information about Czecoin</source>
-         <translation>Zobraz informace o Czecoinu</translation>
+        <source>Show information about PayCon</source>
+         <translation>Zobraz informace o PayConu</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -440,11 +440,11 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-64"/>
-        <source>Send coins to a Czecoin address</source>
-        <translation>Odeslat mince na Czecoin adresu</translation>    </message>
+        <source>Send coins to a PayCon address</source>
+        <translation>Odeslat mince na PayCon adresu</translation>    </message>
     <message>
         <location line="+47"/>
-        <source>Modify configuration options for Czecoin</source>
+        <source>Modify configuration options for PayCon</source>
          <translation>Změnit položky nastavení</translation> 
     </message>
     <message>
@@ -484,7 +484,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-202"/>
-        <source>Czecoin</source>
+        <source>PayCon</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -494,7 +494,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+180"/>
-        <source>&amp;About Czecoin</source>
+        <source>&amp;About PayCon</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -551,13 +551,13 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>Czecoin client</source>
-        <translation>Czecoin klient</translation>
+        <source>PayCon client</source>
+        <translation>PayCon klient</translation>
     </message>
     <message numerus="yes">
         <location line="+75"/>
-        <source>%n active connection(s) to Czecoin network</source>
-        <translation><numerusform>%n aktivní spojení do Czecoinové sítě</numerusform><numerusform>%n aktivní spojení do Czecoinové sítě</numerusform><numerusform>%n aktivních spojení do Czecoinové sítě</numerusform></translation>
+        <source>%n active connection(s) to PayCon network</source>
+        <translation><numerusform>%n aktivní spojení do PayConové sítě</numerusform><numerusform>%n aktivní spojení do PayConové sítě</numerusform><numerusform>%n aktivních spojení do PayConové sítě</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -596,13 +596,13 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-312"/>
-        <source>About Czecoin card</source>
-        <translation>O Czecoinu</translation>
+        <source>About PayCon card</source>
+        <translation>O PayConu</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show information about Czecoin card</source>
-        <translation>Zobrazit informace o Czecoinu</translation>
+        <source>Show information about PayCon card</source>
+        <translation>Zobrazit informace o PayConu</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -682,7 +682,7 @@ Adresa: %4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid Czecoin address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid PayCon address or malformed URI parameters.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -742,8 +742,8 @@ Adresa: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. Czecoin can no longer continue safely and will quit.</source>
-       <translation>Stala se fatální chyba. UCzecoin nemůže bezpečně pokračovat v činnosti, a proto skončí.</translation>
+        <source>A fatal error occurred. PayCon can no longer continue safely and will quit.</source>
+       <translation>Stala se fatální chyba. UPayCon nemůže bezpečně pokračovat v činnosti, a proto skončí.</translation>
     </message>
 </context>
 <context>
@@ -1076,8 +1076,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Czecoin address.</source>
-        <translation>Zadaná adresa &quot;%1&quot; není platná Czecoin adresa.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid PayCon address.</source>
+        <translation>Zadaná adresa &quot;%1&quot; není platná PayCon adresa.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1095,7 +1095,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
-        <source>Czecoin-Qt</source>
+        <source>PayCon-Qt</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1159,7 +1159,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+31"/>
         <source>Reserved amount does not participate in staking and is therefore spendable at any time.</source>
-         <translation>Vyhrazené množství Czecoinů které se neúčastní sázek a proto je utratitelné kdykoliv.</translation>
+         <translation>Vyhrazené množství PayConů které se neúčastní sázek a proto je utratitelné kdykoliv.</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1168,13 +1168,13 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Czecoin after logging in to the system.</source>
-        <translation>Automaticky spustí Czecoin po přihlášení do systému.</translation>
+        <source>Automatically start PayCon after logging in to the system.</source>
+        <translation>Automaticky spustí PayCon po přihlášení do systému.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Czecoin on system login</source>
-        <translation>S&amp;pustit Czecoin po přihlášení do systému</translation>
+        <source>&amp;Start PayCon on system login</source>
+        <translation>S&amp;pustit PayCon po přihlášení do systému</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1193,7 +1193,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Czecoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the PayCon client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>Automaticky otevře potřebný port na routeru. Tohle funguje jen za předpokladu, že tvůj router podporuje UPnP a že je UPnP povolené.</translation>
     </message>
     <message>
@@ -1203,8 +1203,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Czecoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Připojí se do Czecoin sítě přes SOCKS proxy (např. když se připojuje přes Tor).</translation>
+        <source>Connect to the PayCon network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Připojí se do PayCon sítě přes SOCKS proxy (např. když se připojuje přes Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1278,8 +1278,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Czecoin.</source>
-        <translation>Tady lze nastavit jazyk uživatelského rozhraní. Nastavení se projeví až po restartování Czecoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting PayCon.</source>
+        <translation>Tady lze nastavit jazyk uživatelského rozhraní. Nastavení se projeví až po restartování PayCon.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1293,8 +1293,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Czecoin addresses in the transaction list or not.</source>
-        <translation>Zda ukazovat Czecoin adresy ve výpisu transakcí nebo ne.</translation>
+        <source>Whether to show PayCon addresses in the transaction list or not.</source>
+        <translation>Zda ukazovat PayCon adresy ve výpisu transakcí nebo ne.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1340,8 +1340,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Czecoin.</source>
-        <translation>Nastavení se projeví až po restartování Czecoin.</translation>
+        <source>This setting will take effect after restarting PayCon.</source>
+        <translation>Nastavení se projeví až po restartování PayCon.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1359,8 +1359,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+33"/>
         <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Czecoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Zobrazené informace nemusí být aktuální. Tvá peněženka se automaticky sesynchronizuje s Czecoin sítí, jakmile se s ní spojí. Zatím ale ještě není synchronizace dokončena.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the PayCon network after a connection is established, but this process has not completed yet.</source>
+        <translation>Zobrazené informace nemusí být aktuální. Tvá peněženka se automaticky sesynchronizuje s PayCon sítí, jakmile se s ní spojí. Zatím ale ještě není synchronizace dokončena.</translation>
     </message>
     <message>
         <location line="-160"/>
@@ -1575,8 +1575,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Czecoin-Qt help message to get a list with possible Czecoin command-line options.</source>
-        <translation>Seznam parametrů Czecoin-Qt pro příkazovou řádku získáš v nápovědě.</translation>
+        <source>Show the PayCon-Qt help message to get a list with possible PayCon command-line options.</source>
+        <translation>Seznam parametrů PayCon-Qt pro příkazovou řádku získáš v nápovědě.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1595,13 +1595,13 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="-104"/>
-        <source>Czecoin - Debug window</source>
-        <translation>Czecoin - ladicí okno</translation>
+        <source>PayCon - Debug window</source>
+        <translation>PayCon - ladicí okno</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Czecoin Core</source>
-        <translation>Jádro Czecoin</translation>
+        <source>PayCon Core</source>
+        <translation>Jádro PayCon</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1610,8 +1610,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Czecoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Otevři soubor s ladicími záznamy Czecoin z aktuálního datového adresáře. U velkých logů to může pár vteřin zabrat.</translation>
+        <source>Open the PayCon debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Otevři soubor s ladicími záznamy PayCon z aktuálního datového adresáře. U velkých logů to může pár vteřin zabrat.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1620,8 +1620,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the Czecoin RPC console.</source>
-        <translation>Vítej v Czecoin RPC konzoli.</translation>
+        <source>Welcome to the PayCon RPC console.</source>
+        <translation>Vítej v PayCon RPC konzoli.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1694,7 +1694,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <location line="+86"/>
         <location line="+86"/>
         <location line="+32"/>
-        <source>0.00 CZECO</source>
+        <source>0.00 CON</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1764,7 +1764,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+16"/>
-        <source>123.456 CZECO</source>
+        <source>123.456 CON</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1779,8 +1779,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a Czecoin address (e.g. Sjz75uKHzUQJnSszvdiifEGxseKkDhQToX)</source>
-         <translation>Zadej UCzecoin adresu (např. H7QEPyCf1Yv8UZUALDda9bNYXuYbfMe9Lp)</translation>
+        <source>Enter a PayCon address (e.g. Sjz75uKHzUQJnSszvdiifEGxseKkDhQToX)</source>
+         <translation>Zadej UPayCon adresu (např. H7QEPyCf1Yv8UZUALDda9bNYXuYbfMe9Lp)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1879,8 +1879,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+251"/>
-        <source>WARNING: Invalid Czecoin address</source>
-        <translation>Chyba: Neplatná Czecoin adresa!</translation>
+        <source>WARNING: Invalid PayCon address</source>
+        <translation>Chyba: Neplatná PayCon adresa!</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1890,7 +1890,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+4"/>
         <source>WARNING: unknown change address</source>
-        <translation>Chyba: Neznámá změna Czecoin adresy!</translation>
+        <translation>Chyba: Neznámá změna PayCon adresy!</translation>
     </message>
 </context>
 <context>
@@ -1953,8 +1953,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Czecoin address (e.g. Sjz75uKHzUQJnSdzvpiigEGxseKkDhQToX)</source>
-        <translation>Zadej Czecoin adresu (např. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
+        <source>Enter a PayCon address (e.g. Sjz75uKHzUQJnSdzvpiigEGxseKkDhQToX)</source>
+        <translation>Zadej PayCon adresu (např. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
     </message>
 </context>
 <context>
@@ -2014,8 +2014,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Czecoin address</source>
-         <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem této Czecoin adresy</translation>
+        <source>Sign the message to prove you own this PayCon address</source>
+         <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem této PayCon adresy</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2046,8 +2046,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Czecoin address</source>
-        <translation>Ověř zprávu, aby ses ujistil, že byla podepsána danou Czecoin adresou</translation>
+        <source>Verify the message to ensure it was signed with the specified PayCon address</source>
+        <translation>Ověř zprávu, aby ses ujistil, že byla podepsána danou PayCon adresou</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2057,7 +2057,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Czecoin address (e.g. Sjz75uKHzUQJnSdzvpiigEGxseKkDhQToX)</source>
+        <source>Enter a PayCon address (e.g. Sjz75uKHzUQJnSdzvpiigEGxseKkDhQToX)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2067,8 +2067,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Czecoin signature</source>
-        <translation>Vlož Czecoin podpis</translation>
+        <source>Enter PayCon signature</source>
+        <translation>Vlož PayCon podpis</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -2638,8 +2638,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+33"/>
-        <source>Czecoin version</source>
-        <translation>Czecoin verze</translation>
+        <source>PayCon version</source>
+        <translation>PayCon verze</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2648,8 +2648,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Send command to -server or Czecoind</source>
-        <translation>Poslat příkaz pro -server nebo Czecoind</translation>
+        <source>Send command to -server or PayCond</source>
+        <translation>Poslat příkaz pro -server nebo PayCond</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2668,13 +2668,13 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Specify configuration file (default: Czecoin.conf)</source>
-        <translation>Konfigurační soubor (výchozí: Czecoin.conf)</translation>
+        <source>Specify configuration file (default: PayCon.conf)</source>
+        <translation>Konfigurační soubor (výchozí: PayCon.conf)</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Specify pid file (default: Czecoind.pid)</source>
-        <translation>PID soubor (výchozí: Czecoind.pid)</translation>
+        <source>Specify pid file (default: PayCond.pid)</source>
+        <translation>PID soubor (výchozí: PayCond.pid)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2824,8 +2824,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+61"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Czecoin will not work properly.</source>
-        <translation>Upozornění: Zkontroluj, že máš v počítači správně nastavený datum a čas! Pokud jsou nastaveny špatně, Czecoin nebude fungovat správně.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong PayCon will not work properly.</source>
+        <translation>Upozornění: Zkontroluj, že máš v počítači správně nastavený datum a čas! Pokud jsou nastaveny špatně, PayCon nebude fungovat správně.</translation>
         </message>
     <message>
         <location line="-31"/>
@@ -3013,24 +3013,24 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <source>%s, you must set a rpcpassword in the configuration file:
  %s
 It is recommended you use the following random password:
-rpcuser=Czecoinrpc
+rpcuser=PayConrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Czecoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.com
 </source>
         <translation>%s, musíš nastavit rpcpassword v konfiguračním souboru:
 %s
 Je vhodné použít následující náhodné heslo:
-rpcuser=Czecoinrpc
+rpcuser=PayConrpc
 rpcpassword=%s
 (není potřeba si ho pamatovat)
 rpcuser a rpcpassword NESMÍ být stejné.
 Pokud konfigurační soubor ještě neexistuje, vytvoř ho tak, aby ho mohl číst pouze vlastník.
 Je také doporučeno si nastavit alertnotify, abys byl upozorněn na případné problémy;
-například: alertnotify=echo %%s | mail -s &quot;Czecoin Alert&quot; admin@foo.com
+například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -3155,12 +3155,12 @@ například: alertnotify=echo %%s | mail -s &quot;Czecoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Cannot obtain a lock on data directory %s.  Czecoin is probably already running.</source>
-        <translation>Nedaří se mi získat zámek na datový adresář %s. Czecoin pravděpodobně už jednou běží.</translation>
+        <source>Cannot obtain a lock on data directory %s.  PayCon is probably already running.</source>
+        <translation>Nedaří se mi získat zámek na datový adresář %s. PayCon pravděpodobně už jednou běží.</translation>
     </message>
     <message>
         <location line="-98"/>
-        <source>Czecoin</source>
+        <source>PayCon</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3195,13 +3195,13 @@ například: alertnotify=echo %%s | mail -s &quot;Czecoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+4"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Czecoin</source>
-        <translation>Chyba při načítání wallet.dat: peněženka vyžaduje novější verzi Czecoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of PayCon</source>
+        <translation>Chyba při načítání wallet.dat: peněženka vyžaduje novější verzi PayCon</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Wallet needed to be rewritten: restart Czecoin to complete</source>
-        <translation>Soubor s peněženkou potřeboval přepsat: restartuj Czecoin, aby se operace dokončila</translation>
+        <source>Wallet needed to be rewritten: restart PayCon to complete</source>
+        <translation>Soubor s peněženkou potřeboval přepsat: restartuj PayCon, aby se operace dokončila</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3270,8 +3270,8 @@ například: alertnotify=echo %%s | mail -s &quot;Czecoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+122"/>
-        <source>Unable to bind to %s on this computer. Czecoin is probably already running.</source>
-        <translation>Nedaří se mi připojit na %s na tomhle počítači. Czecoin už pravděpodobně jednou běží.</translation>
+        <source>Unable to bind to %s on this computer. PayCon is probably already running.</source>
+        <translation>Nedaří se mi připojit na %s na tomhle počítači. PayCon už pravděpodobně jednou běží.</translation>
     </message>
     <message>
         <location line="-97"/>

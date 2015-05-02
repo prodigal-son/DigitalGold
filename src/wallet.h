@@ -83,11 +83,21 @@ private:
     int nWalletMaxVersion;
 
 public:
+	bool MintableCoins();
     mutable CCriticalSection cs_wallet;
 
     bool fFileBacked;
     std::string strWalletFile;
-
+	bool fStakeForCharity;
+	int nStakeForCharityPercent;
+	CBitcoinAddress StakeForCharityAddress;
+	uint64_t nStakeSplitThreshold;
+	int64_t nAmountSelected;
+	std::string strBestAddress;
+	bool fCombine;
+	bool fSplitBlock;
+	unsigned int nHashDrift;
+	
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
 
@@ -95,6 +105,14 @@ public:
     typedef std::map<unsigned int, CMasterKey> MasterKeyMap;
     MasterKeyMap mapMasterKeys;
     unsigned int nMasterKeyMaxID;
+	
+	//MultiSend
+	std::vector<std::pair<std::string, int> > vMultiSend;
+	bool fMultiSend;
+	bool fMultiSendNotify;
+	std::string strMultiSendChangeAddress;
+	int nLastMultiSendHeight;
+	std::vector<std::string> vDisabledAddresses;
 
     CWallet()
     {
@@ -104,6 +122,23 @@ public:
         nMasterKeyMaxID = 0;
         pwalletdbEncryption = NULL;
         nOrderPosNext = 0;
+		fStakeForCharity = false;
+        nStakeForCharityPercent = 0;
+        StakeForCharityAddress = "";
+		nStakeSplitThreshold = 500;
+		nAmountSelected = 0;
+		strBestAddress = "";
+		fCombine = false;
+		fSplitBlock =  false;
+		nHashDrift = 60;
+		
+		//MultiSend
+		vMultiSend.clear();
+		fMultiSend = false;
+		fMultiSendNotify = false;
+		strMultiSendChangeAddress = "";
+		nLastMultiSendHeight = 0;
+		vDisabledAddresses.clear();
     }
     CWallet(std::string strWalletFileIn)
     {
@@ -114,6 +149,23 @@ public:
         nMasterKeyMaxID = 0;
         pwalletdbEncryption = NULL;
         nOrderPosNext = 0;
+		fStakeForCharity = false;
+        nStakeForCharityPercent = 0;
+        StakeForCharityAddress = "";
+		nStakeSplitThreshold = 500;
+		nAmountSelected = 0;
+		strBestAddress = "";
+		fCombine = false;
+		fSplitBlock =  false;
+		nHashDrift = 60;
+		
+		//MultiSend
+		vMultiSend.clear();
+		fMultiSend = false;
+		fMultiSendNotify = false;
+		strMultiSendChangeAddress = "";
+		nLastMultiSendHeight = 0;
+		vDisabledAddresses.clear();
     }
 
     std::map<uint256, CWalletTx> mapWallet;
@@ -131,6 +183,7 @@ public:
     void AvailableCoinsMinConf(std::vector<COutput>& vCoins, int nConf) const;
     void AvailableCoins(std::vector<COutput>& vCoins, bool fOnlyConfirmed=true, const CCoinControl *coinControl=NULL) const;
     bool SelectCoinsMinConf(int64_t nTargetValue, unsigned int nSpendTime, int nConfMine, int nConfTheirs, std::vector<COutput> vCoins, std::set<std::pair<const CWalletTx*,unsigned int> >& setCoinsRet, int64_t& nValueRet) const;
+    bool SelectCoinsMinConfByCoinAge(int64_t nTargetValue, unsigned int nSpendTime, int nConfMine, int nConfTheirs, std::vector<COutput> vCoins, std::set<std::pair<const CWalletTx*,unsigned int> >& setCoinsRet, int64_t& nValueRet) const;
     // keystore implementation
     // Generate a new key
     CPubKey GenerateNewKey();
@@ -185,15 +238,18 @@ public:
     int64_t GetImmatureBalance() const;
     int64_t GetStake() const;
     int64_t GetNewMint() const;
-    bool CreateTransaction(const std::vector<std::pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL);
+	bool StakeForCharity();
+	bool MultiSend();
+    bool CreateTransaction(const std::vector<std::pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, int nSplitBlock, const CCoinControl *coinControl=NULL);
     bool CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL);
     bool CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey);
 
     bool GetStakeWeight(const CKeyStore& keystore, uint64_t& nMinWeight, uint64_t& nMaxWeight, uint64_t& nWeight);
+	bool GetStakeWeight2(const CKeyStore& keystore, uint64_t& nMinWeight, uint64_t& nMaxWeight, uint64_t& nWeight);
     bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, int64_t nFees, CTransaction& txNew, CKey& key);
-
-    std::string SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, bool fAskFee=false);
-    std::string SendMoneyToDestination(const CTxDestination &address, int64_t nValue, CWalletTx& wtxNew, bool fAskFee=false);
+	bool GetStakeWeightFromValue(const int64_t nTime, const int64_t nValue, uint64_t& nWeight);
+    std::string SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, bool fAskFee=false, bool fAllowStakeForCharity=false);
+    std::string SendMoneyToDestination(const CTxDestination &address, int64_t nValue, CWalletTx& wtxNew, bool fAskFee=false, bool fAllowStakeForCharity=false);
 
     bool NewKeyPool();
     bool TopUpKeyPool(unsigned int nSize = 0);
@@ -311,7 +367,7 @@ public:
     // get the current wallet format (the oldest client version guaranteed to understand this wallet)
     int GetVersion() { return nWalletVersion; }
 
-    void FixSpentCoins(int& nMismatchSpent, int64_t& nBalanceInQuestion, bool fCheckOnly = false);
+    void FixSpentCoins(int& nMismatchSpent, int64_t& nBalanceInQuestion, int& nOrphansFound, bool fCheckOnly = false);
     void DisableTransaction(const CTransaction &tx);
 
     /** Address book entry changed.

@@ -91,6 +91,7 @@ private:
     QAction *signMessageAction;
     QAction *verifyMessageAction;
     QAction *aboutAction;
+	QAction *charityAction;
     QAction *receiveCoinsAction;
     QAction *optionsAction;
     QAction *toggleHideAction;
@@ -100,8 +101,12 @@ private:
     QAction *changePassphraseAction;
     QAction *unlockWalletAction;
     QAction *lockWalletAction;
+	QAction *checkWalletAction;
+	QAction *repairWalletAction;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
+	QAction *themeDefaultAction;
+	QAction *themeCustomAction;
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
@@ -109,6 +114,14 @@ private:
     RPCConsole *rpcConsole;
 
     QMovie *syncIconMovie;
+	
+	/* Themes support */
+    QString selectedTheme;
+    QStringList themesList;
+    // Path to directory where all themes are (usable for some common images?...)
+    QString themesDir;
+    QAction *customActions[100];
+    /* Themes support */
 
     /** Create the main UI actions. */
     void createActions();
@@ -170,6 +183,8 @@ private slots:
     void optionsClicked();
     /** Show about dialog */
     void aboutClicked();
+	/** Show Stake For Charity Dialog */
+    void charityClicked();
 #ifndef Q_OS_MAC
     /** Handle tray icon clicked */
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
@@ -181,6 +196,10 @@ private slots:
     void incomingTransaction(const QModelIndex & parent, int start, int end);
     /** Encrypt the wallet */
     void encryptWallet(bool status);
+	/** Check the wallet */
+	void checkWallet();
+	/** Repair the wallet */
+	void repairWallet();
     /** Backup the wallet */
     void backupWallet();
     /** Change encrypted wallet passphrase */
@@ -196,6 +215,12 @@ private slots:
     void toggleHidden();
 
     void updateStakingIcon();
+	
+	/** Load external QSS stylesheet */
+    void changeTheme(QString theme);
+    void loadTheme(QString theme);
+    void listThemes(QStringList& themes);
+    void keyPressEvent(QKeyEvent * e);
 };
 
 #endif

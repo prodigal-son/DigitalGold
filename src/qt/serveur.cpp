@@ -54,13 +54,13 @@ void Serveur::connected()
 
 	sendData("USER "+pseudo+" localhost "+serveur+" :"+pseudo);
     sendData("NICK "+pseudo);
-    affichage->append("Connected to irc.freenode.net");
+    affichage->append("Connected to chat.freenode.net");
 
 }
 
 void Serveur::joins()
 {
-    join("#gimpcoinirc");
+    join("#poloniex");
 }
 
 void Serveur::readServeur()

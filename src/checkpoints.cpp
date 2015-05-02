@@ -33,9 +33,9 @@ namespace Checkpoints
         (     7201, uint256("0xb32f49bf3a612184f6543c71e3f2cb632e3100fae61f6528be3fb6b10addbfd8"))
         (     7457, uint256("0x0000000000c1320cc00b960bca79f6256998234c0226ff0131fd4315107e0043"))
         (     7540, uint256("0xc27d16dcc3c4d624cb5b96d699a492af3ba074830455835ae23a0d473b6ab03e"))
-        
-     
-        
+        (     38031, uint256("0x99f3e76c08b53ec25ad038c8d5787afde6a92ca483543b8abe6bf450f7521d66"))
+        (     137667, uint256("0x1fae1d360698ef33e8bcba4a984772de05696daa19137837d4680ec715992e11"))
+        (     142029, uint256("0xbc9b20d4c8cfe0cbcc84109607df17177f240dc8f315e0305f9828cede53de0f"))
     ;
 
     // TestNet has no checkpoints
@@ -358,7 +358,7 @@ namespace Checkpoints
 }
 
 // PayCon: sync-checkpoint master key
-const std::string CSyncCheckpoint::strMasterPubKey = "GcjDL5rh3xjJ2eg4nmkCE4GxtN2Rw2gcdT";
+const std::string CSyncCheckpoint::strMasterPubKey = "04b97a46e34da8cfe22270fae9fc59343290e59f9ee0f1f7ad7a33ba31e5195aefb59eab10a3b6774b4d3aaf96660cb9902cec017582dfd62be4ad68f9d94a27f1";
 
 std::string CSyncCheckpoint::strMasterPrivKey = "";
 

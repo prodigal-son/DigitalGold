@@ -11,6 +11,7 @@
 #include "signverifymessagedialog.h"
 #include "optionsdialog.h"
 #include "aboutdialog.h"
+#include "charitydialog.h"
 #include "clientmodel.h"
 #include "walletmodel.h"
 #include "editaddressdialog.h"
@@ -59,6 +60,10 @@
 #include <QDragEnterEvent>
 #include <QUrl>
 #include <QStyle>
+#include <QFile>
+#include <QTextStream>
+#include <QSignalMapper>
+#include <QSettings>
 
 #include <iostream>
 
@@ -80,7 +85,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     notificator(0),
     rpcConsole(0)
 {
-    resize(850, 550);
+    setMinimumSize(850,600);
+            resize(850,600);
     setWindowTitle(tr("PayCon") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/bitcoin"));
@@ -92,6 +98,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Accept D&D of URIs
     setAcceptDrops(true);
 
+	/* zeewolf: Hot swappable wallet themes */
+    // Discover themes
+    listThemes(themesList);
+    /* /zeewolf: Hot swappable wallet themes */
+	
     // Create actions for the toolbar, menu bar and tray/dock icon
     createActions();
 
@@ -103,7 +114,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     // Create the tray icon (or setup the dock icon)
     createTrayIcon();
-
+	
     // Create tabs
     overviewPage = new OverviewPage();
 	statisticsPage = new StatisticsPage(this);
@@ -163,7 +174,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     {
         QTimer *timerStakingIcon = new QTimer(labelStakingIcon);
         connect(timerStakingIcon, SIGNAL(timeout()), this, SLOT(updateStakingIcon()));
-        timerStakingIcon->start(30 * 1000);
+        timerStakingIcon->start(5 * 1000);
         updateStakingIcon();
     }
 
@@ -231,8 +242,8 @@ void BitcoinGUI::createActions()
     statisticsAction->setCheckable(true);
     tabGroup->addAction(statisticsAction);
 
-    chatAction = new QAction(QIcon(":/icons/social"), tr("&Social"), this);
-    chatAction->setToolTip(tr("View chat"));
+    chatAction = new QAction(QIcon(":/icons/social"), tr("&Social/Exchange"), this);
+    chatAction->setToolTip(tr("View chat, links to social media and exchanges"));
     chatAction->setCheckable(true);
     tabGroup->addAction(chatAction);
 
@@ -287,6 +298,11 @@ void BitcoinGUI::createActions()
     aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About PayCon"), this);
     aboutAction->setToolTip(tr("Show information about PayCon"));
     aboutAction->setMenuRole(QAction::AboutRole);
+	
+	charityAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Stake For Charity"), this);
+    charityAction->setToolTip(tr("Enable Stake For Charity"));
+    charityAction->setMenuRole(QAction::AboutRole);
+	
     aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
     aboutQtAction->setToolTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
@@ -307,7 +323,10 @@ void BitcoinGUI::createActions()
     lockWalletAction->setToolTip(tr("Lock wallet"));
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
-
+	checkWalletAction = new QAction(QIcon(":/icons/transaction_confirmed"), tr("&Check Wallet..."), this);
+	checkWalletAction->setStatusTip(tr("Check wallet integrity and report findings"));
+	repairWalletAction = new QAction(QIcon(":/icons/options"), tr("&Repair Wallet..."), this);
+	repairWalletAction->setStatusTip(tr("Fix wallet integrity and remove orphans"));
     exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
@@ -315,16 +334,41 @@ void BitcoinGUI::createActions()
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
+	connect(charityAction, SIGNAL(triggered()), this, SLOT(charityClicked()));
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
     connect(toggleHideAction, SIGNAL(triggered()), this, SLOT(toggleHidden()));
     connect(encryptWalletAction, SIGNAL(triggered(bool)), this, SLOT(encryptWallet(bool)));
+	connect(checkWalletAction, SIGNAL(triggered()), this, SLOT(checkWallet()));
+	connect(repairWalletAction, SIGNAL(triggered()), this, SLOT(repairWallet()));
     connect(backupWalletAction, SIGNAL(triggered()), this, SLOT(backupWallet()));
     connect(changePassphraseAction, SIGNAL(triggered()), this, SLOT(changePassphrase()));
     connect(unlockWalletAction, SIGNAL(triggered()), this, SLOT(unlockWallet()));
     connect(lockWalletAction, SIGNAL(triggered()), this, SLOT(lockWallet()));
     connect(signMessageAction, SIGNAL(triggered()), this, SLOT(gotoSignMessageTab()));
     connect(verifyMessageAction, SIGNAL(triggered()), this, SLOT(gotoVerifyMessageTab()));
+	
+	/* zeewolf: Hot swappable wallet themes */
+    if (themesList.count()>0)
+    {
+        QSignalMapper* signalMapper = new QSignalMapper (this) ;
+        //QActionGroup* menuActionGroup = new QActionGroup( this );
+        //menuActionGroup->setExclusive(true);
+
+        // Add custom themes (themes directory)
+        for( int i=0; i < themesList.count(); i++ )
+        {
+            QString theme=themesList[i];
+            customActions[i] = new QAction(QIcon(":/icons/options"), theme, this);
+            customActions[i]->setToolTip(QString("Switch to " + theme + " theme"));
+            customActions[i]->setStatusTip(QString("Switch to " + theme + " theme"));
+            //customActions[i]->setActionGroup(menuActionGroup);
+            signalMapper->setMapping(customActions[i], theme);
+            connect(customActions[i], SIGNAL(triggered()), signalMapper, SLOT (map()));
+        }
+        connect(signalMapper, SIGNAL(mapped(QString)), this, SLOT(changeTheme(QString)));
+    }
+    /* zeewolf: Hot swappable wallet themes */
 }
 
 void BitcoinGUI::createMenuBar()
@@ -344,15 +388,24 @@ void BitcoinGUI::createMenuBar()
     file->addAction(signMessageAction);
     file->addAction(verifyMessageAction);
     file->addSeparator();
+    for (int i = 0; i < themesList.count(); i++) {
+        file->addAction(customActions[i]);
+    }
+    file->addSeparator();
     file->addAction(quitAction);
 
-    QMenu *settings = appMenuBar->addMenu(tr("&Settings"));
+    QMenu *settings = appMenuBar->addMenu(tr("&Tools"));
     settings->addAction(encryptWalletAction);
     settings->addAction(changePassphraseAction);
     settings->addAction(unlockWalletAction);
     settings->addAction(lockWalletAction);
+	settings->addAction(checkWalletAction);
+	settings->addAction(repairWalletAction);
+	settings->addAction(charityAction);
     settings->addSeparator();
     settings->addAction(optionsAction);
+	
+    /* zeewolf: Hot swappable wallet themes */
 
     QMenu *help = appMenuBar->addMenu(tr("&Help"));
     help->addAction(openRPCConsoleAction);
@@ -513,6 +566,13 @@ void BitcoinGUI::optionsClicked()
 void BitcoinGUI::aboutClicked()
 {
     AboutDialog dlg;
+    dlg.setModel(clientModel);
+    dlg.exec();
+}
+
+void BitcoinGUI::charityClicked()
+{
+    charityDialog dlg;
     dlg.setModel(clientModel);
     dlg.exec();
 }
@@ -911,6 +971,65 @@ void BitcoinGUI::encryptWallet(bool status)
     setEncryptionStatus(walletModel->getEncryptionStatus());
 }
 
+void BitcoinGUI::checkWallet()
+{
+
+    int nMismatchSpent;
+    int64_t nBalanceInQuestion;
+    int nOrphansFound;
+
+    if(!walletModel)
+        return;
+
+    // Check the wallet as requested by user
+    walletModel->checkWallet(nMismatchSpent, nBalanceInQuestion, nOrphansFound);
+
+    if (nMismatchSpent == 0 && nOrphansFound == 0)
+        notificator->notify(Notificator::Warning,
+		tr("Check Wallet Information"),
+                tr("Wallet passed integrity test!\n"
+                   "Nothing found to fix."));
+  else
+		notificator->notify(Notificator::Warning, //tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid PayCon address or malformed URI parameters."));
+			tr("Check Wallet Information"), tr("Wallet failed integrity test!\n\n"
+                  "Mismatched coin(s) found: %1.\n"
+                  "Amount in question: %2.\n"
+                  "Orphans found: %3.\n\n"
+                  "Please backup wallet and run repair wallet.\n")
+						.arg(nMismatchSpent)
+                        .arg(BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(), nBalanceInQuestion,true))
+                        .arg(nOrphansFound));
+}
+
+void BitcoinGUI::repairWallet()
+{
+    int nMismatchSpent;
+    int64_t nBalanceInQuestion;
+    int nOrphansFound;
+
+    if(!walletModel)
+        return;
+
+    // Repair the wallet as requested by user
+    walletModel->repairWallet(nMismatchSpent, nBalanceInQuestion, nOrphansFound);
+
+    if (nMismatchSpent == 0 && nOrphansFound == 0)
+       notificator->notify(Notificator::Warning,
+	   tr("Repair Wallet Information"),
+               tr("Wallet passed integrity test!\n"
+                  "Nothing found to fix."));
+    else
+		notificator->notify(Notificator::Warning,
+		tr("Repair Wallet Information"),
+               tr("Wallet failed integrity test and has been repaired!\n"
+                  "Mismatched coin(s) found: %1\n"
+                  "Amount affected by repair: %2\n"
+                  "Orphans removed: %3\n")
+                        .arg(nMismatchSpent)
+                        .arg(BitcoinUnits::formatWithUnit(walletModel->getOptionsModel()->getDisplayUnit(), nBalanceInQuestion,true))
+                        .arg(nOrphansFound));
+}
+
 void BitcoinGUI::backupWallet()
 {
     QString saveDir = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
@@ -983,12 +1102,12 @@ void BitcoinGUI::updateStakingIcon()
 {
     uint64_t nMinWeight = 0, nMaxWeight = 0, nWeight = 0;
     if (pwalletMain)
-        pwalletMain->GetStakeWeight(*pwalletMain, nMinWeight, nMaxWeight, nWeight);
+        pwalletMain->GetStakeWeight2(*pwalletMain, nMinWeight, nMaxWeight, nWeight);
 
     if (nLastCoinStakeSearchInterval && nWeight)
     {
         uint64_t nNetworkWeight = GetPoSKernelPS();
-        unsigned nEstimateTime = nTargetSpacing * nNetworkWeight / nWeight;
+        unsigned nEstimateTime = nTargetSpacing * nNetworkWeight / nWeight / 10;
 
         QString text;
         if (nEstimateTime < 60)
@@ -1013,16 +1132,166 @@ void BitcoinGUI::updateStakingIcon()
     }
     else
     {
+        uint64_t nNetworkWeight = GetPoSKernelPS();
+
         labelStakingIcon->setPixmap(QIcon(":/icons/staking_off").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
         if (pwalletMain && pwalletMain->IsLocked())
-            labelStakingIcon->setToolTip(tr("Not staking because wallet is locked"));
+            labelStakingIcon->setToolTip(tr("Not staking because wallet is locked.<br>Network weight is %1").arg(nNetworkWeight));
         else if (vNodes.empty())
-            labelStakingIcon->setToolTip(tr("Not staking because wallet is offline"));
+            labelStakingIcon->setToolTip(tr("Not staking because wallet is offline.<br>Network weight is %1").arg(nNetworkWeight));
         else if (IsInitialBlockDownload())
-            labelStakingIcon->setToolTip(tr("Not staking because wallet is syncing"));
+            labelStakingIcon->setToolTip(tr("Not staking because wallet is syncing.<br>Network weight is %1").arg(nNetworkWeight));
         else if (!nWeight)
-            labelStakingIcon->setToolTip(tr("Not staking because you don't have mature coins"));
+            labelStakingIcon->setToolTip(tr("Not staking because you don't have mature coins.<br>Network weight is %1").arg(nNetworkWeight));
         else
             labelStakingIcon->setToolTip(tr("Not staking"));
     }
 }
+
+/* zeewolf: Hot swappable wallet themes */
+void BitcoinGUI::changeTheme(QString theme)
+{
+    // load Default theme first (if present) to apply default styles
+    loadTheme("Default");
+
+    if (theme != "Default") {
+        loadTheme(theme);
+    }
+}
+
+void BitcoinGUI::loadTheme(QString theme)
+{
+    // template variables : key => value
+    QMap<QString, QString> variables;
+
+    // path to selected theme dir - for simpler use, just use $theme-dir in qss : url($theme-dir/image.png)
+    QString themeDir = themesDir + "/" + theme;
+
+    // if theme selected
+    if (theme != "") {
+        QFile qss(themeDir + "/styles.qss");
+        // open qss
+        if (qss.open(QFile::ReadOnly))
+        {
+            // read stylesheet
+            QString styleSheet = QString(qss.readAll());
+            QTextStream in(&qss);
+            // rewind
+            in.seek(0);
+            bool readingVariables = false;
+
+            // seek for variables
+            while(!in.atEnd()) {
+                QString line = in.readLine();
+                // variables starts here
+                if (line == "/** [VARS]") {
+                    readingVariables = true;
+                }
+                // variables end here
+                if (line == "[/VARS] */") {
+                    break;
+                }
+                // if we're reading variables - store them in a map
+                if (readingVariables == true) {
+                    // skip empty lines
+                    if (line.length()>3 && line.contains('=')) {
+                        QStringList fields = line.split("=");
+                        QString var = fields.at(0).trimmed();
+                        QString value = fields.at(1).trimmed();
+                        variables[var] = value;
+                    }
+                }
+            }
+
+            // replace path to themes dir
+            styleSheet.replace("$theme-dir", themeDir);
+            styleSheet.replace("$themes-dir", themesDir);
+
+            QMapIterator<QString, QString> variable(variables);
+            variable.toBack();
+            // iterate backwards to prevent overwriting variables
+            while (variable.hasPrevious()) {
+                variable.previous();
+                // replace variables
+                styleSheet.replace(variable.key(), variable.value());
+            }
+
+            qss.close();
+
+            // Apply the result qss file to Qt
+
+            /*if (styleSheet.contains("$", Qt::CaseInsensitive)) {
+                QRegExp rx("(\\$[-\\w]+)");
+                rx.indexIn(styleSheet);
+                QString captured = rx.cap(1);
+                QMessageBox::warning(this, "Theme syntax error", "You have used variable that is not declared " + captured + ". Theme will not be applied.");
+            } else {*/
+                qApp->setStyleSheet(styleSheet);
+            /*}*/
+        }
+    } else {
+        // If not theme name given - clear styles
+        qApp->setStyleSheet(QString(""));
+    }
+
+    // set selected theme and store it in registry
+    selectedTheme = theme;
+    QSettings settings;
+    settings.setValue("Template", selectedTheme);
+}
+
+void BitcoinGUI::listThemes(QStringList& themes)
+{
+    QDir currentDir(qApp->applicationDirPath());
+    // try app dir
+    if (currentDir.cd("themes")) {
+    // got it! (win package)
+    } else if (currentDir.cd("src/qt/res/themes")) {
+        // got it
+    } else if (currentDir.cd("../src/qt/res/themes")) {
+        // got it
+    } else {
+        // themes not found :(
+        return;
+    }
+    themesDir = currentDir.path();
+    currentDir.setFilter(QDir::Dirs);
+    QStringList entries = currentDir.entryList();
+    for( QStringList::ConstIterator entry=entries.begin(); entry!=entries.end(); ++entry )
+    {
+        QString themeName=*entry;
+        if(themeName != tr(".") && themeName != tr(".."))
+        {
+            themes.append(themeName);
+        }
+    }
+
+    // get selected theme from registry (if any)
+    QSettings settings;
+    selectedTheme = settings.value("Template").toString();
+    // or use default theme - Blackwood
+    if (selectedTheme=="") {
+        selectedTheme = "Default";
+    }
+    // load it!
+    loadTheme(selectedTheme);
+}
+
+void BitcoinGUI::keyPressEvent(QKeyEvent * e)
+{
+    switch (e->type())
+     {
+       case QEvent::KeyPress:
+         // $ key
+         if (e->key() == 36) {
+             // dev feature: key reloads selected theme
+             loadTheme(selectedTheme);
+         }
+         break;
+       default:
+         break;
+     }
+
+}
+
+/* /zeewolf: Hot swappable wallet themes */

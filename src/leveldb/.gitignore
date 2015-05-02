@@ -11,5 +11,4 @@ Release
 Debug
 Benchmark
 vs2010.*
-libleveldb.a
-libmemenv.a
+!Makefile

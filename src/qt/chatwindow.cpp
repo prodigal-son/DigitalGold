@@ -24,7 +24,10 @@ ChatWindow::ChatWindow(QWidget *parent)
     setFixedSize(760,600);
     ui->splitter->hide();
 
+	connect(ui->buttonConnect, SIGNAL(clicked()), this, SLOT(connecte()));
 
+	connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
+	connect(ui->actionCloseTab, SIGNAL(triggered()), this, SLOT(closeTab()));
 
 	connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(sendCommande()));
 
@@ -145,16 +148,16 @@ void ChatWindow::connecte()
     ui->hide3->hide();
 
     ui->tab->addTab(textEdit,"Console/PM");
-    ui->tab->setTabToolTip(ui->tab->count()-1,"irc.freenode.net");
+    ui->tab->setTabToolTip(ui->tab->count()-1,"chat.freenode.net");
     // current tab is now the last, therefore remove all but the last
     for (int i = ui->tab->count(); i > 1; --i) {
        ui->tab->removeTab(0);
     }
 
-    serveurs.insert("irc.freenode.net",serveur);
+    serveurs.insert("chat.freenode.net",serveur);
 
-	
-    serveur->serveur="irc.freenode.net";
+	serveur->pseudo=ui->editPseudo->text();
+    serveur->serveur="chat.freenode.net";
     serveur->port=6667;
 	serveur->affichage=textEdit;
     serveur->tab=ui->tab;
@@ -166,7 +169,7 @@ void ChatWindow::connecte()
 	connect(serveur, SIGNAL(joinTab()),this, SLOT(tabJoined() ));
 	connect(serveur, SIGNAL(tabJoined()),this, SLOT(tabJoining() ));
 
-    serveur->connectToHost("irc.freenode.net",6667);
+    serveur->connectToHost("chat.freenode.net",6667);
 
 	ui->tab->setCurrentIndex(ui->tab->count()-1);
 }

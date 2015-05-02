@@ -418,6 +418,34 @@ ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue,
         {
             ssValue >> pwallet->nOrderPosNext;
         }
+		else if (strType == "stakeSplitThreshold")
+		{
+            ssValue >> pwallet->nStakeSplitThreshold;
+		}
+		else if (strType == "multisend") //presstab HyperStake
+		{
+			unsigned int i;
+			ssKey >> i;
+			std::pair<std::string, int> pMultiSend;
+			ssValue >> pMultiSend;
+			if(CBitcoinAddress(pMultiSend.first).IsValid())
+			{
+				pwallet->vMultiSend.push_back(pMultiSend);
+			}
+		}
+		else if(strType == "msettings")//presstab HyperStake
+		{
+		   std::pair<bool, int> pSettings;
+		   ssValue >> pSettings;
+		   pwallet->fMultiSend = pSettings.first;
+		   pwallet->nLastMultiSendHeight = pSettings.second;
+		}
+		else if(strType == "mdisabled")//presstab HyperStake
+		{
+		   std::string strDisabledAddress;
+		   ssValue >> strDisabledAddress;
+		   pwallet->vDisabledAddresses.push_back(strDisabledAddress);
+		}
     } catch (...)
     {
         return false;

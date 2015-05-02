@@ -379,7 +379,7 @@
         <height>41</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayoutPanel" stretch="0,0,0,0,0">
+      <layout class="QHBoxLayout" name="horizontalLayoutPanel" stretch="0,0,0,0,0,0,0">
        <property name="spacing">
         <number>14</number>
        </property>
@@ -392,7 +392,23 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>(un)select all</string>
+          <string>clear selections</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioListMode">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>List mode</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -407,21 +423,34 @@
          <property name="text">
           <string>Tree mode</string>
          </property>
-         <property name="checked">
-          <bool>true</bool>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButtonCustomCC">
+         <property name="text">
+          <string>Select Coins</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioListMode">
+        <widget class="QComboBox" name="QComboBoxFilterCoins"/>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEditCustomCC">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="text">
-          <string>List mode</string>
+         <property name="baseSize">
+          <size>
+           <width>50</width>
+           <height>0</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -451,7 +480,7 @@
       <bool>false</bool>
      </property>
      <property name="columnCount">
-      <number>11</number>
+      <number>15</number>
      </property>
      <attribute name="headerShowSortIndicator" stdset="0">
       <bool>true</bool>
@@ -461,40 +490,58 @@
      </attribute>
      <column>
       <property name="text">
-       <string/>
+       <string>Select</string> /** checkbox **/
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Amount</string>
+       <string>Amount</string>  /** amount **/
       </property>
      </column>
-     <column>
-      <property name="text">
-       <string>Label</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Address</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Date</string>
-      </property>
-     </column>
+
      <column>
       <property name="text">
        <string>Confirmations</string>
       </property>
       <property name="toolTip">
-       <string>Confirmed</string>
+       <string>Confirmed</string> /** confs **/
+      </property>
+     </column>
+
+     <column>
+      <property name="text">
+       <string>Age</string>  /** age **/
+      </property>
+     </column>
+	 
+	 <column>
+      <property name="text">
+       <string>Weight</string>  /** weight **/
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Priority</string>
+       <string>Label</string> /** label **/
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Address</string> /** address **/
+      </property>
+     </column> 
+     <column>
+      <property name="text">
+       <string>Date</string> /** date **/
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Priority</string> /** priority **/
+      </property>
+     </column>
+	 <column>
+      <property name="text"> /** age int 64 invisible **/
+       <string/>
       </property>
      </column>
      <column>
