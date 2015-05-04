@@ -2725,7 +2725,7 @@ bool LoadBlockIndex(bool fAllowNew)
             return error("LoadBlockIndex() : failed to init sync checkpoint");
     }
 
-    string strPubKey = "04b97a46e34da8cfe22270fae9fc59343290e59f9ee0f1f7ad7a33ba31e5195aefb59eab10a3b6774b4d3aaf96660cb9902cec017582dfd62be4ad68f9d94a27f1";
+    string strPubKey = "";
 
     // if checkpoint master key changed must reset sync-checkpoint
     if (!txdb.ReadCheckpointPubKey(strPubKey) || strPubKey != CSyncCheckpoint::strMasterPubKey)
