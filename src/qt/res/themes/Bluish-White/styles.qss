@@ -128,7 +128,7 @@ QToolButton:disabled {
 	border:2px dotted #aaa;
 }
 #qt_toolbar_ext_button {
-	qproperty-icon:url($themes-dir/Blue White/down1.png);
+	qproperty-icon:url($themes-dir/Bluish-White/down1.png);
 	min-width:22px;
 	max-height:20px;
 	border:none;
@@ -219,17 +219,17 @@ QLineEdit:disabled, QSpinBox:disabled, QDoubleSpinBox:disabled, QDateTimeEdit:di
 	border:1px dotted rgba(128,128,128,0.5);
 }
 QSpinBox::down-button, QDoubleSpinBox::down-button {
-	image:url($themes-dir/Blue White/down2.png);
+	image:url($themes-dir/Bluish-White/down2.png);
 }
 QSpinBox::up-button, QDoubleSpinBox::up-button {
-	image:url($themes-dir/Blue White/up2.png);
+	image:url($themes-dir/Bluish-White/up2.png);
 }
 QDateTimeEdit::down-arrow {
 
-	image:url($themes-dir/Blue White/calendar.png);
+	image:url($themes-dir/Bluish-White/calendar.png);
 }
 QDateTimeEdit::down-arrow:disabled {
-	image:url($themes-dir/Blue White/calendar-dis.png);
+	image:url($themes-dir/Bluish-White/calendar-dis.png);
 }
 QDateTimeEdit::drop-down {
 	border:0px;
@@ -317,7 +317,7 @@ QCheckBox::indicator, QRadioButton::indicator {
 }
 QCheckBox::indicator:checked, QRadioButton::indicator:checked  {
 	background:rgba(67,88,110,1);
-	image: url($themes-dir/Blue White/cb-checked.png);
+	image: url($themes-dir/Bluish-White/cb-checked.png);
 }
 /* ComboBox */
 QComboBox {
@@ -352,13 +352,13 @@ QComboBox QListView {
 	border-radius:4px;
 }
 QComboBox::down-arrow {
-	image:url($themes-dir/Blue White/down2.png);
+	image:url($themes-dir/Bluish-White/down2.png);
 }
 QComboBox::down-arrow:on {
-	image:url($themes-dir/Blue White/up2.png);
+	image:url($themes-dir/Bluish-White/up2.png);
 }
 QComboBox::down-arrow:disabled {
-	image:url($themes-dir/Blue White/down2-dis.png);
+	image:url($themes-dir/Bluish-White/down2-dis.png);
 }
 /* TabBar */
 QTabWidget, #OptionsDialog{
@@ -474,7 +474,7 @@ QScrollBar::handle:vertical {
 }
 QScrollBar::sub-line:vertical {
 	background:rgba(67,88,110,0.6);
-	image:url($themes-dir/Blue White/up2-dis.png);
+	image:url($themes-dir/Bluish-White/up2-dis.png);
 	border-radius:2px;
 	height:18px;
 	width:18px;
@@ -482,7 +482,7 @@ QScrollBar::sub-line:vertical {
 	subcontrol-origin:margin;
 }
 QScrollBar::sub-line:vertical:hover,QScrollBar::sub-line:vertical:on {
-	image:url($themes-dir/Blue White/up2.png);
+	image:url($themes-dir/Bluish-White/up2.png);
 	height:18px;
 	width:18px;
 	subcontrol-position:top;
@@ -490,7 +490,7 @@ QScrollBar::sub-line:vertical:hover,QScrollBar::sub-line:vertical:on {
 }
 QScrollBar::add-line:vertical {
 	background:rgba(67,88,110,0.6);
-	image:url($themes-dir/Blue White/down2-dis.png);
+	image:url($themes-dir/Bluish-White/down2-dis.png);
 	border-radius:2px;
 	height:18px;
 	width:18px;
@@ -498,7 +498,7 @@ QScrollBar::add-line:vertical {
 	subcontrol-origin:margin;
 }
 QScrollBar::add-line:vertical:hover, QScrollBar::add-line:vertical:on {
-	image:url($themes-dir/Blue White/down2.png);
+	image:url($themes-dir/Bluish-White/down2.png);
 	height:18px;
 	width:18px;
 	subcontrol-position:bottom;
@@ -526,7 +526,7 @@ QScrollBar::handle:horizontal {
 }
 QScrollBar::sub-line:horizontal {
 	background:rgba(67,88,110,0.6);
-	image:url($themes-dir/Blue White/left1-dis.png);
+	image:url($themes-dir/Bluish-White/left1-dis.png);
 	border-radius:2px;
 	height:18px;
 	width:18px;
@@ -534,7 +534,7 @@ QScrollBar::sub-line:horizontal {
 	subcontrol-origin:margin;
 }
 QScrollBar::sub-line:horizontal:hover,QScrollBar::sub-line:horizontal:on {
-	image:url($themes-dir/Blue White/left1.png);
+	image:url($themes-dir/Bluish-White/left1.png);
 	height:18px;
 	width:18px;
 	subcontrol-position:left;
@@ -542,7 +542,7 @@ QScrollBar::sub-line:horizontal:hover,QScrollBar::sub-line:horizontal:on {
 }
 QScrollBar::add-line:horizontal {
 	background:rgba(67,88,110,0.6);
-	image:url($themes-dir/Blue White/right1-dis.png);
+	image:url($themes-dir/Bluish-White/right1-dis.png);
 	border-radius:2px;
 	height:18px;
 	width:18px;
@@ -550,7 +550,7 @@ QScrollBar::add-line:horizontal {
 	subcontrol-origin:margin;
 }
 QScrollBar::add-line:horizontal:hover, QScrollBar::add-line:horizontal:on {
-	image:url($themes-dir/Blue White/right1.png);
+	image:url($themes-dir/Bluish-White/right1.png);
 	height:18px;
 	width:18px;
 	subcontrol-position:right;
@@ -582,7 +582,7 @@ QBalloonTip QPushButton {
 /* Resize (mouse) */
 QSizeGrip {
 	background:rgba(34,54,74,1);
-	image: url($themes-dir/Blue White/resize.png);
+	image: url($themes-dir/Bluish-White/resize.png);
 	width: 12px;
 	height: 12px;
 }
