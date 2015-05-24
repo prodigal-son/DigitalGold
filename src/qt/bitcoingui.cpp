@@ -114,7 +114,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     // Create the tray icon (or setup the dock icon)
     createTrayIcon();
-	
+
     // Create tabs
     overviewPage = new OverviewPage();
 	statisticsPage = new StatisticsPage(this);
@@ -1249,6 +1249,8 @@ void BitcoinGUI::listThemes(QStringList& themes)
     } else if (currentDir.cd("src/qt/res/themes")) {
         // got it
     } else if (currentDir.cd("../src/qt/res/themes")) {
+        // got it
+    } else if (currentDir.cd("../../../themes")) {
         // got it
     } else {
         // themes not found :(
