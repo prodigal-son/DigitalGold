@@ -33,6 +33,7 @@ int stakeminPrevious = -1;
 int stakemaxPrevious = -1;
 QString stakecPrevious = "";
 QString rewardPrevious = "";
+QString rewardPrevious2 = "";
 
 
 void StatisticsPage::updateStatistics()
@@ -80,9 +81,22 @@ void StatisticsPage::updateStatistics()
     }
         else if(pindexBest->nHeight < 60480)
     {
+        subsidy = "50 CON";
+    }
+        else if(pindexBest->nHeight < 100000000)
+    {
         subsidy = "0 CON";
     }
-    
+
+    QString subsidy2 = "";
+    if(pindexBest->nHeight < 50000)
+    {
+        subsidy2 = "50% per year";
+    }
+        else if(pindexBest->nHeight < 10000000)
+    {
+        subsidy2 = "30 CON";
+    }
 
     QString hardness = QString::number(pHardness, 'f', 6);
     QString hardness2 = QString::number(pHardness2, 'f', 6);
@@ -125,6 +139,13 @@ void StatisticsPage::updateStatistics()
     ui->rewardBox->setText(subsidy);
     }
     
+    if(subsidy2 != rewardPrevious)
+    {
+        ui->posrewardBox->setText("<b><font color=\"green\">" + subsidy2 + "</font></b>");
+    } else {
+    ui->rewardBox->setText(subsidy2);
+    }
+
     if(pHardness > hardnessPrevious)
     {
         ui->diffBox->setText("<b><font color=\"green\">" + hardness + "</font></b>");        
@@ -176,16 +197,17 @@ void StatisticsPage::updateStatistics()
     } else {
         ui->volumeBox->setText(qVolume + " CON");
     }
-    updatePrevious(nHeight, nMinWeight, nNetworkWeight, phase, subsidy, pHardness, pHardness2, pPawrate2, Qlpawrate, peers, volume);
+    updatePrevious(nHeight, nMinWeight, nNetworkWeight, phase, subsidy, subsidy2, pHardness, pHardness2, pPawrate2, Qlpawrate, peers, volume);
 }
 
-void StatisticsPage::updatePrevious(int nHeight, int nMinWeight, int nNetworkWeight, QString phase, QString subsidy, double pHardness, double pHardness2, double pPawrate2, QString Qlpawrate, int peers, int volume)
+void StatisticsPage::updatePrevious(int nHeight, int nMinWeight, int nNetworkWeight, QString phase, QString subsidy, QString subsidy2, double pHardness, double pHardness2, double pPawrate2, QString Qlpawrate, int peers, int volume)
 {
     heightPrevious = nHeight;
     stakeminPrevious = nMinWeight;
     stakemaxPrevious = nNetworkWeight;
     stakecPrevious = phase;
     rewardPrevious = subsidy;
+    rewardPrevious2 = subsidy2;
     hardnessPrevious = pHardness;
     hardnessPrevious2 = pHardness2;
     netPawratePrevious = pPawrate2;
