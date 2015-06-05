@@ -206,12 +206,12 @@
           <item row="5" column="0">
            <widget class="QLabel" name="labelTotalText">
             <property name="text">
-             <string>Total:</string>
+             <string>Number of transactions:</string>
             </property>
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="QLabel" name="labelTotal">
+           <widget class="QLabel" name="labelNumTransactions">
             <property name="font">
              <font>
               <weight>75</weight>
@@ -222,10 +222,10 @@
              <cursorShape>IBeamCursor</cursorShape>
             </property>
             <property name="toolTip">
-             <string>Your current total balance</string>
+             <string>Total number of transactions in wallet</string>
             </property>
             <property name="text">
-             <string notr="true">0 CON</string>
+             <string notr="true">0</string>
             </property>
             <property name="textInteractionFlags">
              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
