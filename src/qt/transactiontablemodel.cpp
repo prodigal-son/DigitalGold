@@ -549,7 +549,7 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
         case Amount:
             return rec->credit + rec->debit;
 		case Depth:
-			return rec->status.depth;
+			return (qlonglong)rec->status.depth;
         }
         break;
     case Qt::ToolTipRole:
