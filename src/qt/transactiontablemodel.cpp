@@ -10,6 +10,7 @@
 
 #include "wallet.h"
 #include "ui_interface.h"
+#include "uint256_t.h"
 
 #include <QLocale>
 #include <QList>
