@@ -358,7 +358,7 @@ namespace Checkpoints
 }
 
 // PayCon: sync-checkpoint master key
-const std::string CSyncCheckpoint::strMasterPubKey = "04cf152c8d7cd0a4b674d1223d48da6e465cb3c2c2c459a2106475fce63da3077a99db541ae4797 3f8556979ed638bbf61a32799a93ec8705a6a4bdb3276919e4c";
+const std::string CSyncCheckpoint::strMasterPubKey = "";
 
 std::string CSyncCheckpoint::strMasterPrivKey = "";
 
