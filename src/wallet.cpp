@@ -2009,7 +2009,7 @@ bool CWallet::GetStakeWeight2(const CKeyStore& keystore, uint64_t& nMinWeight, u
 
 	// variables for next stake calculation
 	uint64_t nPrevAge = 0;
-	uint64_t nStakeAge = 60 * 60 * 24 * 21 / 10;
+	uint64_t nStakeAge = 60 * 60 * 24 * 2;
 
     CTxDB txdb("r");
     BOOST_FOREACH(PAIRTYPE(const CWalletTx*, unsigned int) pcoin, setCoins)
@@ -2032,7 +2032,7 @@ bool CWallet::GetStakeWeight2(const CKeyStore& keystore, uint64_t& nMinWeight, u
         int64_t nTimeWeight = GetWeight2((int64_t)pcoin.first->nTime, (int64_t)GetTime());
         CBigNum bnCoinDayWeight = CBigNum(pcoin.first->vout[pcoin.second].nValue) * nTimeWeight / COIN / (24 * 60 * 60);
 
-		if ((nStakeAge - nCurrentAge) < (60*60*24*2.1)) // if the age is less than 2.1 days, report weight as 0 because the stake modifier won't allow for stake yet
+		if ((nStakeAge - nCurrentAge) < (60*60*24*2)) // if the age is less than 2.1 days, report weight as 0 because the stake modifier won't allow for stake yet
 			bnCoinDayWeight = 0;
 
         // Weight is greater than zero
@@ -2773,20 +2773,6 @@ void CWallet::FixSpentCoins(int& nMismatchFound, int64_t& nBalanceInQuestion, in
     BOOST_FOREACH(CWalletTx* pcoin, vCoins)
     {
         uint256 hash = pcoin->GetHash();
-		
-		// presstab HyperStake
-		// This finds and deletes transactions that were never accepted by the network
-		// needs to be located above the readtxindex code or else it will not be triggered
-		if(!pcoin->IsConfirmed() && (GetTime() - pcoin->GetTxTime()) > (60*10)) //give the tx 10 minutes before considering it failed
-        {
-           nOrphansFound++;
-           if (!fCheckOnly)
-           {
-             EraseFromWallet(hash);
-             NotifyTransactionChanged(this, hash, CT_DELETED);
-           }
-           printf("FixSpentCoins %s rejected transaction %s\n", fCheckOnly ? "found" : "removed", hash.ToString().c_str());
-        }
 
         // Find the corresponding transaction index
         CTxIndex txindex;
@@ -2795,7 +2781,7 @@ void CWallet::FixSpentCoins(int& nMismatchFound, int64_t& nBalanceInQuestion, in
         for (unsigned int n=0; n < pcoin->vout.size(); n++)
         {
             bool fUpdated = false;
-            if (IsMine(pcoin->vout[n]) && pcoin->IsSpent(n) && (txindex.vSpent.size() <= n || txindex.vSpent[n].IsNull()) && (GetTime() - pcoin->GetTxTime()) > (60*10))
+            if (IsMine(pcoin->vout[n]) && pcoin->IsSpent(n) && (txindex.vSpent.size() <= n || txindex.vSpent[n].IsNull()))
             {
                 printf("FixSpentCoins found lost coin %s CON %s[%d], %s\n",
                     FormatMoney(pcoin->vout[n].nValue).c_str(), hash.ToString().c_str(), n, fCheckOnly? "repair not attempted" : "repairing");
@@ -2808,7 +2794,7 @@ void CWallet::FixSpentCoins(int& nMismatchFound, int64_t& nBalanceInQuestion, in
                     pcoin->WriteToDisk();
                 }
             }
-            else if (IsMine(pcoin->vout[n]) && !pcoin->IsSpent(n) && (txindex.vSpent.size() > n && !txindex.vSpent[n].IsNull()) && (GetTime() - pcoin->GetTxTime()) > (60*10))
+            else if (IsMine(pcoin->vout[n]) && !pcoin->IsSpent(n) && (txindex.vSpent.size() > n && !txindex.vSpent[n].IsNull()))
             {
                 printf("FixSpentCoins found spent coin %s CON %s[%d], %s\n",
                     FormatMoney(pcoin->vout[n].nValue).c_str(), hash.ToString().c_str(), n, fCheckOnly? "repair not attempted" : "repairing");

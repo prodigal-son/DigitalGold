@@ -10,7 +10,6 @@
 
 #include "wallet.h"
 #include "ui_interface.h"
-#include "uint256_t.h"
 
 #include <QLocale>
 #include <QList>
@@ -550,7 +549,7 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
         case Amount:
             return rec->credit + rec->debit;
 		case Depth:
-			return (qlonglong)rec->status.depth;
+            return (qlonglong)rec->status.depth;
         }
         break;
     case Qt::ToolTipRole:
