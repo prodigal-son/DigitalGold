@@ -1791,7 +1791,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
         {
             nFeeRet = nTransactionFee;
 			if(fSplitBlock)
-				nFeeRet = COIN / 10;
+				nFeeRet = COIN;
             while (true)
             {
                 wtxNew.vin.clear();
