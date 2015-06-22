@@ -19,8 +19,7 @@
 using namespace std;
 extern unsigned int nStakeMaxAge;
 
-unsigned int nStakeSplitAge = 14 * 24 * 60 * 60;
-int64_t nStakeCombineThreshold = 200 * COIN;
+unsigned int nStakeCombineAge = 14 * 24 * 60 * 60;
 
 int64_t gcd(int64_t n,int64_t m) { return m == 0 ? n : gcd(m, n % m); } 
 static uint64_t CoinWeightCost(const COutput &out) 
@@ -2206,16 +2205,16 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             if (txNew.vin.size() >= 100)
                 break;
             // Stop adding more inputs if value is already pretty significant
-            if (nCredit >= nStakeCombineThreshold)
+            if (nCredit >= nCombineThreshold)
                 break;
             // Stop adding inputs if reached reserve limit
             if (nCredit + pcoin.first->vout[pcoin.second].nValue > nBalance - nReserveBalance)
                 break;
             // Do not add additional significant input
-            if (pcoin.first->vout[pcoin.second].nValue >= nStakeCombineThreshold)
+            if (pcoin.first->vout[pcoin.second].nValue >= nCombineThreshold)
                 continue;
             // Do not add input that is still too young
-            if (nTimeWeight < nStakeSplitAge)
+            if (nTimeWeight < nStakeCombineAge)
                 continue;
 
             txNew.vin.push_back(CTxIn(pcoin.first->GetHash(), pcoin.second));
