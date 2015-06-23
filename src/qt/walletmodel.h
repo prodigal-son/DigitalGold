@@ -6,6 +6,7 @@
 #include <map>
 
 #include "allocators.h" /* for SecureString */
+#include "uint256_t.h"
 
 class OptionsModel;
 class AddressTableModel;
