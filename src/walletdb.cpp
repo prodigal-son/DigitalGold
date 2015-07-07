@@ -456,13 +456,7 @@ ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue,
 		   unsigned int nHashInterval;  
 		   ssValue >> nHashInterval;  
 		   pwallet->nHashInterval = nHashInterval;  
-		}
-	//presstab HyperStake  
-	bool WriteHashInterval(unsigned int nHashInterval)  
-	{  
-		nWalletDBUpdated++;  
-		return Write(std::string("hashinterval"), nHashInterval, true);  
-	}  
+		} 
     } catch (...)
     {
         return false;
