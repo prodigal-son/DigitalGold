@@ -1,9 +1,0 @@
-/* Overview */
- QMainWindow {
-        border-image: url($themes-dir/Owlcon/owl.jpg);
-}
-/* Coin Image */
-#label_2 {
-	qproperty-pixmap: url($themes-dir/Owlcon/PayCon256.png);
-}
-
