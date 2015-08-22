@@ -4,34 +4,31 @@
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
         <source>About PayCon</source>
-        <translation type="unfinished"/>
+        <translation>O PayConu</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>&lt;b&gt;PayCon&lt;/b&gt; version</source>
-        <translation type="unfinished"/>
+        <translation>Verze &lt;b&gt;PayConu&lt;/b&gt; </translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
 Copyright © 2014 The PayCon developers</source>
-        <translation type="unfinished"/>
+        <translation>Copyright © 2009-2014 The Bitcoin developers
+Copyright © 2012-2014 The NovaCoin developers
+Copyright © 2014 The PayCon developers</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>
 This is experimental software.
 
-Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
+Distributed under the MIT/X11 software license, see the accompanying file COPYING or &lt;a href=&quot;http://www.opensource.org/licenses/mit-license.php&quot;&gt;http://www.opensource.org/licenses/mit-license.php&lt;/a&gt;.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
-        <translation>
-Tohle je experimentální program.
-
-Šířen pod licencí MIT/X11, viz přiložený soubor COPYING nebo http://www.opensource.org/licenses/mit-license.php.
-
-Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v OpenSSL Toolkitu (http://www.openssl.org/) a kryptografický program od Erika Younga (eay@cryptsoft.com) a program UPnP od Thomase Bernarda.</translation>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (&lt;a href=&quot;https://www.openssl.org/&quot;&gt;https://www.openssl.org/&lt;/a&gt;) and cryptographic software written by Eric Young (&lt;a href=&quot;mailto:eay@cryptsoft.com&quot;&gt;eay@cryptsoft.com&lt;/a&gt;) and UPnP software written by Thomas Bernard.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -39,7 +36,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
         <source>Address Book</source>
-        <translation>Adresář</translation>
+        <translation>Kniha adres</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -47,64 +44,64 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
         <translation>Dvojklikem myši začneš upravovat označení adresy</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+24"/>
         <source>Create a new address</source>
         <translation>Vytvoř novou adresu</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+10"/>
         <source>Copy the currently selected address to the system clipboard</source>
         <translation>Zkopíruj aktuálně vybranou adresu do systémové schránky</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-7"/>
         <source>&amp;New Address</source>
         <translation>&amp;Nová adresa</translation>
     </message>
     <message>
-        <location line="-46"/>
+        <location line="-43"/>
         <source>These are your PayCon addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Toto jsou vaše PayCon adresy pro příjem plateb. Možná budete chtít dát jinou adresu každému odesílateli, takže můžete sledovat, kdo vám zasílá platbu.</translation>
+        <translation>Tato jsou tvé PayCon adresy pro příjem plateb. Každému odesílateli můžeš dát jinou adresu, aby jsi mohl sledovat, kdo ti platí.</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+53"/>
         <source>&amp;Copy Address</source>
         <translation>&amp;Kopíruj adresu</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+7"/>
         <source>Show &amp;QR Code</source>
-        <translation>Zobrazit &amp;QR kód</translation>
+        <translation>Zobraz &amp;QR kód</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+7"/>
         <source>Sign a message to prove you own a PayCon address</source>
-        <translation>Podepsat zprávu k prokázání vlastnictví PayCon adresy.</translation>
+        <translation>Podepiš zprávu, aby jsi dokázal, že vlastníš tuto PayCon adresu.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Sign &amp;Message</source>
-        <translation>Podepsat &amp;zprávu</translation>
+        <translation>Podepiš &amp;zprávu</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+17"/>
         <source>Delete the currently selected address from the list</source>
         <translation>Smaž zvolenou adresu ze seznamu</translation>
     </message>
     <message>
-        <location line="-14"/>
+        <location line="-10"/>
         <source>Verify a message to ensure it was signed with a specified PayCon address</source>
-        <translation>Ověřte zprávu, že byla podepsána s určitou PayCon adresou</translation>
+        <translation>Ověř zprávu, aby jsi zajistil, že byla podepsaná určitou PayCon adresou.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Verify Message</source>
-        <translation>&amp;Ověřit zprávu</translation>
+        <translation>&amp;Ověřit správu</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+10"/>
         <source>&amp;Delete</source>
-        <translation>S&amp;maž</translation>
+        <translation>&amp;Smaž</translation>
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
@@ -119,7 +116,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     <message>
         <location line="+250"/>
         <source>Export Address Book Data</source>
-        <translation>Exportovat adresář</translation>
+        <translation>Exportovat Data z Knihy Adres</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -134,13 +131,13 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation>Nelze zapisovat do souboru %1.</translation>
+        <translation>Není možné zapsat do souboru %1.</translation>
     </message>
 </context>
 <context>
     <name>AddressTableModel</name>
     <message>
-        <location filename="../addresstablemodel.cpp" line="+144"/>
+        <location filename="../addresstablemodel.cpp" line="+145"/>
         <source>Label</source>
         <translation>Označení</translation>
     </message>
@@ -180,20 +177,15 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     <message>
         <location line="+33"/>
         <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
-        <translation type="unfinished"/>
+        <translation>Slouží pro vypnutí Trivial Sendmoney, když je ohrožen účet OS . Neposkytuje žádné skutečné zabezpečení.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>For staking only</source>
-        <translation type="unfinished"/>
+        <translation>Jen pro staking</translation>
     </message>
     <message>
-        <location filename="../askpassphrasedialog.cpp" line="+35"/>
-        <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Zadej nové heslo k peněžence.&lt;br/&gt;Použij &lt;b&gt;alespoň 10 náhodných znaků&lt;/b&gt; nebo &lt;b&gt;alespoň osm slov&lt;/b&gt;.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location filename="../askpassphrasedialog.cpp" line="+38"/>
         <source>Encrypt wallet</source>
         <translation>Zašifruj peněženku</translation>
     </message>
@@ -228,14 +220,14 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
         <translation>Zadej staré a nové heslo k peněžence.</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+45"/>
         <source>Confirm wallet encryption</source>
         <translation>Potvrď zašifrování peněženky</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation>Upozornění: Pokud zašifrujete vaši peněženku a ztratíte přístupové heslo, &lt;b&gt;PŘIJDETE O VŠECHNY SVÉ MINCE&lt;/b&gt;!</translation>
+        <translation>Upozornění: Pokud zašifruješ svou peněženku a ztratíš heslo, tak &lt;b&gt;PŘIJDEŠ O VŠECHNY MINCE&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -260,9 +252,14 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
         <translation>Peněženka je zašifrována</translation>
     </message>
     <message>
-        <location line="-58"/>
+        <location line="-140"/>
+        <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+82"/>
         <source>PayCon will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-         <translation>Peněženka se nyní zavře a dokončí proces šifrování. Nezapomeňte, že šifrování vaši peněženku nemůže plně chránit před krádeží pokud máte v počítači napadení malware.</translation>
+        <translation>Pro dokončení procesu šifrování se PayCon nyní zavře, Pamatuj, že zašifrování tvé peněženky nemůže plně ochránit tvé mince před krádeží, pokud máš počítač infikován malwerem.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -309,22 +306,12 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+282"/>
+        <location filename="../bitcoingui.cpp" line="+297"/>
         <source>Sign &amp;message...</source>
         <translation>Po&amp;depiš zprávu...</translation>
     </message>
     <message>
-        <location line="+251"/>
-        <source>Synchronizing with network...</source>
-        <translation>Synchronizuji se se sítí...</translation>
-    </message>
-    <message>
-        <location line="-319"/>
-        <source>&amp;Overview</source>
-        <translation>&amp;Přehled</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="-64"/>
         <source>Show general overview of wallet</source>
         <translation>Zobraz celkový přehled peněženky</translation>
     </message>
@@ -341,45 +328,20 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     <message>
         <location line="+5"/>
         <source>&amp;Address Book</source>
-        <translation>&amp;Adresář</translation>
+        <translation>&amp;Kniha Adres</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Edit the list of stored addresses and labels</source>
-        <translation>Úprava seznamu uložených adres.</translation>
+        <translation>Edituj seznam uložených adres a jejich označení</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>View statistics</source>
-        <translation>Zobrazit statistiky.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Explore the BlockChain</source>
-        <translation>Prohlížeč bloků.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>View chat</source>
-        <translation>Zobrazit chat.</translation>
-    </message>
-    <message>
-        <location line="-13"/>
-        <source>&amp;Receive coins</source>
-        <translation>&amp;Přijmout mince</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="-18"/>
         <source>Show the list of addresses for receiving payments</source>
-        <translation>Zobrazit seznam adres pro příjem plateb</translation>
+        <translation>Zobraz seznam adres pro příjem plateb</translation>
     </message>
     <message>
-        <location line="-7"/>
-        <source>&amp;Send coins</source>
-        <translation>&amp;Odeslat mince</translation>
-    </message>
-    <message>
-        <location line="+35"/>
+        <location line="+34"/>
         <source>E&amp;xit</source>
         <translation>&amp;Konec</translation>
     </message>
@@ -389,9 +351,9 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
         <translation>Ukonči aplikaci</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+4"/>
         <source>Show information about PayCon</source>
-         <translation>Zobraz informace o PayConu</translation>
+        <translation>Zobraz informace a PayConu</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -414,7 +376,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
         <translation>Zaši&amp;fruj peněženku...</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>&amp;Backup Wallet...</source>
         <translation>&amp;Zazálohuj peněženku...</translation>
     </message>
@@ -423,42 +385,33 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
         <source>&amp;Change Passphrase...</source>
         <translation>Změň &amp;heslo...</translation>
     </message>
-    <message numerus="yes">
-        <location line="+259"/>
-        <source>~%n block(s) remaining</source>
-        <translation><numerusform>1 blok zbývá</numerusform><numerusform>~%n blok(ů) zbývá</numerusform></translation>
-    </message>
     <message>
-        <location line="+6"/>
-        <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
-         <translation>Stahuji %1 of %2 bloků z transakční historie (%3% hotovo).</translation>
-    </message>
-    <message>
-        <location line="-256"/>
+        <location line="+9"/>
         <source>&amp;Export...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Export...</translation>
     </message>
     <message>
-        <location line="-64"/>
+        <location line="-55"/>
         <source>Send coins to a PayCon address</source>
-        <translation>Odeslat mince na PayCon adresu</translation>    </message>
+        <translation>Odešli mince na PayCon adresu</translation>
+    </message>
     <message>
-        <location line="+47"/>
+        <location line="+39"/>
         <source>Modify configuration options for PayCon</source>
-         <translation>Změnit položky nastavení</translation> 
+        <translation>Uprav možnosti konfigurace pro PayCon</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+17"/>
         <source>Export the data in the current tab to a file</source>
-         <translation>Exportovat data z aktuální karty do souboru</translation> 
+        <translation>Exportuj data v aktuální záložce do souboru</translation>
     </message>
     <message>
-        <location line="-14"/>
+        <location line="-13"/>
         <source>Encrypt or decrypt wallet</source>
-        <translation>Šifrovat nebo dešifrovat peněženku.</translation> 
+        <translation>Zašifruj nebo dešifruj peněženku</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Backup wallet to another location</source>
         <translation>Zazálohuj peněženku na jiné místo</translation>
     </message>
@@ -483,19 +436,20 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
         <translation>&amp;Ověř zprávu...</translation>
     </message>
     <message>
-        <location line="-202"/>
+        <location line="-214"/>
+        <location line="+551"/>
         <source>PayCon</source>
-        <translation type="unfinished"/>
+        <translation>PayCon</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-551"/>
         <source>Wallet</source>
         <translation>Peněženka</translation>
     </message>
     <message>
-        <location line="+180"/>
+        <location line="+193"/>
         <source>&amp;About PayCon</source>
-        <translation type="unfinished"/>
+        <translation>&amp;O PayConu</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -503,22 +457,22 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
         <translation>&amp;Zobraz/Skryj</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>Unlock wallet</source>
         <translation>Odemkni peněženku</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;Lock Wallet</source>
-        <translation>Zamknout peněženku</translation>
+        <translation>&amp;Zamkni peněženku</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Lock wallet</source>
-        <translation>Zamknout peněženku</translation>
+        <translation>Zamkni peněženku</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+28"/>
         <source>&amp;File</source>
         <translation>&amp;Soubor</translation>
     </message>
@@ -533,120 +487,84 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
         <translation>Ná&amp;pověda</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+17"/>
         <source>Tabs toolbar</source>
         <translation>Panel s listy</translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>Actions toolbar</source>
-        <translation>Panel akce</translation>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location line="+46"/>
         <location line="+9"/>
         <source>[testnet]</source>
         <translation>[testnet]</translation>
     </message>
     <message>
         <location line="+0"/>
-        <location line="+60"/>
+        <location line="+58"/>
         <source>PayCon client</source>
         <translation>PayCon klient</translation>
     </message>
     <message numerus="yes">
-        <location line="+75"/>
+        <location line="+70"/>
         <source>%n active connection(s) to PayCon network</source>
-        <translation><numerusform>%n aktivní spojení do PayConové sítě</numerusform><numerusform>%n aktivní spojení do PayConové sítě</numerusform><numerusform>%n aktivních spojení do PayConové sítě</numerusform></translation>
+        <translation><numerusform>%n aktivní spojení do PayCon sítě</numerusform><numerusform>%n aktivních spojení do PayCon sítě</numerusform><numerusform>%n aktivních spojení do PayCon sítě</numerusform></translation>
     </message>
     <message>
-        <location line="+40"/>
-        <source>Downloaded %1 blocks of transaction history.</source>
-       <translation>Zpracováno %1 bloků transakční historie.</translation>
-    </message>
-    <message>
-        <location line="+413"/>
+        <location line="+488"/>
         <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
-        <translation>Sázky.&lt;br&gt;Vaše váha je %1&lt;br&gt;Váha sítě je %2&lt;br&gt;Odhadovaný čas pro zisk odměny je %3</translation>
-        </message>
+        <translation>Staking.&lt;br&gt;Tvoje váha je %1&lt;br&gt;Váha sítě je %2&lt;br&gt;Odhadovaný čas pro získání odměny je %3</translation>
+    </message>
     <message>
         <location line="+6"/>
         <source>Not staking because wallet is locked</source>
-         <translation>Nelze sázet, protože peněženka je uzamčena</translation>
+        <translation>Žádný staking protože je peněženka zamknutá.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because wallet is offline</source>
-        <translation>Nelze sázet, protože peněženka je offline</translation>
+        <translation>Žádný staking protože je peněženka offline.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because wallet is syncing</source>
-        <translation>Nelze sázet, protože peněženka se synchronizuje</translation>
+        <translation>Žádný staking protože se peněženka synchronizuje.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not staking because you don&apos;t have mature coins</source>
-        <translation>Nelze sázet, protože nemáte mateřské mince</translation>
-    </message>
-    <message numerus="yes">
-        <location line="-403"/>
-        <source>%n second(s) ago</source>
-        <translation><numerusform>sekundou</numerusform><numerusform>%n sekundami</numerusform><numerusform>%n sekundami</numerusform></translation>
+        <translation>Žádný staking protože nemáš žádné odležené mince.</translation>
     </message>
     <message>
-        <location line="-312"/>
-        <source>About PayCon card</source>
-        <translation>O PayConu</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Show information about PayCon card</source>
-        <translation>Zobrazit informace o PayConu</translation>
-    </message>
-    <message>
-        <location line="+18"/>
-        <source>&amp;Unlock Wallet...</source>
-        <translation>Odemknout peněženku...</translation>
-    </message>
-    <message numerus="yes">
-        <location line="+297"/>
-        <source>%n minute(s) ago</source>
-        <translation><numerusform>minutou</numerusform><numerusform>%n minutami</numerusform><numerusform>%n minutami</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <location line="+4"/>
-        <source>%n hour(s) ago</source>
-        <translation><numerusform>shodinou</numerusform><numerusform>%n hodinami</numerusform><numerusform>%n hodinami</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <location line="+4"/>
-        <source>%n day(s) ago</source>
-        <translation><numerusform>dnem</numerusform><numerusform>%n dny</numerusform><numerusform>%n dny</numerusform></translation>
+        <location line="-808"/>
+        <source>&amp;Dashboard</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
+        <source>&amp;Receive</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>&amp;Send</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+49"/>
+        <source>&amp;Unlock Wallet...</source>
+        <translation>&amp;Odemkni peněženku</translation>
+    </message>
+    <message>
+        <location line="+273"/>
         <source>Up to date</source>
         <translation>Aktuální</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+43"/>
         <source>Catching up...</source>
         <translation>Stahuji...</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <source>Last received block was generated %1.</source>
-        <translation>Poslední obdržený blok byl generován před %1.</translation>
-        <translation>Poslední obdržený blok byl generován před %1.</translation>
-    </message>
-    <message>
-        <location line="+59"/>
-        <source>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</source>
-        <translation>Tahle transakce přesahuje velikostní limit. I tak ji ale můžeš poslat, pokud za ni zaplatíš poplatek %1, který půjde uzlům, které tvou transakci zpracují, a navíc tak podpoříš síť. Chceš zaplatit poplatek?</translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="+113"/>
         <source>Confirm transaction fee</source>
         <translation>Potvrď transakční poplatek</translation>
     </message>
@@ -677,79 +595,142 @@ Adresa: %4
         <location line="+100"/>
         <location line="+15"/>
         <source>URI handling</source>
-        <translation>Zpracování URI</translation>
+        <translation>URI manipulace</translation>
     </message>
     <message>
         <location line="-15"/>
         <location line="+15"/>
         <source>URI can not be parsed! This can be caused by an invalid PayCon address or malformed URI parameters.</source>
+        <translation>URI nejde rozparsovat! To může být způsobeno neplatnou PayCon adresou nebo chybnými URI parametry.</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Wallet is &lt;b&gt;not encrypted&lt;/b&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+8"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
-        <translation>Peněženka je &lt;b&gt;zašifrovaná&lt;/b&gt; a momentálně &lt;b&gt;odemčená pro sázky&lt;/b&gt;</translation>
+        <translation>Peněženka je &lt;b&gt;zašifrovaná&lt;/b&gt; a momentálně &lt;b&gt;odemčená&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+8"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Peněženka je &lt;b&gt;zašifrovaná&lt;/b&gt; a momentálně &lt;b&gt;zamčená&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+24"/>
         <source>Backup Wallet</source>
-        <translation>Záloha peněženky</translation>
+        <translation>Zálohuj peněženku</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Wallet Data (*.dat)</source>
-        <translation>Data peněženky (*.dat)</translation>
+        <translation>Data Peněženky (*.dat)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Backup Failed</source>
-        <translation>Zálohování selhalo</translation>
+        <translation>Zálohování Selhalo</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>There was an error trying to save the wallet data to the new location.</source>
-        <translation>Při ukládání peněženky na nové místo se přihodila nějaká chyba.</translation>
+        <translation>Došlo k chybě při pokusu o uložení dat peněženky na nové místo.</translation>
     </message>
     <message numerus="yes">
-        <location line="+76"/>
+        <location line="+91"/>
         <source>%n second(s)</source>
-        <translation><numerusform>sekundu</numerusform><numerusform>%n sekund</numerusform><numerusform>%n sekund</numerusform></translation>
+        <translation><numerusform>%n sekunda</numerusform><numerusform>%n sekundy</numerusform><numerusform>%n sekund</numerusform></translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n minute(s)</source>
-        <translation><numerusform>minutu</numerusform><numerusform>%n minut</numerusform><numerusform>%n minut</numerusform></translation>
+        <translation><numerusform>%n minuta</numerusform><numerusform>%n minuty</numerusform><numerusform>%n minut</numerusform></translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
+        <location line="-429"/>
+        <location line="+433"/>
         <source>%n hour(s)</source>
-        <translation><numerusform>hodinu</numerusform><numerusform>%n hodiny</numerusform><numerusform>%n hodin</numerusform></translation>
+        <translation><numerusform>%n hodina</numerusform><numerusform>%n hodiny</numerusform><numerusform>%n hodin</numerusform></translation>
+    </message>
+    <message>
+        <location line="-456"/>
+        <source>Processed %1 blocks of transaction history.</source>
+        <translation type="unfinished"/>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
+        <location line="+27"/>
+        <location line="+433"/>
         <source>%n day(s)</source>
-        <translation><numerusform>den</numerusform><numerusform>%n dny</numerusform><numerusform>%n dnů</numerusform></translation>
+        <translation><numerusform>%n den</numerusform><numerusform>%n dny</numerusform><numerusform>%n dnů</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="-429"/>
+        <location line="+6"/>
+        <source>%n week(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+0"/>
+        <source>%1 and %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message numerus="yes">
+        <location line="+0"/>
+        <source>%n year(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>%1 behind</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Last received block was generated %1 ago.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Transactions after this will not yet be visible.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Warning</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Information</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+69"/>
+        <source>This transaction is over the size limit. You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network. Do you want to pay the fee?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+324"/>
         <source>Not staking</source>
-        <translation>Bez sázek</translation>
+        <translation>Žádný staking</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+109"/>
+        <location filename="../bitcoin.cpp" line="+104"/>
         <source>A fatal error occurred. PayCon can no longer continue safely and will quit.</source>
-       <translation>Stala se fatální chyba. UPayCon nemůže bezpečně pokračovat v činnosti, a proto skončí.</translation>
+        <translation>Došlo k závažné chybě. PayCon již nemůže dále bezpečně pokračovat a bude ukončen.</translation>
     </message>
 </context>
 <context>
     <name>ClientModel</name>
     <message>
-        <location filename="../clientmodel.cpp" line="+90"/>
+        <location filename="../clientmodel.cpp" line="+110"/>
         <source>Network Alert</source>
         <translation>Upozornění sítě</translation>
     </message>
@@ -759,17 +740,17 @@ Adresa: %4
     <message>
         <location filename="../forms/coincontroldialog.ui" line="+14"/>
         <source>Coin Control</source>
-        <translation>Kontrola mincí</translation>
+        <translation>Kontrola Mincí</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Quantity:</source>
-        <translation>Počet:</translation>
+        <translation>Množství:</translation>
     </message>
     <message>
         <location line="+32"/>
         <source>Bytes:</source>
-        <translation>Bytů:</translation>
+        <translation>Bajty:</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -789,17 +770,17 @@ Adresa: %4
     <message>
         <location line="+35"/>
         <source>Low Output:</source>
-        <translation>Nízký výkon:</translation>
+        <translation>Nízký Výstup:</translation>
     </message>
     <message>
-        <location filename="../coincontroldialog.cpp" line="+551"/>
+        <location filename="../coincontroldialog.cpp" line="+552"/>
         <source>no</source>
-        <translation>Není</translation>
+        <translation>ne</translation>
     </message>
     <message>
         <location filename="../forms/coincontroldialog.ui" line="+51"/>
         <source>After Fee:</source>
-         <translation>Po poplatku:</translation>
+        <translation>Po Poplatku:</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -809,17 +790,17 @@ Adresa: %4
     <message>
         <location line="+69"/>
         <source>(un)select all</source>
-        <translation>(Od)značit vše</translation>
+        <translation>(ne)vybrat vše</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Tree mode</source>
-        <translation>Režim stromu</translation>
+        <translation>Stromové zobrazení</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>List mode</source>
-         <translation>Režim seznam</translation>
+        <translation>Seznamové zobrazení</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -829,7 +810,7 @@ Adresa: %4
     <message>
         <location line="+5"/>
         <source>Label</source>
-        <translation>Název</translation>
+        <translation>Jmenovka</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -844,7 +825,7 @@ Adresa: %4
     <message>
         <location line="+5"/>
         <source>Confirmations</source>
-         <translation>Potvrzení</translation>
+        <translation>Potvrzení</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -859,58 +840,58 @@ Adresa: %4
     <message>
         <location filename="../coincontroldialog.cpp" line="-515"/>
         <source>Copy address</source>
-        <translation>Kopírovat sdresu</translation>
+        <translation>Zkopíruj adresu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy label</source>
-        <translation>Kopírovat popis</translation>
+        <translation>Zkopíruj označení</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+26"/>
         <source>Copy amount</source>
-        <translation>Kopíruj částku</translation>
+        <translation>Zkopíruj částku</translation>
     </message>
     <message>
         <location line="-25"/>
         <source>Copy transaction ID</source>
-        <translation>Kopíruj ID transakce</translation>
+        <translation>Zkopíruj ID transakce</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Copy quantity</source>
-        <translation>Kopíruj množství</translation>
+        <translation>Zkopíruj množství</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Copy fee</source>
-        <translation>Kopíruj poplatek</translation>
+        <translation>Zkopíruj poplatek</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy after fee</source>
-        <translation>Kopíruj po poplatku</translation>
+        <translation>Zkopíruj po poplatku</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy bytes</source>
-        <translation>Kopíruj byty</translation>
+        <translation>Zkopíruj  bajty</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy priority</source>
-        <translation>Kopíruj prioritu</translation>
+        <translation>Zkopíruj prioritu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy low output</source>
-        <translation>Kopíruj nízký výstup</translation>
+        <translation>Zkopíruj nízký výstup</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy change</source>
-        <translation>Kopíruj změnu</translation>
+        <translation>Zkopíruj změnu</translation>
     </message>
     <message>
         <location line="+317"/>
@@ -925,12 +906,12 @@ Adresa: %4
     <message>
         <location line="+1"/>
         <source>medium-high</source>
-         <translation>středně vysoká</translation>
+        <translation>středně vysoká</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>medium</source>
-        <translation>středí</translation>
+        <translation>střední</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -950,7 +931,7 @@ Adresa: %4
     <message>
         <location line="+155"/>
         <source>DUST</source>
-        <translation type="unfinished"/>
+        <translation>PRACH</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -964,11 +945,11 @@ Adresa: %4
  This means a fee of at least %1 per kb is required.
 
  Can vary +/- 1 Byte per input.</source>
-        <translation>Tato značka zčervená, v případě, že velikost transakce je větší než 10000 bajtů.
+        <translation>Tento popis zčervená, když velikost transakce překročí 10000 bajtů.
 
-  To znamená, že je nutné poplatek ve výši nejméně %1 za kb.
+ To znamená, že je potřebný poplatek ve výši alespoň %1 za kb.
 
-  Může se lišit + / - 1 bajt na vstupu.</translation>
+ Může se lišit +/- 1 Bajt na vstup.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -977,11 +958,11 @@ Adresa: %4
 This label turns red, if the priority is smaller than &quot;medium&quot;.
 
  This means a fee of at least %1 per kb is required.</source>
-         <translation>Transakce s vysokou prioritou jsou více pravděpodobné.
+        <translation>Transakce s vyšší prioritou se dostanou do bloku s větší pravděpodobností.
 
-Štítek se zbarví červeně, pokud vaše prioritou je nižší než "průměrná".
+Tento popis zčervená, když je priorita nižší než &quot;střední&quot;.
 
-To znamená, že minimálně %1 za kb jsou povinné</translation>
+ To znamená, že je potřebný poplatek ve výši alespoň %1 za kb.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -990,26 +971,26 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
  This means a fee of at least %2 is required. 
 
  Amounts below 0.546 times the minimum relay fee are shown as DUST.</source>
-        <translation>Tato značka zčervená, pokud příjemce obdrží částku menší než %1.
+        <translation>Tento popis zčervená, když příjemce obdrží částku menší než %1.
 
-  To znamená, že je nutné poplatek alespoň %2.
+To znamená, že je potřebný poplatek ve výši nejméně %2.
 
-  Částky nižší než 0,546 násobek minimální poplatek relé jsou zobrazeny jako DUST.</translation>
+Částky menší než 0.546 násobek minimálního poplatku jsou zobrazeny jako PRACH.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This label turns red, if the change is smaller than %1.
 
  This means a fee of at least %2 is required.</source>
-    <translation>Tato značka zčervená, v případě, že změna je menší než 1%.
+        <translation>Tento popis zčervená, když je změna menší než %1.
 
-  To znamená, že je nutné poplatek alespoň 2%.</translation>
+To znamená, že je potřebný poplatek ve výši nejméně %2.</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+36"/>
         <location line="+66"/>
         <source>(no label)</source>
-        <translation>(bez popisu)</translation>
+        <translation>(bez označení)</translation>
     </message>
     <message>
         <location line="-9"/>
@@ -1037,8 +1018,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+10"/>
         <source>The label associated with this address book entry</source>
-        <translation>Označení spojené s tímto záznamem v adresáři</translation>
-        </message>
+        <translation>Označení spojeno s touto adresou v adresáři</translation>
+    </message>
     <message>
         <location line="+7"/>
         <source>&amp;Address</source>
@@ -1047,10 +1028,10 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+10"/>
         <source>The address associated with this address book entry. This can only be modified for sending addresses.</source>
-        <translation>Adresa spojená s tímto záznamem v adresáři. Lze upravovat jen pro odesílací adresy.</translation>
+        <translation>Adresa spojena s touto položkou adresáře. To může být upraveno pouze pro odesílané adresy.</translation>
     </message>
     <message>
-        <location filename="../editaddressdialog.cpp" line="+20"/>
+        <location filename="../editaddressdialog.cpp" line="+21"/>
         <source>New receiving address</source>
         <translation>Nová přijímací adresa</translation>
     </message>
@@ -1093,10 +1074,10 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+420"/>
+        <location filename="../guiutil.cpp" line="+426"/>
         <location line="+12"/>
         <source>PayCon-Qt</source>
-        <translation type="unfinished"/>
+        <translation>PayCon-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1106,7 +1087,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+2"/>
         <source>Usage:</source>
-        <translation>Užití:</translation>
+        <translation>Použití:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1116,22 +1097,22 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+4"/>
         <source>UI options</source>
-        <translation>Možnosti UI</translation>
+        <translation>Možnosti uživatelského rozhraní</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Set language, for example &quot;de_DE&quot; (default: system locale)</source>
-         <translation>Nastavit jazyk, například &quot;de_DE&quot; (výchozí: systémové nastavení)</translation>
+        <translation>Nastav jazyk, např. &quot;de_DE&quot; (výchozí: místní nastavení systému)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Start minimized</source>
-        <translation>Nastartovat minimalizovaně</translation>
+        <translation>Spusť minimalizovaně</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show splash screen on startup (default: 1)</source>
-        <translation>Zobrazit startovací obrazovku (výchozí: 1)</translation>
+        <translation>Zobraz úvodní obrazovku při startu (default: 1)</translation>
     </message>
 </context>
 <context>
@@ -1149,42 +1130,32 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+6"/>
         <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB. Fee 0.01 recommended.</source>
-        <translation>Dobrovolný transakční poplatek za každý započatý kB dopomáhá k rychlému zpracování tvých transakcí. Většina transakcí má do 1 kB.</translation>
+        <translation>Volitelný poplatek transakce za kB, který zajistí, že tvé transakce jsou rychle zpracovány. Většina transakcí má 1 kB. Poplatek 0.01 je doporučený.</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Pay transaction &amp;fee</source>
-        <translation>Platit &amp;transakční poplatek</translation>
+        <translation>Platit transakční &amp;poplatek</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Reserved amount does not participate in staking and is therefore spendable at any time.</source>
-         <translation>Vyhrazené množství PayConů které se neúčastní sázek a proto je utratitelné kdykoliv.</translation>
+        <translation>Rezervované množství se nepoužívá při stakingu a může tak být použito kdykoli.</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Reserve</source>
-         <translation>Rezerva</translation>
+        <translation>Rezerva</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Automatically start PayCon after logging in to the system.</source>
-        <translation>Automaticky spustí PayCon po přihlášení do systému.</translation>
+        <translation>Automaticky spustit PayCon po přihlášení do systému.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Start PayCon on system login</source>
-        <translation>S&amp;pustit PayCon po přihlášení do systému</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Detach block and address databases at shutdown. This means they can be moved to another data directory, but it slows down shutdown. The wallet is always detached.</source>
-        <translation>Odpojit databázi bloků a adres při vypnutí počítače. To znamená, že může být přesunuta do jiného adresáře dat, ale to zpomaluje vypnutí. Peněženka je vždy odpojena.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>&amp;Detach databases at shutdown</source>
-        <translation>Odpojit databází při vypnutí</translation>
+        <translation>&amp;Spustit PayCon při přihlášení do systému</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -1194,7 +1165,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+6"/>
         <source>Automatically open the PayCon client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automaticky otevře potřebný port na routeru. Tohle funguje jen za předpokladu, že tvůj router podporuje UPnP a že je UPnP povolené.</translation>
+        <translation>Automaticky otevřít port PayCon klienta na routeru. Funguje to jen tehdy, když router podporuje UPnP a je povoleno.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1204,12 +1175,12 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+7"/>
         <source>Connect to the PayCon network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Připojí se do PayCon sítě přes SOCKS proxy (např. když se připojuje přes Tor).</translation>
+        <translation>Připoj se do sítě PayCon přes SOCKS proxy (např. při připojení přes Tor)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Connect through SOCKS proxy:</source>
-        <translation>&amp;Připojit přes SOCKS proxy:</translation>
+        <translation>&amp;Připoj se přes SOCKS proxy:</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -1224,7 +1195,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+7"/>
         <source>&amp;Port:</source>
-        <translation>Por&amp;t:</translation>
+        <translation>&amp;Port:</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -1244,7 +1215,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+36"/>
         <source>&amp;Window</source>
-        <translation>O&amp;kno</translation>
+        <translation>&amp;Okno</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1258,7 +1229,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</source>
+        <source>Minimize instead of exit the application when the window is closed. When this PayCon is enabled, the application will be closed only after selecting Quit in the menu.</source>
         <translation>Zavřením se aplikace minimalizuje. Pokud je tato volba zaškrtnuta, tak se aplikace ukončí pouze zvolením Konec v menu.</translation>
     </message>
     <message>
@@ -1279,12 +1250,12 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+13"/>
         <source>The user interface language can be set here. This setting will take effect after restarting PayCon.</source>
-        <translation>Tady lze nastavit jazyk uživatelského rozhraní. Nastavení se projeví až po restartování PayCon.</translation>
+        <translation>Zde můžeš nastavit jazyk uživatelského rozhraní. Nastavení se projeví až po restartu PayConu.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>&amp;Unit to show amounts in:</source>
-        <translation>J&amp;ednotka pro částky: </translation>
+        <translation>&amp;Jednotka pro částky: </translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1293,28 +1264,33 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show PayCon addresses in the transaction list or not.</source>
-        <translation>Zda ukazovat PayCon adresy ve výpisu transakcí nebo ne.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>&amp;Display addresses in transaction list</source>
-        <translation>Ukazo&amp;vat adresy ve výpisu transakcí</translation>
-    </message>
-    <message>
-        <location line="+7"/>
         <source>Whether to show coin control features or not.</source>
-        <translation>Zda ukazovat rozšířenou správu mincí nebo ne.</translation>
+        <translation>Zda chceš zobrazit funkci řízení mincí nebo ne.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Display coin &amp;control features (experts only!)</source>
-         <translation>Zobrazit rozšířenou správu mincí. (Pouze pro odborníky!)</translation>
+        <translation>Zobraz funkci &amp;řízení mincí (jen pro odborníky!)</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Whether to select the coin outputs randomly or with minimal coin age.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Minimize weight consumption (experimental)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Use black visual theme (requires restart)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+71"/>
         <source>&amp;OK</source>
-        <translation>&amp;Budiž</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1324,10 +1300,10 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+10"/>
         <source>&amp;Apply</source>
-        <translation>&amp;Uložit</translation>
+        <translation>&amp;Použit</translation>
     </message>
     <message>
-        <location filename="../optionsdialog.cpp" line="+55"/>
+        <location filename="../optionsdialog.cpp" line="+53"/>
         <source>default</source>
         <translation>výchozí</translation>
     </message>
@@ -1341,7 +1317,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <location line="-9"/>
         <location line="+9"/>
         <source>This setting will take effect after restarting PayCon.</source>
-        <translation>Nastavení se projeví až po restartování PayCon.</translation>
+        <translation>Nastavení se projeví až po restartu PayConu.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1357,30 +1333,30 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Formulář</translation>
     </message>
     <message>
-        <location line="+33"/>
-        <location line="+231"/>
+        <location line="+46"/>
+        <location line="+247"/>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the PayCon network after a connection is established, but this process has not completed yet.</source>
-        <translation>Zobrazené informace nemusí být aktuální. Tvá peněženka se automaticky sesynchronizuje s PayCon sítí, jakmile se s ní spojí. Zatím ale ještě není synchronizace dokončena.</translation>
+        <translation>Zobrazené informace můžou být zastaralé. Tvá peněženka se automaticky synchronizuje s PayCon sítí po navázaní spojení, ale tento proces ještě není dokončený.</translation>
     </message>
     <message>
-        <location line="-160"/>
+        <location line="-173"/>
         <source>Stake:</source>
-        <translation>Sázka:</translation>
+        <translation>Stake:</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+32"/>
         <source>Unconfirmed:</source>
         <translation>Nepotvrzeno:</translation>
     </message>
     <message>
-        <location line="-107"/>
+        <location line="-113"/>
         <source>Wallet</source>
         <translation>Peněženka</translation>
     </message>
     <message>
         <location line="+49"/>
         <source>Spendable:</source>
-        <translation>K dispozici:</translation>
+        <translation>Použitelné:</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -1388,7 +1364,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Aktuální disponibilní stav tvého účtu</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+80"/>
         <source>Immature:</source>
         <translation>Nedozráno:</translation>
     </message>
@@ -1398,7 +1374,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Vytěžené mince, které ještě nejsou zralé</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+23"/>
         <source>Total:</source>
         <translation>Celkem:</translation>
     </message>
@@ -1408,25 +1384,33 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Celkový stav tvého účtu</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+50"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
         <translation>&lt;b&gt;Poslední transakce&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="-108"/>
+        <location line="-118"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
-        <translation>Celkem z transakcí, které ještě nejsou potvrzené a které se ještě nezapočítávají do celkového stavu účtu</translation>
+        <translation>Součet transakcí, které ještě nebyly potvrzeny a proto nejsou započítány do aktuálního zůstatku</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-32"/>
         <source>Total of coins that was staked, and do not yet count toward the current balance</source>
-        <translation>Celkem mince, které jsou vsazené a nejsou k dispozici.</translation>
+        <translation>Součet transakcí, které byly stakovány a proto nejsou započítány do aktuálního zůstatku</translation>
     </message>
     <message>
-        <location filename="../overviewpage.cpp" line="+113"/>
+        <location filename="../overviewpage.cpp" line="+116"/>
         <location line="+1"/>
         <source>out of sync</source>
         <translation>nesynchronizováno</translation>
+    </message>
+</context>
+<context>
+    <name>PaymentServer</name>
+    <message>
+        <location filename="../paymentserver.cpp" line="+107"/>
+        <source>Cannot start PayCon: click-to-pay handler</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1434,12 +1418,12 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location filename="../forms/qrcodedialog.ui" line="+14"/>
         <source>QR Code Dialog</source>
-        <translation>QR kód</translation>
+        <translation>QR Kód Dialog</translation>
     </message>
     <message>
         <location line="+59"/>
         <source>Request Payment</source>
-        <translation>Požadovat platbu</translation>
+        <translation>Vyžádej Platbu</translation>
     </message>
     <message>
         <location line="+56"/>
@@ -1449,7 +1433,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="-44"/>
         <source>Label:</source>
-        <translation>Název:</translation>
+        <translation>Označení:</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -1459,32 +1443,32 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+71"/>
         <source>&amp;Save As...</source>
-        <translation>&amp;Ulož jako...</translation>
+        <translation>&amp;Uložit jako...</translation>
     </message>
     <message>
         <location filename="../qrcodedialog.cpp" line="+62"/>
         <source>Error encoding URI into QR Code.</source>
-        <translation>Chyba při kódování URI do QR kódu.</translation>
+        <translation>Chyba kódování URI na QR kód.</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>The entered amount is invalid, please check.</source>
-        <translation>Zadaná částka je neplatná, překontroluj ji prosím.</translation>
+        <translation>Zadané množství je neplatné, zkontroluj ho.</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>Výsledná URI je příliš dlouhá, zkus zkrátit text označení / zprávy.</translation>
+        <translation>Výsledné URI je příliš dlouhé, zkus zkrátit text označení / zprávy.</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Save QR Code</source>
-        <translation>Ulož QR kód</translation>
+        <translation>Uložit QR Kód</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>PNG Images (*.png)</source>
-        <translation>PNG obrázky (*.png)</translation>
+        <translation>PNK obrázky (*.png)</translation>
     </message>
 </context>
 <context>
@@ -1503,13 +1487,11 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <location line="+36"/>
         <location line="+53"/>
         <location line="+23"/>
-        <location line="+23"/>
-        <location filename="../rpcconsole.cpp" line="+348"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
     <message>
-        <location line="-217"/>
+        <location line="-194"/>
         <source>Client version</source>
         <translation>Verze klienta</translation>
     </message>
@@ -1541,7 +1523,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+23"/>
         <source>On testnet</source>
-        <translation>V testnetu</translation>
+        <translation>Na testovací síti</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -1554,12 +1536,32 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Aktuální počet bloků</translation>
     </message>
     <message>
-        <location line="+23"/>
-        <source>Estimated total blocks</source>
-        <translation>Odhad celkového počtu bloků</translation>
+        <location line="+197"/>
+        <source>&amp;Network Traffic</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+52"/>
+        <source>&amp;Clear</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Totals</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+64"/>
+        <source>In:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+80"/>
+        <source>Out:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-383"/>
         <source>Last block time</source>
         <translation>Čas posledního bloku</translation>
     </message>
@@ -1571,17 +1573,17 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+16"/>
         <source>Command-line options</source>
-        <translation>Argumenty z příkazové řádky</translation>
+        <translation>Možnosti příkazového řádku</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Show the PayCon-Qt help message to get a list with possible PayCon command-line options.</source>
-        <translation>Seznam parametrů PayCon-Qt pro příkazovou řádku získáš v nápovědě.</translation>
+        <translation>Zobrazit PayCon-Qt nápovědu pro zobrazení seznam dostupným možností příkazového řádku.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Show</source>
-        <translation>&amp;Zobrazit</translation>
+        <translation>&amp;Zobraz</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -1589,29 +1591,29 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>&amp;Konzole</translation>
     </message>
     <message>
-        <location line="-260"/>
+        <location line="-237"/>
         <source>Build date</source>
         <translation>Datum kompilace</translation>
     </message>
     <message>
         <location line="-104"/>
         <source>PayCon - Debug window</source>
-        <translation>PayCon - ladicí okno</translation>
+        <translation>PayCon - Ladící okno</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>PayCon Core</source>
-        <translation>Jádro PayCon</translation>
+        <translation>Jádro PayConu</translation>
     </message>
     <message>
-        <location line="+279"/>
+        <location line="+256"/>
         <source>Debug log file</source>
         <translation>Soubor s ladicími záznamy</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Open the PayCon debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Otevři soubor s ladicími záznamy PayCon z aktuálního datového adresáře. U velkých logů to může pár vteřin zabrat.</translation>
+        <translation>Otevři logovací soubor PayConu z aktuálního datového adresáře. Pro velké logy to může trvat několik sekund.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1619,7 +1621,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Vyčistit konzoli</translation>
     </message>
     <message>
-        <location filename="../rpcconsole.cpp" line="-33"/>
+        <location filename="../rpcconsole.cpp" line="+325"/>
         <source>Welcome to the PayCon RPC console.</source>
         <translation>Vítej v PayCon RPC konzoli.</translation>
     </message>
@@ -1633,12 +1635,47 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
         <translation>Napsáním &lt;b&gt;help&lt;/b&gt; si vypíšeš přehled dostupných příkazů.</translation>
     </message>
+    <message>
+        <location line="+127"/>
+        <source>%1 B</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 KB</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 MB</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 GB</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>%1 m</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>%1 h</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 h %2 m</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SendCoinsDialog</name>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+182"/>
+        <location filename="../sendcoinsdialog.cpp" line="+181"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -1651,22 +1688,22 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+76"/>
         <source>Coin Control Features</source>
-         <translation>Rozšířená kontrola mincí</translation>
+        <translation>Funkce Řízení Mincí</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Inputs...</source>
-         <translation>Vstupy...</translation>
+        <translation>Vstupy...</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>automatically selected</source>
-         <translation>Automaticky vybrané</translation>
+        <translation>automaticky vybrané</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Insufficient funds!</source>
-        <translation>Nedostatek prostředků</translation>
+        <translation>Nedostatečné prostředky!</translation>
     </message>
     <message>
         <location line="+77"/>
@@ -1677,12 +1714,12 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <location line="+22"/>
         <location line="+35"/>
         <source>0</source>
-        <translation type="unfinished"/>
+        <translation>0</translation>
     </message>
     <message>
         <location line="-19"/>
         <source>Bytes:</source>
-        <translation>Bytů:</translation>
+        <translation>Bajty:</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -1694,8 +1731,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <location line="+86"/>
         <location line="+86"/>
         <location line="+32"/>
-        <source>0.00 CON</source>
-        <translation type="unfinished"/>
+        <source>0.00 BC</source>
+        <translation>123.456 BC {0.00 ?}</translation>
     </message>
     <message>
         <location line="-191"/>
@@ -1715,27 +1752,27 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+35"/>
         <source>Low Output:</source>
-        <translation>Nízký výstup:</translation>
+        <translation>Nízký Vstup:</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>no</source>
-        <translation>není</translation>
+        <translation>ne</translation>
     </message>
     <message>
         <location line="+32"/>
         <source>After Fee:</source>
-        <translation>Po polatku:</translation>
+        <translation>Po Poplatku:</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>Change</source>
-        <translation>Změna:</translation>
+        <translation>Změna</translation>
     </message>
     <message>
         <location line="+50"/>
         <source>custom change address</source>
-        <translation>vlastní změna adresy</translation>
+        <translation>vlastní výměnná adresa</translation>
     </message>
     <message>
         <location line="+106"/>
@@ -1745,12 +1782,12 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+3"/>
         <source>Add &amp;Recipient</source>
-        <translation>Při&amp;dej příjemce</translation>
+        <translation>Přidej &amp;příjemce</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+16"/>
         <source>Remove all transaction fields</source>
-        <translation>Smaž všechny transakční formuláře</translation>
+        <translation>Odstraň všechna transakční položky</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1758,14 +1795,14 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Všechno s&amp;maž</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+24"/>
         <source>Balance:</source>
         <translation>Stav účtu:</translation>
     </message>
     <message>
         <location line="+16"/>
-        <source>123.456 CON</source>
-        <translation type="unfinished"/>
+        <source>123.456 BC</source>
+        <translation>123.456 BC</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -1779,53 +1816,53 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a PayCon address (e.g. Sjz75uKHzUQJnSszvdiifEGxseKkDhQToX)</source>
-         <translation>Zadej UPayCon adresu (např. H7QEPyCf1Yv8UZUALDda9bNYXuYbfMe9Lp)</translation>
+        <source>Enter a PayCon address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Napiš PayCon adresu (např. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Copy quantity</source>
-         <translation>Kopíruj množství</translation>
+        <translation>Zkopíruj množství</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy amount</source>
-        <translation>Kopíruj částku</translation>
+        <translation>Zkopíruj částku</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy fee</source>
-         <translation>Kopíruj poplatek</translation>
+        <translation>Zkopíruj poplatek</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy after fee</source>
-         <translation>Kopíruj po poplatku</translation>
+        <translation>Zkopíruj poplatek po</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy bytes</source>
-         <translation>Kopíruj byty</translation>
+        <translation>Zkopíruj bajty</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy priority</source>
-         <translation>Kopíruj prioritu</translation>
+        <translation>Zkopíruj prioritu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy low output</source>
-         <translation>Kopíruj nízký výstup</translation>
+        <translation>Zkopíruj nízký výstup</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy change</source>
-         <translation>Kopíruj změnu</translation>
+        <translation>Zkopíruj změnu</translation>
     </message>
     <message>
         <location line="+86"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; pro %2 (%3)</translation>
+        <translation>&lt;b&gt;%1&lt;/b&gt; na %2 (%3)</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1835,12 +1872,12 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+1"/>
         <source>Are you sure you want to send %1?</source>
-        <translation>Jsi si jistý, že chceš poslat %1?</translation>
+        <translation>Opravdu chceš poslat %1?</translation>
     </message>
     <message>
         <location line="+0"/>
         <source> and </source>
-        <translation> a </translation>
+        <translation>a</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1869,28 +1906,28 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error: Transaction creation failed.</source>
-        <translation>Chyba: Vytvoření transakce selhalo!</translation>
+        <source>Error: Transaction creation failed!</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Chyba: Transakce byla odmítnuta. Tohle může nastat, pokud nějaké mince z tvé peněženky už jednou byly utraceny, například pokud používáš kopii souboru wallet.dat a mince byly utraceny v druhé kopii, ale nebyly označeny jako utracené v této.</translation>
+        <translation>Chyba: Transakce byla odmítnuta. To může nastat, když některé mince ve tvé peněžence již byly utraceny, například tím, že jsi použil kopii wallet.dat a mince byly utraceny v této kopii, ale nebyly označeny jako utracené zde.</translation>
     </message>
     <message>
-        <location line="+251"/>
+        <location line="+247"/>
         <source>WARNING: Invalid PayCon address</source>
-        <translation>Chyba: Neplatná PayCon adresa!</translation>
+        <translation>UPOZORNĚNÍ: Neplatná PayCon adresa</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>(no label)</source>
-        <translation>(bez popisu)</translation>
+        <translation>(bez označení)</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>WARNING: unknown change address</source>
-        <translation>Chyba: Neznámá změna PayCon adresy!</translation>
+        <translation>UPOZORNĚNÍ: neznámá výměnná adresa</translation>
     </message>
 </context>
 <context>
@@ -1903,7 +1940,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+15"/>
         <source>A&amp;mount:</source>
-        <translation>Čás&amp;tka:</translation>
+        <translation>&amp;Částka:</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1911,25 +1948,25 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>&amp;Komu:</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <location filename="../sendcoinsentry.cpp" line="+25"/>
-        <source>Enter a label for this address to add it to your address book</source>
-        <translation>Zadej označení této adresy; obojí se ti pak uloží do adresáře</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>&amp;Label:</source>
-        <translation>O&amp;značení:</translation>
-    </message>
-    <message>
-        <location line="+18"/>
-        <source>The address to send the payment to  (e.g. Sjz75uKHzUQJnSdzvpiigEGxseKkDhQToX)</source>
+        <location line="+34"/>
+        <source>The address to send the payment to (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+60"/>
+        <location filename="../sendcoinsentry.cpp" line="+26"/>
+        <source>Enter a label for this address to add it to your address book</source>
+        <translation>Zadej označení této adresy pro přidání do adresáře</translation>
+    </message>
+    <message>
+        <location line="-78"/>
+        <source>&amp;Label:</source>
+        <translation>&amp;Označení:</translation>
+    </message>
+    <message>
+        <location line="+28"/>
         <source>Choose address from address book</source>
-        <translation>Adresa příjemce (např. P7QEPyCg1Yv3UZUALDhS9bVYXuYbfMe9Lp)</translation>
+        <translation>Vyber adresu z adresáře</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1949,12 +1986,12 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+7"/>
         <source>Remove this recipient</source>
-        <translation>Smaž tohoto příjemce</translation>
+        <translation>Odstraň tohoto příjemce</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a PayCon address (e.g. Sjz75uKHzUQJnSdzvpiigEGxseKkDhQToX)</source>
-        <translation>Zadej PayCon adresu (např. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
+        <source>Enter a PayCon address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Zadej PayCon adresu (např. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
 </context>
 <context>
@@ -1977,8 +2014,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. Sjz75uKHzUQJnSdzvpiigEGxseKkDhQToX)</source>
-        <translation>Adresa, kterou se zpráva podepíše (např. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
+        <source>The address to sign the message with (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Adresa pro podepsání zprávy (např. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2015,7 +2052,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+21"/>
         <source>Sign the message to prove you own this PayCon address</source>
-         <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem této PayCon adresy</translation>
+        <translation>Podepiš zprávu jako důkaz, že vlastníš tuto PayCon adresu</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2041,8 +2078,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. Sjz75uKHzUQJnSdzvpiigEGxseKkDhQToX)</source>
-        <translation>Adresa, kterou je zpráva podepsána (např. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
+        <source>The address the message was signed with (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Adresa kterou byla zpráva podepsána (např. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -2057,8 +2094,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a PayCon address (e.g. Sjz75uKHzUQJnSdzvpiigEGxseKkDhQToX)</source>
-        <translation type="unfinished"/>
+        <source>Enter a PayCon address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Zadej PayCon adresu (např. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2068,7 +2105,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+3"/>
         <source>Enter PayCon signature</source>
-        <translation>Vlož PayCon podpis</translation>
+        <translation>Zadej PayCon podpis</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -2108,7 +2145,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+5"/>
         <source>Message signed.</source>
-        <translation>Zpráva podepsána.</translation>
+        <translation>Zpráv podepsána.</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -2138,21 +2175,24 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
 </context>
 <context>
+    <name>TrafficGraphWidget</name>
+    <message>
+        <location filename="../trafficgraphwidget.cpp" line="+75"/>
+        <source>KB/s</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>TransactionDesc</name>
     <message>
-        <location filename="../transactiondesc.cpp" line="+19"/>
+        <location filename="../transactiondesc.cpp" line="+25"/>
         <source>Open until %1</source>
-        <translation>Otevřeno dokud %1</translation>
-    </message>
-    <message numerus="yes">
-        <location line="-2"/>
-        <source>Open for %n block(s)</source>
-        <translation><numerusform>Otevřeno pro 1 další blok</numerusform><numerusform>Otevřeno pro %n další bloky</numerusform><numerusform>Otevřeno pro %n dalších bloků</numerusform></translation>
+        <translation>Otřevřeno dokud %1</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+6"/>
         <source>conflicted</source>
-         <translation>konflikt</translation>
+        <translation>v rozporu</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2170,7 +2210,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>%1 potvrzení</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+17"/>
         <source>Status</source>
         <translation>Stav</translation>
     </message>
@@ -2272,8 +2312,8 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Generated coins must mature 70 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>Vygenerované mince musí čekat 70 bloků, než mohou být utraceny. Když jsi vygeneroval tenhle blok, tak byl rozposlán do sítě, aby byl přidán do řetězce bloků. Pokud se mu nepodaří dostat se do řetězce, změní se na &quot;neakceptovaný&quot; a nepůjde utratit. To se občas může stát, pokud jiný uzel vygeneruje blok zhruba ve stejném okamžiku jako ty.</translation>
+        <source>Generated coins must mature 10 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
+        <translation>Vygenerované mince musí zrát 10 bloků, než mohou být utraceny. Když jsi vygeneroval tento blok, tak byl vyslán do sítě, aby byl přidán do řetězce bloků. Pokud přidání do řetězce selže, tak se jeho stav změní na &quot;neakceptován&quot; a nebude ho možné utratit. To se někdy může stát, když jiný uzel vygeneruje blok pár vteřin před tím tvým. </translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2291,27 +2331,32 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Vstupy</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+21"/>
         <source>Amount</source>
         <translation>Částka</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>true</source>
-        <translation>v pořádku</translation>
+        <translation>true</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>false</source>
-        <translation>špatně</translation>
+        <translation>false</translation>
     </message>
     <message>
-        <location line="-211"/>
+        <location line="-209"/>
         <source>, has not been successfully broadcast yet</source>
         <translation>, ještě nebylo rozesláno</translation>
     </message>
+    <message numerus="yes">
+        <location line="-36"/>
+        <source>Open for %n more block(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
     <message>
-        <location line="+35"/>
+        <location line="+71"/>
         <source>unknown</source>
         <translation>neznámo</translation>
     </message>
@@ -2332,7 +2377,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
 <context>
     <name>TransactionTableModel</name>
     <message>
-        <location filename="../transactiontablemodel.cpp" line="+226"/>
+        <location filename="../transactiontablemodel.cpp" line="+231"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
@@ -2352,7 +2397,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Částka</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+52"/>
         <source>Open until %1</source>
         <translation>Otřevřeno dokud %1</translation>
     </message>
@@ -2379,17 +2424,17 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+3"/>
         <source>Confirming (%1 of %2 recommended confirmations)</source>
-        <translation>Potvrzuji (%1 z %2 doporučených potvrzení)</translation>
+        <translation>Potvrzuji (%1 ze %2 doporučených potvrzení)</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Conflicted</source>
-        <translation>Konflikt</translation>
+        <translation>V rozporu</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Immature (%1 confirmations, will be available after %2)</source>
-        <translation>Nedozráno (%1 potvrzení, bude k dispozici po %2)</translation>
+        <translation>Nezralé (konfirmací %1, bude dostupné po %2)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2432,7 +2477,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>(n/a)</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+194"/>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
         <translation>Stav transakce. Najetím myši na toto políčko si zobrazíš počet potvrzení.</translation>
     </message>
@@ -2460,13 +2505,13 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
 <context>
     <name>TransactionView</name>
     <message>
-        <location filename="../transactionview.cpp" line="+55"/>
-        <location line="+16"/>
+        <location filename="../transactionview.cpp" line="+54"/>
+        <location line="+17"/>
         <source>All</source>
         <translation>Vše</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-16"/>
         <source>Today</source>
         <translation>Dnes</translation>
     </message>
@@ -2496,7 +2541,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Rozsah...</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>Received with</source>
         <translation>Přijato</translation>
     </message>
@@ -2561,9 +2606,9 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Zobraz detaily transakce</translation>
     </message>
     <message>
-        <location line="+144"/>
+        <location line="+138"/>
         <source>Export Transaction Data</source>
-        <translation>Exportovat data transakce</translation>
+        <translation>Exportuj Transakční Data</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2608,12 +2653,12 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+4"/>
         <source>Error exporting</source>
-        <translation>Chyba exportu</translation>
+        <translation>Chyba exportování</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation>Nemohu zapisovat do souboru %1.</translation>
+        <translation>Nemůžu zapsat do souboru %1.</translation>
     </message>
     <message>
         <location line="+100"/>
@@ -2629,17 +2674,17 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+206"/>
+        <location filename="../walletmodel.cpp" line="+208"/>
         <source>Sending...</source>
-        <translation>Posílám...</translation>
+        <translation>Odesílám...</translation>
     </message>
 </context>
 <context>
     <name>bitcoin-core</name>
     <message>
-        <location filename="../bitcoinstrings.cpp" line="+33"/>
+        <location filename="../bitcoinstrings.cpp" line="+173"/>
         <source>PayCon version</source>
-        <translation>PayCon verze</translation>
+        <translation>Verze PayConu</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2649,7 +2694,7 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
     <message>
         <location line="+1"/>
         <source>Send command to -server or PayCond</source>
-        <translation>Poslat příkaz pro -server nebo PayCond</translation>
+        <translation>Pošli příkaz na -server nebo PayCond</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2662,19 +2707,19 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Získat nápovědu pro příkaz</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-147"/>
         <source>Options:</source>
         <translation>Možnosti:</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Specify configuration file (default: PayCon.conf)</source>
-        <translation>Konfigurační soubor (výchozí: PayCon.conf)</translation>
+        <translation>Urči konfigurační soubor (výchozí: PayCon.conf)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Specify pid file (default: PayCond.pid)</source>
-        <translation>PID soubor (výchozí: PayCond.pid)</translation>
+        <translation>Urči pid soubor (výchozí: PayCond.pid)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2687,19 +2732,34 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Adresář pro data</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-25"/>
+        <source>%s, you must set a rpcpassword in the configuration file:
+%s
+It is recommended you use the following random password:
+rpcuser=PayConrpc
+rpcpassword=%s
+(you do not need to remember this password)
+The username and password MUST NOT be the same.
+If the file does not exist, create it with owner-readable-only file permissions.
+It is also recommended to set alertnotify so you are notified of problems;
+for example: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.com
+</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+27"/>
         <source>Set database cache size in megabytes (default: 25)</source>
         <translation>Nastavit velikost databázové vyrovnávací paměti v megabajtech (výchozí: 25)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Set database disk log size in megabytes (default: 100)</source>
-        <translation>Nastavit velikost databázového souboru v megabajtech (výchozí: 100)</translation>
+        <translation>Nastav velikost databázového logu na disku (výchozí: 100)</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Listen for connections on &lt;port&gt; (default: 15714 or testnet: 25714)</source>
-        <translation>Čekat na spojení na &lt;portu&gt; (výchozí: 15714 nebo testnet: 25714)</translation>
+        <translation>Naslouchej připojením na &lt;port&gt; (výchozí: 15714 nebo testovací síť: 25714)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2717,14 +2777,19 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Specifikuj svou veřejnou adresu</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
         <source>Bind to given address. Use [host]:port notation for IPv6</source>
-        <translation>Svázat na danou adresu. Použijte [hostitel]:port pro IPv6</translation>
+        <translation>Svaž s danou adresou. Pro IPv6 použij notaci [host]:port</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Stake your coins to support network and gain reward (default: 1)</source>
-        <translation>Sázka mincí na podporu sítě a získat odměnu (výchozí: 1)</translation>
+        <location line="+1"/>
+        <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Always query for peer addresses via DNS lookup (default: 0)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
@@ -2737,58 +2802,22 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Doba ve vteřinách, po kterou se nebudou moci zlobivé uzly znovu připojit (výchozí: 86400)</translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="-37"/>
         <source>An error occurred while setting up the RPC port %u for listening on IPv4: %s</source>
         <translation>Při nastavování naslouchacího RPC portu %i pro IPv4 nastala chyba: %s</translation>
     </message>
     <message>
-        <location line="+51"/>
-        <source>Detach block and address databases. Increases shutdown time (default: 0)</source>
-        <translation>Odpojit databázi bloků a adres. Zvyšuje vypínací čas (výchozí: 0)</translation>
-    </message>
-    <message>
-        <location line="+109"/>
-        <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Chyba: Transakce byla odmítnuta! Tohle může nastat, pokud nějaké mince z tvé peněženky už jednou byly utraceny, například pokud používáš kopii souboru wallet.dat a mince byly utraceny v druhé kopii, ale nebyly označeny jako utracené v této.</translation>
-    </message>
-    <message>
-        <location line="-5"/>
-        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
-        <translation>Chyba: Tahle transakce vyžaduje transakční poplatek nejméně %s kvůli velikosti zasílané částky, komplexnosti nebo použití nedávno přijatých mincí!</translation>
-   </message>
-    <message>
-        <location line="-87"/>
+        <location line="+65"/>
         <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 15715 or testnet: 25715)</source>
-        <translation>Čekat na JSON RPC spojení na &lt;portu&gt; (výchozí: 15715 nebo testnet: 25715)</translation>
-    
+        <translation>Naslouchej JSON-RPC připojením na &lt;port&gt; (výchozí: 15715 nebo testovací síť: 25715)</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="-17"/>
         <source>Accept command line and JSON-RPC commands</source>
         <translation>Akceptovat příkazy z příkazové řádky a přes JSON-RPC</translation>
     </message>
     <message>
-        <location line="+101"/>
-        <source>Error: Transaction creation failed  </source>
-        <translation>Chyba: Vytvoření transakce selhalo!</translation>
-    </message>
-    <message>
-        <location line="-5"/>
-        <source>Error: Wallet locked, unable to create transaction  </source>
-        <translation>Chyba: Peněženka je zamčená, nemohu vytvořit transakci!</translation>
-    </message>
-    <message>
-        <location line="-8"/>
-        <source>Importing blockchain data file.</source>
-        <translation>Import datového souboru bloků.</translation>
-    </message>
-    <message>
         <location line="+1"/>
-        <source>Importing bootstrap blockchain data file.</source>
-         <translation>Import bootsrap datového souboru bloků.</translation>
-    </message>
-    <message>
-        <location line="-88"/>
         <source>Run in the background as a daemon and accept commands</source>
         <translation>Běžet na pozadí jako démon a akceptovat příkazy</translation>
     </message>
@@ -2803,32 +2832,27 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Přijímat spojení zvenčí (výchozí: 1, pokud není zadáno -proxy nebo -connect)</translation>
     </message>
     <message>
-        <location line="-38"/>
+        <location line="-29"/>
         <source>An error occurred while setting up the RPC port %u for listening on IPv6, falling back to IPv4: %s</source>
         <translation>Při nastavování naslouchacího RPC portu %u pro IPv6 nastala chyba, vracím se k IPv4: %s</translation>
     </message>
     <message>
-        <location line="+117"/>
-        <source>Error initializing database environment %s! To recover, BACKUP THAT DIRECTORY, then remove everything from it except for wallet.dat.</source>
-        <translation>Chyba při inicializaci databázového prostředí %s! Chcete-li obnovit, ZÁLOHUJTE TENTO ADRESÁŘ, a pak smažte vše v adresáři, kromě wallet.dat!</translation>
-    </message>
-    <message>
-        <location line="-20"/>
+        <location line="+96"/>
         <source>Set maximum size of high-priority/low-fee transactions in bytes (default: 27000)</source>
-        <translation>Nastavit maximální velikost prioritních/nízkopoplatkových transakcí v bajtech (výchozí: 27000)</translation>
+        <translation>Nastav maximální velikost high-priority/low-fee transakcí v bajtech (výchozí: 27000)</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+12"/>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
         <translation>Upozornění: -paytxfee je nastaveno velmi vysoko! Toto je transakční poplatek, který zaplatíš za každou poslanou transakci.</translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="-103"/>
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong PayCon will not work properly.</source>
-        <translation>Upozornění: Zkontroluj, že máš v počítači správně nastavený datum a čas! Pokud jsou nastaveny špatně, PayCon nebude fungovat správně.</translation>
-        </message>
+        <translation>Upozornění: Zkontroluj prosím datum a čas tvého počítače! Pokud jdou tvé hodiny špatně, tak PayCon nebude pracovat správně. </translation>
+    </message>
     <message>
-        <location line="-31"/>
+        <location line="+132"/>
         <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation>Upozornění: nastala chyba při čtení souboru wallet.dat! Všechny klíče se přečetly správně, ale data o transakcích nebo záznamy v adresáři mohou chybět či být nesprávné.</translation>
     </message>
@@ -2838,17 +2862,17 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Upozornění: soubor wallet.dat je poškozený, data jsou však zachráněna! Původní soubor wallet.dat je uložený jako wallet.{timestamp}.bak v %s. Pokud je stav tvého účtu nebo transakce nesprávné, zřejmě bys měl obnovit zálohu.</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-31"/>
         <source>Attempt to recover private keys from a corrupt wallet.dat</source>
         <translation>Pokusit se zachránit soukromé klíče z poškozeného souboru wallet.dat</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Block creation options:</source>
         <translation>Možnosti vytvoření bloku:</translation>
     </message>
     <message>
-        <location line="-62"/>
+        <location line="-69"/>
         <source>Connect only to the specified node(s)</source>
         <translation>Připojit se pouze k zadanému uzlu (příp. zadaným uzlům)</translation>
     </message>
@@ -2858,32 +2882,27 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Zjistit vlastní IP adresu (výchozí: 1, pokud naslouchá a není zadáno -externalip)</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+101"/>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
         <translation>Nepodařilo se naslouchat na žádném portu. Použij -listen=0, pokud to byl tvůj záměr.</translation>
     </message>
     <message>
-        <location line="-90"/>
-        <source>Find peers using DNS lookup (default: 1)</source>
-        <translation>Hledat uzly přes DNS (výchozí: 1, pokud není zadáno -connect)</translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="-91"/>
         <source>Sync checkpoints policy (default: strict)</source>
-        <translation>Politika synchronizace kontrolních bloků (výchozí: přísný)</translation>
+        <translation>Synchronizuj politiku kontrolních bodů (výchozí: přísný)</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+89"/>
         <source>Invalid -tor address: &apos;%s&apos;</source>
         <translation>Neplatná -tor adresa: &apos;%s&apos;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Invalid amount for -reservebalance=&lt;amount&gt;</source>
-        <translation>Neplatná částka pro -reservebalance=&lt;částka&gt;</translation>
+        <translation>Neplatná částka pro -reservebalance=&lt;amount&gt;</translation>
     </message>
     <message>
-        <location line="-82"/>
+        <location line="-88"/>
         <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
         <translation>Maximální velikost přijímacího bufferu pro každé spojení, &lt;n&gt;*1000 bajtů (výchozí: 5000)</translation>
     </message>
@@ -2893,49 +2912,39 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Maximální velikost odesílacího bufferu pro každé spojení, &lt;n&gt;*1000 bajtů (výchozí: 1000)</translation>
     </message>
     <message>
-        <location line="-16"/>
+        <location line="-17"/>
         <source>Only connect to nodes in network &lt;net&gt; (IPv4, IPv6 or Tor)</source>
         <translation>Připojit se pouze k uzlům v &lt;net&gt; síti (IPv4, IPv6 nebo Tor)</translation>
     </message>
     <message>
-        <location line="+28"/>
-        <source>Output extra debugging information. Implies all other -debug* options</source>
-        <translation>Tisknout speciální ladicí informace. Implikuje použití všech -debug* voleb</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Output extra network debugging information</source>
-        <translation>Tisknout speciální ladicí informace o síti</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+31"/>
         <source>Prepend debug output with timestamp</source>
-        <translation>Připojit před ladicí výstup časové razítko</translation>
+        <translation>Před ladící výstup přidej časové razítko</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+41"/>
         <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
         <translation>Možnosti SSL: (viz instrukce nastavení SSL v Bitcoin Wiki)</translation>
     </message>
     <message>
-        <location line="-74"/>
+        <location line="-81"/>
         <source>Select the version of socks proxy to use (4-5, default: 5)</source>
-        <translation>Zvol verzi socks proxy (4-5, výchozí: 5)</translation>
+        <translation>Vyber verzi SOCKS proxy, která se bude používat (4-5, výchozí: 5)</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+42"/>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>Posílat stopovací/ladicí informace do konzole místo do souboru debug.log</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+5"/>
         <source>Send trace/debug info to debugger</source>
-        <translation>Posílat stopovací/ladicí informace do debuggeru</translation>
+        <translation>Odešli trasovací/ladicí informace do debuggera</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+30"/>
         <source>Set maximum block size in bytes (default: 250000)</source>
-         <translation>Nastavit maximální velikost bloku v bajtech (výchozí: 250000)</translation>
+        <translation>Nastav maximální velikost bloku v bajtech (výchozí: 250000)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2943,23 +2952,24 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Nastavit minimální velikost bloku v bajtech (výchozí: 0)</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-35"/>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
         <translation>Při spuštění klienta zmenšit soubor debug.log (výchozí: 1, pokud není zadáno -debug)</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-43"/>
         <source>Specify connection timeout in milliseconds (default: 5000)</source>
         <translation>Zadej časový limit spojení v milisekundách (výchozí: 5000)</translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+116"/>
         <source>Unable to sign checkpoint, wrong checkpointkey?
-		</source>
-        <translation>Nelze synchronizovat kontrolní blok, špatně checkpointkey?</translation>
+</source>
+        <translation>Není možné podepsat kontrolní bod, špatný kontrolní bod?
+</translation>
     </message>
     <message>
-        <location line="-80"/>
+        <location line="-86"/>
         <source>Use UPnP to map the listening port (default: 0)</source>
         <translation>Použít UPnP k namapování naslouchacího portu (výchozí: 0)</translation>
     </message>
@@ -2969,87 +2979,102 @@ To znamená, že minimálně %1 za kb jsou povinné</translation>
         <translation>Použít UPnP k namapování naslouchacího portu (výchozí: 1, pokud naslouchá)</translation>
     </message>
     <message>
-        <location line="-25"/>
+        <location line="-26"/>
         <source>Use proxy to reach tor hidden services (default: same as -proxy)</source>
-        <translation>Použít proxy k připojení ke skryté služby (výchozí: stejné jako -proxy)</translation>
+        <translation>Použij proxy k dosažení skrytých Tor služeb (výchozí: stejné jako -proxy)</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+47"/>
         <source>Username for JSON-RPC connections</source>
         <translation>Uživatelské jméno pro JSON-RPC spojení</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+51"/>
         <source>Verifying database integrity...</source>
-        <translation>Kontroluji integritu databáze</translation>
+        <translation>Ověřování integrity databáze...</translation>
     </message>
     <message>
-        <location line="+57"/>
-        <source>WARNING: syncronized checkpoint violation detected, but skipped!</source>
-         <translation>UPOZORNĚNÍ: porušení synchronizačního bloku detekováno, ale přeskočeno!</translation>
+        <location line="+44"/>
+        <source>Error: Wallet locked, unable to create transaction!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Error: Transaction creation failed!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Error: The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Warning</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: Disk space is low!</source>
-        <translation>Problém: Na disku je málo místa!</translation>
+        <source>Information</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2"/>
+        <location line="+2"/>
+        <source>WARNING: syncronized checkpoint violation detected, but skipped!</source>
+        <translation>UPOZORNĚNÍ: detekováno porušení synchronizovaného kontrolního bodu, ale bylo to přeskočeno!</translation>
+    </message>
+    <message>
+        <location line="-1"/>
         <source>Warning: This version is obsolete, upgrade required!</source>
         <translation>Upozornění: tahle verze je zastaralá, měl bys ji aktualizovat!</translation>
     </message>
     <message>
-        <location line="-48"/>
+        <location line="-54"/>
         <source>wallet.dat corrupt, salvage failed</source>
         <translation>Soubor wallet.dat je poškozen, jeho záchrana se nezdařila</translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location line="-56"/>
         <source>Password for JSON-RPC connections</source>
         <translation>Heslo pro JSON-RPC spojení</translation>
     </message>
     <message>
-        <location line="-84"/>
-        <source>%s, you must set a rpcpassword in the configuration file:
- %s
-It is recommended you use the following random password:
-rpcuser=PayConrpc
-rpcpassword=%s
-(you do not need to remember this password)
-The username and password MUST NOT be the same.
-If the file does not exist, create it with owner-readable-only file permissions.
-It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.com
-</source>
-        <translation>%s, musíš nastavit rpcpassword v konfiguračním souboru:
-%s
-Je vhodné použít následující náhodné heslo:
-rpcuser=PayConrpc
-rpcpassword=%s
-(není potřeba si ho pamatovat)
-rpcuser a rpcpassword NESMÍ být stejné.
-Pokud konfigurační soubor ještě neexistuje, vytvoř ho tak, aby ho mohl číst pouze vlastník.
-Je také doporučeno si nastavit alertnotify, abys byl upozorněn na případné problémy;
-například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.com
-</translation>
-    </message>
-    <message>
-        <location line="+51"/>
-        <source>Find peers using internet relay chat (default: 0)</source>
-        <translation>Najít peers pomocí Internet Relay Chat (výchozí: 0)</translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="-32"/>
         <source>Sync time with other nodes. Disable if time on your system is precise e.g. syncing with NTP (default: 1)</source>
-        <translation>Synchronizace času s ostatními uzly. Zakážte pokud čas na vašem systému je přesný, např. synchronizací s NTP (výchozí: 1)</translation>
+        <translation>Synchronizuj čas s ostatními uzly, Vypni, pokud máš v systému přesný čas, např. synchronizací pomocí NTP (výchozí: 1)</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+13"/>
         <source>When creating transactions, ignore inputs with value less than this (default: 0.01)</source>
-        <translation>Při vytváření transakcí, ignorovat vstupy s hodnotou nižší než tato (výchozí: 0.01)</translation>
+        <translation>Při vytváření transakci ignoruj vstupy s hodnotou menší než tato (výchozí: 0.01)</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+6"/>
+        <source>Output debugging information (default: 0, supplying &lt;category&gt; is optional)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&lt;category&gt; can be:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Enter regression test mode, which uses a special chain in which blocks can be solved instantly. This is intended for regression testing tools and app development.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Allow JSON-RPC connections from specified IP address</source>
         <translation>Povolit JSON-RPC spojení ze specifikované IP adresy</translation>
     </message>
@@ -3057,6 +3082,16 @@ například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.c
         <location line="+1"/>
         <source>Send commands to node running on &lt;ip&gt; (default: 127.0.0.1)</source>
         <translation>Posílat příkazy uzlu běžícím na &lt;ip&gt; (výchozí: 127.0.0.1)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Wait for RPC server to start</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Set the number of threads to service RPC calls (default: 4)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -3071,17 +3106,12 @@ například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.c
     <message>
         <location line="+3"/>
         <source>Require a confirmations for change (default: 0)</source>
-        <translation>Požadovat potvrzení pro změnu (default: 0)</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Enforce transaction scripts to use canonical PUSH operators (default: 1)</source>
-        <translation>Prosazovat transakční skripty s použitím kanonické operátory push (výchozí: 1)</translation>
+        <translation>Vyžadovat potvrzení změn (výchozí: 0)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Execute command when a relevant alert is received (%s in cmd is replaced by message)</source>
-        <translation>Spustit příkaz po přijetí relevantního hlášení (%s se v příkazu nahradí za zprávu)</translation>
+        <translation>Vyvolat příkaz, když je přijato příslušné upozornění (%s in cmd je nahrazeno zprávou)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3099,22 +3129,17 @@ například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.c
         <translation>Přeskenovat řetězec bloků na chybějící transakce tvé pěněženky</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>How many blocks to check at startup (default: 2500, 0 = all)</source>
-        <translation>Kolik bloků při startu zkontrolovat (výchozí: 288, 0 = všechny)</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+3"/>
         <source>How thorough the block verification is (0-6, default: 1)</source>
-        <translation>Jak moc důkladná má být verifikace bloků (0-4, výchozí: 3)</translation>
+        <translation>Jak je důkladné ověřování bloků (0-6, výchozí: 1)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Imports blocks from external blk000?.dat file</source>
-        <translation>Importovat bloky z externího souboru blk000??.dat</translation>
+        <translation>Importuj bloky z externího blk000?.dat souboru</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Use OpenSSL (https) for JSON-RPC connections</source>
         <translation>Použít OpenSSL (https) pro JSON-RPC spojení</translation>
     </message>
@@ -3129,49 +3154,49 @@ například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.c
         <translation>Soubor se serverovým soukromým klíčem (výchozí: server.pem)</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</source>
-        <translation>Akceptovatelné šifry (výchozí: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</translation>
+        <location line="+10"/>
+        <source>Initialization sanity check failed. PayCon is shutting down.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+50"/>
         <source>Error: Wallet unlocked for staking only, unable to create transaction.</source>
-        <translation>Chyba: Peněženka odemčená pouze pro sázky, nelze vytvořit transakci.</translation>
+        <translation>Chyba: Peněženka odemčena pouze pro stakování, není možné vytvářet transakce.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+17"/>
+        <source>Error: Disk space is low!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>WARNING: Invalid checkpoint found! Displayed transactions may not be correct! You may need to upgrade, or notify developers.</source>
-        <translation>VAROVÁNÍ: Neplatný kontrolní blok detekován! Uvedené transakce nemusí být správné! Možná budete muset upgradovat, nebo oznámit vývojářům.</translation>
+        <translation>UPOZORNĚNÍ: Nalezen neplatný kontrolní bod! Zobrazené transakce nemusí být správné! Možná budeš muset provést aktualizaci, nebo kontaktovat vývojáře.</translation>
     </message>
     <message>
-        <location line="-158"/>
+        <location line="-174"/>
         <source>This help message</source>
         <translation>Tato nápověda</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+104"/>
         <source>Wallet %s resides outside data directory %s.</source>
-        <translation>Peněženka %s je mimo datový adresář %s.</translation>
+        <translation>Peněženka %s je umístěna mimo datový adresář %s.</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Cannot obtain a lock on data directory %s.  PayCon is probably already running.</source>
-        <translation>Nedaří se mi získat zámek na datový adresář %s. PayCon pravděpodobně už jednou běží.</translation>
-    </message>
-    <message>
-        <location line="-98"/>
-        <source>PayCon</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+140"/>
+        <location line="+37"/>
         <source>Unable to bind to %s on this computer (bind returned error %d, %s)</source>
         <translation>Nedaří se mi připojit na %s na tomhle počítači (operace bind vrátila chybu %d, %s)</translation>
     </message>
     <message>
-        <location line="-130"/>
+        <location line="-133"/>
         <source>Connect through socks proxy</source>
-        <translation>&amp;Připojit přes SOCKS proxy:</translation>
+        <translation>Připoj se přes SOCKS proxy</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3179,14 +3204,14 @@ například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.c
         <translation>Povolit DNS dotazy pro -addnode (přidání uzlu), -seednode a -connect (připojení)</translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+126"/>
         <source>Loading addresses...</source>
         <translation>Načítám adresy...</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-12"/>
         <source>Error loading blkindex.dat</source>
-          <translation>Chyba čtení souboru: blkindex.dat</translation>
+        <translation>Chyba načítání blkindex.dat</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3196,12 +3221,12 @@ například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.c
     <message>
         <location line="+4"/>
         <source>Error loading wallet.dat: Wallet requires newer version of PayCon</source>
-        <translation>Chyba při načítání wallet.dat: peněženka vyžaduje novější verzi PayCon</translation>
+        <translation>Chyba načítání wallet.dat: Peněženka vyžaduje novější verzi PayConu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wallet needed to be rewritten: restart PayCon to complete</source>
-        <translation>Soubor s peněženkou potřeboval přepsat: restartuj PayCon, aby se operace dokončila</translation>
+        <translation>Peněženka by potřebovala být přepsána: restartuj PayCon pro dokončení</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3234,19 +3259,14 @@ například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.c
         <translation>Nemohu přeložit -externalip adresu: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="-23"/>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos;</source>
         <translation>Neplatná částka pro -paytxfee=&lt;částka&gt;: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="+44"/>
-        <source>Error: could not start node</source>
-        <translation>Chyba: nelze spustit uzel</translation>
-    </message>
-    <message>
-        <location line="+11"/>
+        <location line="+60"/>
         <source>Sending...</source>
-         <translation>Odesílání...</translation>
+        <translation>Odesílám...</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3259,32 +3279,67 @@ například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.c
         <translation>Nedostatek prostředků</translation>
     </message>
     <message>
-        <location line="-34"/>
+        <location line="-40"/>
         <source>Loading block index...</source>
         <translation>Načítám index bloků...</translation>
     </message>
     <message>
-        <location line="-103"/>
+        <location line="-110"/>
         <source>Add a node to connect to and attempt to keep the connection open</source>
         <translation>Přidat uzel, ke kterému se připojit a snažit se spojení udržet</translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+125"/>
         <source>Unable to bind to %s on this computer. PayCon is probably already running.</source>
-        <translation>Nedaří se mi připojit na %s na tomhle počítači. PayCon už pravděpodobně jednou běží.</translation>
+        <translation>Nemůžu se svázat s %s na tomto počítači. PayCon nejspíše již běží.</translation>
     </message>
     <message>
-        <location line="-97"/>
+        <location line="-101"/>
         <source>Fee per KB to add to transactions you send</source>
-        <translation>Poplatek za kB, který se přidá ke každé odeslané transakci</translation>
+        <translation>Přidej poplatek za KB do transakcí, které odesíláš</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+34"/>
+        <source>Minimize weight consumption (experimental) (default: 0)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>How many blocks to check at startup (default: 500, 0 = all)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Keep at most &lt;n&gt; unconnectable blocks in memory (default: %u)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Acceptable ciphers (default: TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Warning: Deprecated argument -debugnet ignored, use -debug=net</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Invalid amount for -mininput=&lt;amount&gt;: &apos;%s&apos;</source>
-        <translation>Neplatná částka pro -mininput=&lt;částka&gt;: &apos;%s&apos;</translation>
+        <translation>Neplatné množství pro -mininput=&lt;amount&gt;: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+3"/>
+        <source>Cannot obtain a lock on data directory %s. PayCon is probably already running.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Error initializing wallet database environment %s!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+17"/>
         <source>Loading wallet...</source>
         <translation>Načítám peněženku...</translation>
     </message>
@@ -3292,11 +3347,6 @@ například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.c
         <location line="+8"/>
         <source>Cannot downgrade wallet</source>
         <translation>Nemohu převést peněženku do staršího formátu</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Cannot initialize keypool</source>
-        <translation>Nelze inicializovat keypool</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3309,22 +3359,22 @@ například: alertnotify=echo %%s | mail -s &quot;PayCon Alert&quot; admin@foo.c
         <translation>Přeskenovávám...</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+2"/>
         <source>Done loading</source>
         <translation>Načítání dokončeno</translation>
     </message>
     <message>
-        <location line="-167"/>
-        <source>To use the %s option</source>
+        <location line="-161"/>
+        <source>To use the %s PayCon</source>
         <translation>K použití volby %s</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+188"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-18"/>
         <source>You must set rpcpassword=&lt;password&gt; in the configuration file:
 %s
 If the file does not exist, create it with owner-readable-only file permissions.</source>

@@ -1,32 +1,41 @@
-// Copyright (c) 2010-2015 Satoshi Nakamoto
-// Copyright (c) 2009-2015 The Bitcoin developers
-// Copyright (c) 2015 The PayCon developers
+// Copyright (c) 2010 Satoshi Nakamoto
+// Copyright (c) 2009-2012 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "base58.h"
+#include "rpcserver.h"
+#include "init.h"
+#include "net.h"
+#include "netbase.h"
+#include "timedata.h"
+#include "util.h"
 #include "wallet.h"
 #include "walletdb.h"
-#include "bitcoinrpc.h"
-#include "main.h"
-#include "init.h"
-#include "base58.h"
-#include "coincontrol.h"
 
-#include <sstream>
-#include <boost/lexical_cast.hpp>
-
-using namespace json_spirit;
 using namespace std;
+using namespace json_spirit;
 
 int64_t nWalletUnlockTime;
-CCoinControl* coinControl = new CCoinControl;
 static CCriticalSection cs_nWalletUnlockTime;
 
 extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, json_spirit::Object& entry);
 
+static void accountingDeprecationCheck()
+{
+    if (!GetBoolArg("-enableaccounts", false))
+        throw runtime_error(
+            "Accounting API is deprecated and will be removed in future.\n"
+            "It can easily result in negative or odd balances if misused or misunderstood, which has happened in the field.\n"
+            "If you still want to enable it, add to your config file enableaccounts=1\n");
+
+    if (GetBoolArg("-staking", true))
+        throw runtime_error("If you want to use accounting API, staking must be disabled, add to your config file staking=0\n");
+}
+
 std::string HelpRequiringPassphrase()
 {
-    return pwalletMain->IsCrypted()
+    return pwalletMain && pwalletMain->IsCrypted()
         ? "\nrequires wallet passphrase to be set with walletpassphrase first"
         : "";
 }
@@ -35,8 +44,8 @@ void EnsureWalletIsUnlocked()
 {
     if (pwalletMain->IsLocked())
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
-    if (pwalletMain->fWalletUnlockMintOnly)
-        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Wallet unlocked for block minting only.");
+    if (fWalletUnlockStakingOnly)
+        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Wallet is unlocked for staking only.");
 }
 
 void WalletTxToJSON(const CWalletTx& wtx, Object& entry)
@@ -49,11 +58,11 @@ void WalletTxToJSON(const CWalletTx& wtx, Object& entry)
     {
         entry.push_back(Pair("blockhash", wtx.hashBlock.GetHex()));
         entry.push_back(Pair("blockindex", wtx.nIndex));
-        entry.push_back(Pair("blocktime", (boost::int64_t)(mapBlockIndex[wtx.hashBlock]->nTime)));
+        entry.push_back(Pair("blocktime", (int64_t)(mapBlockIndex[wtx.hashBlock]->nTime)));
     }
     entry.push_back(Pair("txid", wtx.GetHash().GetHex()));
-    entry.push_back(Pair("time", (boost::int64_t)wtx.GetTxTime()));
-    entry.push_back(Pair("timereceived", (boost::int64_t)wtx.nTimeReceived));
+    entry.push_back(Pair("time", (int64_t)wtx.GetTxTime()));
+    entry.push_back(Pair("timereceived", (int64_t)wtx.nTimeReceived));
     BOOST_FOREACH(const PAIRTYPE(string,string)& item, wtx.mapValue)
         entry.push_back(Pair(item.first, item.second));
 }
@@ -66,161 +75,6 @@ string AccountFromValue(const Value& value)
     return strAccount;
 }
 
-Value getinfo(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getinfo\n"
-            "Returns an object containing various state info.");
-
-    proxyType proxy;
-    GetProxy(NET_IPV4, proxy);
-
-    Object obj, diff;
-    obj.push_back(Pair("version",       FormatFullVersion()));
-    obj.push_back(Pair("protocolversion",(int)PROTOCOL_VERSION));
-    obj.push_back(Pair("walletversion", pwalletMain->GetVersion()));
-    obj.push_back(Pair("balance",       ValueFromAmount(pwalletMain->GetBalance())));
-    obj.push_back(Pair("newmint",       ValueFromAmount(pwalletMain->GetNewMint())));
-    obj.push_back(Pair("stake",         ValueFromAmount(pwalletMain->GetStake())));
-	obj.push_back(Pair("combine threshold",   ValueFromAmount(nCombineThreshold)));
-    obj.push_back(Pair("blocks",        (int)nBestHeight));
-    obj.push_back(Pair("timeoffset",    (boost::int64_t)GetTimeOffset()));
-    obj.push_back(Pair("moneysupply",   ValueFromAmount(pindexBest->nMoneySupply)));
-    obj.push_back(Pair("connections",   (int)vNodes.size()));
-    obj.push_back(Pair("proxy",         (proxy.first.IsValid() ? proxy.first.ToStringIPPort() : string())));
-    obj.push_back(Pair("ip",            addrSeenByPeer.ToStringIP()));
-
-    diff.push_back(Pair("proof-of-work",  GetDifficulty()));
-    diff.push_back(Pair("proof-of-stake", GetDifficulty(GetLastBlockIndex(pindexBest, true))));
-    obj.push_back(Pair("difficulty",    diff));
-
-    obj.push_back(Pair("testnet",       fTestNet));
-    obj.push_back(Pair("keypoololdest", (boost::int64_t)pwalletMain->GetOldestKeyPoolTime()));
-    obj.push_back(Pair("keypoolsize",   (int)pwalletMain->GetKeyPoolSize()));
-    obj.push_back(Pair("paytxfee",      ValueFromAmount(nTransactionFee)));
-    obj.push_back(Pair("mininput",      ValueFromAmount(nMinimumInputValue)));
-	bool nStaking = false;  
-	if(mapHashedBlocks.count(nBestHeight))  
-		nStaking = true;  
-	else if(mapHashedBlocks.count(nBestHeight - 1) && nLastCoinStakeSearchInterval)  
-		nStaking = true;	  
-	obj.push_back(Pair("staking status", (nStaking ? "Staking Active" : "Staking Not Active"))); 
-
-    if (pwalletMain->IsCrypted())
-        obj.push_back(Pair("unlocked_until", (boost::int64_t)nWalletUnlockTime / 1000));
-    obj.push_back(Pair("errors",        GetWarnings("statusbar")));
-    return obj;
-}
-
-//presstab
-double GetMoneySupply(int nHeight)
-{
-	CBlockIndex* pindex = FindBlockByHeight(nHeight);
-	double nSupply = pindex->nMoneySupply;	
-	return nSupply / COIN;	
-}
-
-//presstab
-double GetSupplyChange(int nHeight, int pHeight)
-{
-	double nSupply = GetMoneySupply(nHeight); //present supply
-	double pSupply = GetMoneySupply(pHeight); //previous supply
-	double nChange = nSupply - pSupply; //difference
-	return nChange;
-}
-
-//presstab
-double GetBlockSpeed(int nHeight, int pHeight)
-{
-	CBlockIndex* pIndex = FindBlockByHeight(nHeight);
-	CBlockIndex* ppIndex = FindBlockByHeight(pHeight);
-	double nTime = pIndex->nTime;
-	double pTime = ppIndex->nTime;
-	double nTimeChange = (nTime - pTime) / 60 / 60 / 24; //in days
-	return nTimeChange;
-}
-
-//presstab
-double GetRate(int nHeight, int pHeight)
-{
-	double nSupplyChange = GetSupplyChange(nHeight, pHeight);
-	double nTimeChange = GetBlockSpeed(nHeight, pHeight);
-	double nMoneySupply = GetMoneySupply(nHeight);
-	double nRate = nSupplyChange / nMoneySupply / nTimeChange;
-	
-	return nRate;
-}
-
-//new rpccommand presstab
-Value getmoneysupply(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 1)
-        throw runtime_error(
-            "getmoneysupply [height]\n"
-            "Returns money supply at certain block, current money supply as default");
-	
-	GetLastBlockIndex(pindexBest, false);
-
-	int nHeight = 0;
-	double nMoneySupply = 0;
-	
-    if (params.size() > 0)
-	{
-		nHeight = pindexBest->nHeight;
-		int pHeight = params[0].get_int();
-		if (pHeight > nHeight || pHeight < 0)
-			nMoneySupply = 0;
-		else
-			nMoneySupply = GetMoneySupply(pHeight);
-	}
-	else
-	{
-		nHeight = pindexBest->nHeight;
-		nMoneySupply = GetMoneySupply(nHeight);
-	}	
-	Object obj;
-	obj.push_back(Pair("money supply", nMoneySupply));
-    return obj;
-}
-
-//Presstab's Preferred Money Supply Information
-Value moneysupply(const Array& params, bool fHelp)
-{
-	if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "moneysupply\n"
-            "Show important money supply variables.\n");
-	
-	// grab block index of last block
-	GetLastBlockIndex(pindexBest, false);
-	
-	//height of blocks
-	int64_t nHeight = pindexBest->nHeight; //present
-	int64_t n1Height = nHeight - 1440; // day -- 960 blocks should be about 1 day if blocks have 90 sec spacing
-	int64_t n7Height = nHeight - 1440 * 7; // week
-	int64_t n30Height = nHeight - 1440 * 30; // month
-	
-	//print to console
-	Object obj;
-	obj.push_back(Pair("moneysupply - present", GetMoneySupply(nHeight)));
-	obj.push_back(Pair("moneysupply - 1,440 blocks ago", GetMoneySupply(n1Height)));
-	obj.push_back(Pair("moneysupply - 10,080 blocks ago", GetMoneySupply(n7Height)));
-	obj.push_back(Pair("moneysupply - 43,200 blocks ago", GetMoneySupply(n30Height)));
-	
-	obj.push_back(Pair("supply change(last 1,440 blocks)", GetSupplyChange(nHeight, n1Height)));
-	obj.push_back(Pair("supply change(last 10,080 blocks)", GetSupplyChange(nHeight, n7Height)));
-	obj.push_back(Pair("supply change(last 43,200 blocks)", GetSupplyChange(nHeight, n30Height)));
-	
-	obj.push_back(Pair("time change over 1,440 blocks", GetBlockSpeed(nHeight, n1Height)));
-	obj.push_back(Pair("time change over 10,080 blocks", GetBlockSpeed(nHeight, n7Height)));
-	obj.push_back(Pair("time change over 43,200 blocks", GetBlockSpeed(nHeight, n30Height)));
-	
-	obj.push_back(Pair("avg daily rate of change (last 1,440 blocks)", GetRate(nHeight, n1Height)));
-	obj.push_back(Pair("avg daily rate of change (last 10,080 blocks)", GetRate(nHeight, n7Height)));
-	obj.push_back(Pair("avg daily rate of change (last 43,200 blocks)", GetRate(nHeight, n30Height)));
-	return obj;
-}
 
 Value getnewpubkey(const Array& params, bool fHelp)
 {
@@ -239,14 +93,13 @@ Value getnewpubkey(const Array& params, bool fHelp)
 
     // Generate a new key that is added to wallet
     CPubKey newKey;
-    if (!pwalletMain->GetKeyFromPool(newKey, false))
+    if (!pwalletMain->GetKeyFromPool(newKey))
         throw JSONRPCError(RPC_WALLET_KEYPOOL_RAN_OUT, "Error: Keypool ran out, please call keypoolrefill first");
     CKeyID keyID = newKey.GetID();
 
     pwalletMain->SetAddressBookName(keyID, strAccount);
-    vector<unsigned char> vchPubKey = newKey.Raw();
 
-    return HexStr(vchPubKey.begin(), vchPubKey.end());
+    return HexStr(newKey.begin(), newKey.end());
 }
 
 
@@ -256,7 +109,7 @@ Value getnewaddress(const Array& params, bool fHelp)
         throw runtime_error(
             "getnewaddress [account]\n"
             "Returns a new PayCon address for receiving payments.  "
-            "If [account] is specified (recommended), it is added to the address book "
+            "If [account] is specified, it is added to the address book "
             "so payments received with the address will be credited to [account].");
 
     // Parse the account first so we don't generate a key if there's an error
@@ -269,7 +122,7 @@ Value getnewaddress(const Array& params, bool fHelp)
 
     // Generate a new key that is added to wallet
     CPubKey newKey;
-    if (!pwalletMain->GetKeyFromPool(newKey, false))
+    if (!pwalletMain->GetKeyFromPool(newKey))
         throw JSONRPCError(RPC_WALLET_KEYPOOL_RAN_OUT, "Error: Keypool ran out, please call keypoolrefill first");
     CKeyID keyID = newKey.GetID();
 
@@ -307,7 +160,7 @@ CBitcoinAddress GetAccountAddress(string strAccount, bool bForceNew=false)
     // Generate a new key
     if (!account.vchPubKey.IsValid() || bForceNew || bKeyUsed)
     {
-        if (!pwalletMain->GetKeyFromPool(account.vchPubKey, false))
+        if (!pwalletMain->GetKeyFromPool(account.vchPubKey))
             throw JSONRPCError(RPC_WALLET_KEYPOOL_RAN_OUT, "Error: Keypool ran out, please call keypoolrefill first");
 
         pwalletMain->SetAddressBookName(account.vchPubKey.GetID(), strAccount);
@@ -334,48 +187,7 @@ Value getaccountaddress(const Array& params, bool fHelp)
     return ret;
 }
 
-Value stakeforcharity(const Array &params, bool fHelp)
-{
-    if (fHelp || params.size() != 2)
-        throw runtime_error(
-            "stakeforcharity <PayCon address> <percent>\n"
-            "Gives a percentage of a found stake to a different address, after stake matures\n"
-            "Percent is a whole number 1 to 50.\n"
-            "Set percentage to zero to turn off"
-            + HelpRequiringPassphrase());
 
-    CBitcoinAddress address(params[0].get_str());
-    if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid PayCon address");
-
-    if (params[1].get_int() < 0)
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, expected valid percentage");
-
-    if (pwalletMain->IsLocked())
-        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
-
-    unsigned int nPer = (unsigned int) params[1].get_int();
-
-    //Turn off if we set to zero.
-    //Future: After we allow multiple addresses, only turn of this address
-    if(nPer == 0)
-    {
-        pwalletMain->fStakeForCharity = false;
-        pwalletMain->StakeForCharityAddress = "";
-        pwalletMain->nStakeForCharityPercent = 0;
-        return Value::null;
-    }
-
-    //For now max percentage is 50.
-    if (nPer > 50 )
-       nPer = 50;
-
-    pwalletMain->StakeForCharityAddress = address;
-    pwalletMain->nStakeForCharityPercent = nPer;
-    pwalletMain->fStakeForCharity = true;
-
-    return Value::null;
-}
 
 Value setaccount(const Array& params, bool fHelp)
 {
@@ -449,7 +261,7 @@ Value getaddressesbyaccount(const Array& params, bool fHelp)
 
 Value sendtoaddress(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() < 2 || params.size() > 4)
+    if (fHelp || params.size() < 2 || params.size() > 5)
         throw runtime_error(
             "sendtoaddress <PayConaddress> <amount> [comment] [comment-to]\n"
             "<amount> is a real and is rounded to the nearest 0.000001"
@@ -462,6 +274,7 @@ Value sendtoaddress(const Array& params, bool fHelp)
     // Amount
     int64_t nAmount = AmountFromValue(params[1]);
 
+    std::string sNarr;
     // Wallet comments
     CWalletTx wtx;
     if (params.size() > 2 && params[2].type() != null_type && !params[2].get_str().empty())
@@ -472,7 +285,7 @@ Value sendtoaddress(const Array& params, bool fHelp)
     if (pwalletMain->IsLocked())
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 
-    string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, wtx, false, false);
+    string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, sNarr, wtx);
     if (strError != "")
         throw JSONRPCError(RPC_WALLET_ERROR, strError);
 
@@ -534,53 +347,16 @@ Value signmessage(const Array& params, bool fHelp)
     if (!pwalletMain->GetKey(keyID, key))
         throw JSONRPCError(RPC_WALLET_ERROR, "Private key not available");
 
-    CDataStream ss(SER_GETHASH, 0);
+    CHashWriter ss(SER_GETHASH, 0);
     ss << strMessageMagic;
     ss << strMessage;
 
     vector<unsigned char> vchSig;
-    if (!key.SignCompact(Hash(ss.begin(), ss.end()), vchSig))
+    if (!key.SignCompact(ss.GetHash(), vchSig))
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Sign failed");
 
     return EncodeBase64(&vchSig[0], vchSig.size());
 }
-
-Value verifymessage(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 3)
-        throw runtime_error(
-            "verifymessage <PayConaddress> <signature> <message>\n"
-            "Verify a signed message");
-
-    string strAddress  = params[0].get_str();
-    string strSign     = params[1].get_str();
-    string strMessage  = params[2].get_str();
-
-    CBitcoinAddress addr(strAddress);
-    if (!addr.IsValid())
-        throw JSONRPCError(RPC_TYPE_ERROR, "Invalid address");
-
-    CKeyID keyID;
-    if (!addr.GetKeyID(keyID))
-        throw JSONRPCError(RPC_TYPE_ERROR, "Address does not refer to key");
-
-    bool fInvalid = false;
-    vector<unsigned char> vchSig = DecodeBase64(strSign.c_str(), &fInvalid);
-
-    if (fInvalid)
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Malformed base64 encoding");
-
-    CDataStream ss(SER_GETHASH, 0);
-    ss << strMessageMagic;
-    ss << strMessage;
-
-    CKey key;
-    if (!key.SetCompactSignature(Hash(ss.begin(), ss.end()), vchSig))
-        return false;
-
-    return (key.GetPubKey().GetID() == keyID);
-}
-
 
 Value getreceivedbyaddress(const Array& params, bool fHelp)
 {
@@ -608,7 +384,7 @@ Value getreceivedbyaddress(const Array& params, bool fHelp)
     for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
     {
         const CWalletTx& wtx = (*it).second;
-        if (wtx.IsCoinBase() || wtx.IsCoinStake() || !wtx.IsFinal())
+        if (wtx.IsCoinBase() || wtx.IsCoinStake() || !IsFinalTx(wtx))
             continue;
 
         BOOST_FOREACH(const CTxOut& txout, wtx.vout)
@@ -639,6 +415,8 @@ Value getreceivedbyaccount(const Array& params, bool fHelp)
             "getreceivedbyaccount <account> [minconf=1]\n"
             "Returns the total amount received by addresses with <account> in transactions with at least [minconf] confirmations.");
 
+    accountingDeprecationCheck();
+
     // Minimum confirmations
     int nMinDepth = 1;
     if (params.size() > 1)
@@ -654,7 +432,7 @@ Value getreceivedbyaccount(const Array& params, bool fHelp)
     for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
     {
         const CWalletTx& wtx = (*it).second;
-        if (wtx.IsCoinBase() || wtx.IsCoinStake() || !wtx.IsFinal())
+        if (wtx.IsCoinBase() || wtx.IsCoinStake() || !IsFinalTx(wtx))
             continue;
 
         BOOST_FOREACH(const CTxOut& txout, wtx.vout)
@@ -678,15 +456,15 @@ int64_t GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
     for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
     {
         const CWalletTx& wtx = (*it).second;
-        if (!wtx.IsFinal() || wtx.GetDepthInMainChain() < 0)
+        if (!IsFinalTx(wtx) || wtx.GetDepthInMainChain() < 0)
             continue;
 
-        int64_t nGeneratedImmature, nGeneratedMature, nReceived, nSent, nFee;
-        wtx.GetAccountAmounts(strAccount, nGeneratedImmature, nGeneratedMature, nReceived, nSent, nFee);
+        int64_t nReceived, nSent, nFee;
+        wtx.GetAccountAmounts(strAccount, nReceived, nSent, nFee);
 
         if (nReceived != 0 && wtx.GetDepthInMainChain() >= nMinDepth && wtx.GetBlocksToMaturity() == 0)
             nBalance += nReceived;
-        nBalance += nGeneratedMature - nSent - nFee;
+        nBalance -= nSent + nFee;
     }
 
     // Tally internal accounting entries
@@ -711,7 +489,7 @@ Value getbalance(const Array& params, bool fHelp)
             "If [account] is specified, returns the balance in the account.");
 
     if (params.size() == 0)
-        return  ValueFromAmount(pwalletMain->GetBalanceV1());
+        return  ValueFromAmount(pwalletMain->GetBalance());
 
     int nMinDepth = 1;
     if (params.size() > 1)
@@ -725,15 +503,14 @@ Value getbalance(const Array& params, bool fHelp)
         for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
         {
             const CWalletTx& wtx = (*it).second;
-            if (!wtx.IsFinal())
+            if (!wtx.IsTrusted())
                 continue;
 
-            int64_t allGeneratedImmature, allGeneratedMature, allFee;
-            allGeneratedImmature = allGeneratedMature = allFee = 0;
+            int64_t allFee;
             string strSentAccount;
             list<pair<CTxDestination, int64_t> > listReceived;
             list<pair<CTxDestination, int64_t> > listSent;
-            wtx.GetAmounts(allGeneratedImmature, allGeneratedMature, listReceived, listSent, allFee, strSentAccount);
+            wtx.GetAmounts(listReceived, listSent, allFee, strSentAccount);
             if (wtx.GetDepthInMainChain() >= nMinDepth && wtx.GetBlocksToMaturity() == 0)
             {
                 BOOST_FOREACH(const PAIRTYPE(CTxDestination,int64_t)& r, listReceived)
@@ -742,10 +519,11 @@ Value getbalance(const Array& params, bool fHelp)
             BOOST_FOREACH(const PAIRTYPE(CTxDestination,int64_t)& r, listSent)
                 nBalance -= r.second;
             nBalance -= allFee;
-			nBalance += allGeneratedMature;
         }
         return  ValueFromAmount(nBalance);
     }
+
+    accountingDeprecationCheck();
 
     string strAccount = AccountFromValue(params[0]);
 
@@ -761,6 +539,8 @@ Value movecmd(const Array& params, bool fHelp)
         throw runtime_error(
             "move <fromaccount> <toaccount> <amount> [minconf=1] [comment]\n"
             "Move from one account in your wallet to another.");
+
+    accountingDeprecationCheck();
 
     string strFrom = AccountFromValue(params[0]);
     string strTo = AccountFromValue(params[1]);
@@ -826,6 +606,8 @@ Value sendfrom(const Array& params, bool fHelp)
 
     CWalletTx wtx;
     wtx.strFromAccount = strAccount;
+    std::string sNarr;
+
     if (params.size() > 4 && params[4].type() != null_type && !params[4].get_str().empty())
         wtx.mapValue["comment"] = params[4].get_str();
     if (params.size() > 5 && params[5].type() != null_type && !params[5].get_str().empty())
@@ -839,7 +621,7 @@ Value sendfrom(const Array& params, bool fHelp)
         throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "Account has insufficient funds");
 
     // Send
-    string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, wtx, false, false);
+    string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, sNarr, wtx);
     if (strError != "")
         throw JSONRPCError(RPC_WALLET_ERROR, strError);
 
@@ -899,7 +681,9 @@ Value sendmany(const Array& params, bool fHelp)
     // Send
     CReserveKey keyChange(pwalletMain);
     int64_t nFeeRequired = 0;
-    bool fCreated = pwalletMain->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, 1);
+    int nChangePos;
+    std::string strFailReason;
+    bool fCreated = pwalletMain->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, nChangePos, strFailReason);
     if (!fCreated)
     {
         if (totalAmount + nFeeRequired > pwalletMain->GetBalance())
@@ -935,8 +719,8 @@ Value addmultisigaddress(const Array& params, bool fHelp)
     if ((int)keys.size() < nRequired)
         throw runtime_error(
             strprintf("not enough keys supplied "
-                      "(got %"PRIszu" keys, but need at least %d to redeem)", keys.size(), nRequired));
-    std::vector<CKey> pubkeys;
+                      "(got %u keys, but need at least %d to redeem)", keys.size(), nRequired));
+    std::vector<CPubKey> pubkeys;
     pubkeys.resize(keys.size());
     for (unsigned int i = 0; i < keys.size(); i++)
     {
@@ -944,26 +728,28 @@ Value addmultisigaddress(const Array& params, bool fHelp)
 
         // Case 1: Bitcoin address and we have full public key:
         CBitcoinAddress address(ks);
-        if (address.IsValid())
+        if (pwalletMain && address.IsValid())
         {
             CKeyID keyID;
             if (!address.GetKeyID(keyID))
                 throw runtime_error(
-                    strprintf("%s does not refer to a key",ks.c_str()));
+                    strprintf("%s does not refer to a key",ks));
             CPubKey vchPubKey;
             if (!pwalletMain->GetPubKey(keyID, vchPubKey))
                 throw runtime_error(
-                    strprintf("no full public key for address %s",ks.c_str()));
-            if (!vchPubKey.IsValid() || !pubkeys[i].SetPubKey(vchPubKey))
+                    strprintf("no full public key for address %s",ks));
+            if (!vchPubKey.IsFullyValid())
                 throw runtime_error(" Invalid public key: "+ks);
+            pubkeys[i] = vchPubKey;
         }
 
         // Case 2: hex public key
         else if (IsHex(ks))
         {
             CPubKey vchPubKey(ParseHex(ks));
-            if (!vchPubKey.IsValid() || !pubkeys[i].SetPubKey(vchPubKey))
+            if (!vchPubKey.IsFullyValid())
                 throw runtime_error(" Invalid public key: "+ks);
+            pubkeys[i] = vchPubKey;
         }
         else
         {
@@ -975,7 +761,8 @@ Value addmultisigaddress(const Array& params, bool fHelp)
     CScript inner;
     inner.SetMultisig(nRequired, pubkeys);
     CScriptID innerID = inner.GetID();
-    pwalletMain->AddCScript(inner);
+    if (!pwalletMain->AddCScript(inner))
+        throw runtime_error("AddCScript() failed");
 
     pwalletMain->SetAddressBookName(innerID, strAccount);
     return CBitcoinAddress(innerID).ToString();
@@ -999,7 +786,8 @@ Value addredeemscript(const Array& params, bool fHelp)
     vector<unsigned char> innerData = ParseHexV(params[0], "redeemScript");
     CScript inner(innerData.begin(), innerData.end());
     CScriptID innerID = inner.GetID();
-    pwalletMain->AddCScript(inner);
+    if (!pwalletMain->AddCScript(inner))
+        throw runtime_error("AddCScript() failed");
 
     pwalletMain->SetAddressBookName(innerID, strAccount);
     return CBitcoinAddress(innerID).ToString();
@@ -1034,7 +822,7 @@ Value ListReceived(const Array& params, bool fByAccounts)
     {
         const CWalletTx& wtx = (*it).second;
 
-        if (wtx.IsCoinBase() || wtx.IsCoinStake() || !wtx.IsFinal())
+        if (wtx.IsCoinBase() || wtx.IsCoinStake() || !IsFinalTx(wtx))
             continue;
 
         int nDepth = wtx.GetDepthInMainChain();
@@ -1134,6 +922,8 @@ Value listreceivedbyaccount(const Array& params, bool fHelp)
             "  \"amount\" : total amount received by addresses with this account\n"
             "  \"confirmations\" : number of confirmations of the most recent transaction included");
 
+    accountingDeprecationCheck();
+
     return ListReceived(params, true);
 }
 
@@ -1146,34 +936,14 @@ static void MaybePushAddress(Object & entry, const CTxDestination &dest)
 
 void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, Array& ret)
 {
-    int64_t nGeneratedImmature, nGeneratedMature, nFee;
+    int64_t nFee;
     string strSentAccount;
     list<pair<CTxDestination, int64_t> > listReceived;
     list<pair<CTxDestination, int64_t> > listSent;
 
-    wtx.GetAmounts(nGeneratedImmature, nGeneratedMature, listReceived, listSent, nFee, strSentAccount);
+    wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount);
 
     bool fAllAccounts = (strAccount == string("*"));
-
-   // Generated blocks assigned to account ""
-    if ((nGeneratedMature+nGeneratedImmature) != 0 && (fAllAccounts || strAccount == ""))
-    {
-        Object entry;
-        entry.push_back(Pair("account", string("")));
-        if (nGeneratedImmature)
-        {
-            entry.push_back(Pair("category", wtx.GetDepthInMainChain() ? "immature" : "orphan"));
-            entry.push_back(Pair("amount", ValueFromAmount(nGeneratedImmature)));
-        }
-        else
-        {
-            entry.push_back(Pair("category", "generate"));
-            entry.push_back(Pair("amount", ValueFromAmount(nGeneratedMature)));
-        }
-        if (fLong)
-            WalletTxToJSON(wtx, entry);
-        ret.push_back(entry);
-    }
 
     // Sent
     if ((!wtx.IsCoinStake()) && (!listSent.empty() || nFee != 0) && (fAllAccounts || strAccount == strSentAccount))
@@ -1245,7 +1015,7 @@ void AcentryToJSON(const CAccountingEntry& acentry, const string& strAccount, Ar
         Object entry;
         entry.push_back(Pair("account", acentry.strAccount));
         entry.push_back(Pair("category", "move"));
-        entry.push_back(Pair("time", (boost::int64_t)acentry.nTime));
+        entry.push_back(Pair("time", (int64_t)acentry.nTime));
         entry.push_back(Pair("amount", ValueFromAmount(acentry.nCreditDebit)));
         entry.push_back(Pair("otheraccount", acentry.strOtherAccount));
         entry.push_back(Pair("comment", acentry.strComment));
@@ -1318,6 +1088,8 @@ Value listaccounts(const Array& params, bool fHelp)
             "listaccounts [minconf=1]\n"
             "Returns Object that has account names as keys, account balances as values.");
 
+    accountingDeprecationCheck();
+
     int nMinDepth = 1;
     if (params.size() > 0)
         nMinDepth = params[0].get_int();
@@ -1331,18 +1103,14 @@ Value listaccounts(const Array& params, bool fHelp)
     for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
     {
         const CWalletTx& wtx = (*it).second;
-
-		if(!wtx.IsFinal())
-			continue;
-
-        int64_t nGeneratedImmature, nGeneratedMature, nFee;
+        int64_t nFee;
         string strSentAccount;
         list<pair<CTxDestination, int64_t> > listReceived;
         list<pair<CTxDestination, int64_t> > listSent;
         int nDepth = wtx.GetDepthInMainChain();
         if (nDepth < 0)
             continue;
-        wtx.GetAmounts(nGeneratedImmature, nGeneratedMature, listReceived, listSent, nFee, strSentAccount);
+        wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount);
         mapAccountBalances[strSentAccount] -= nFee;
         BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64_t)& s, listSent)
             mapAccountBalances[strSentAccount] -= s.second;
@@ -1354,16 +1122,6 @@ Value listaccounts(const Array& params, bool fHelp)
                 else
                     mapAccountBalances[""] += r.second;
         }
-
-        if((wtx.GetDepthInMainChain() >= nMinDepth && wtx.GetBlocksToMaturity() == 0))
-		{
-			mapAccountBalances[strSentAccount] -= nFee;
-			mapAccountBalances[""] += nGeneratedMature;
-
-			BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64_t)& s, listSent)
-				mapAccountBalances[strSentAccount] -= s.second;
-
-		}
     }
 
     list<CAccountingEntry> acentries;
@@ -1376,23 +1134,6 @@ Value listaccounts(const Array& params, bool fHelp)
         ret.push_back(Pair(accountBalance.first, ValueFromAmount(accountBalance.second)));
     }
     return ret;
-}
-
-Value deleteaddress(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 2)
-        throw runtime_error(
-            "delete <address>\n"
-            "Deletes an address from wallet.dat, use with caution. Cannot be restored.");
-	
-	
-	string strAdd = params[0].get_str();
-	
-	CWalletDB(pwalletMain->strWalletFile).EraseName(strAdd);
-	pwalletMain->TopUpKeyPool();
-	
-	string ret = "Success, please restart wallet if using QT";
-	return ret;
 }
 
 Value listsinceblock(const Array& params, bool fHelp)
@@ -1458,42 +1199,6 @@ Value listsinceblock(const Array& params, bool fHelp)
     return ret;
 }
 
-Value getconfs(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "getconfs <txid>\n"
-            "returns the number of confirmations for <txid>");
-
-    uint256 hash;
-    hash.SetHex(params[0].get_str());
-	
-	Object entry;
-	CTransaction tx;
-    uint256 hashBlock = 0;
-    if (GetTransaction(hash, tx, hashBlock))
-    {
-        if (hashBlock == 0)
-			entry.push_back(Pair("confirmations", 0));
-		else
-		{
-			map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(hashBlock);
-			if (mi != mapBlockIndex.end() && (*mi).second)
-			{
-				CBlockIndex* pindex = (*mi).second;
-				if (pindex->IsInMainChain())
-				{
-					entry.push_back(Pair("confirmations", 1 + nBestHeight - pindex->nHeight));
-				}
-				else
-					entry.push_back(Pair("confirmations", 0));
-            }
-        }
-		return entry;
-	}
-	else return "failed";
-}
-
 Value gettransaction(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
@@ -1533,7 +1238,6 @@ Value gettransaction(const Array& params, bool fHelp)
         uint256 hashBlock = 0;
         if (GetTransaction(hash, tx, hashBlock))
         {
-            entry.push_back(Pair("txid", hash.GetHex()));
             TxToJSON(tx, 0, entry);
             if (hashBlock == 0)
                 entry.push_back(Pair("confirmations", 0));
@@ -1545,11 +1249,7 @@ Value gettransaction(const Array& params, bool fHelp)
                 {
                     CBlockIndex* pindex = (*mi).second;
                     if (pindex->IsInMainChain())
-                    {
                         entry.push_back(Pair("confirmations", 1 + nBestHeight - pindex->nHeight));
-                        entry.push_back(Pair("txntime", (boost::int64_t)tx.nTime));
-                        entry.push_back(Pair("time", (boost::int64_t)pindex->nTime));
-                    }
                     else
                         entry.push_back(Pair("confirmations", 0));
                 }
@@ -1604,72 +1304,27 @@ Value keypoolrefill(const Array& params, bool fHelp)
 }
 
 
-void ThreadTopUpKeyPool(void* parg)
+static void LockWallet(CWallet* pWallet)
 {
-    // Make this thread recognisable as the key-topping-up thread
-    RenameThread("PayCon-key-top");
-
-    pwalletMain->TopUpKeyPool();
-}
-
-void ThreadCleanWalletPassphrase(void* parg)
-{
-    // Make this thread recognisable as the wallet relocking thread
-    RenameThread("PayCon-lock-wa");
-
-    int64_t nMyWakeTime = GetTimeMillis() + *((int64_t*)parg) * 1000;
-
-    ENTER_CRITICAL_SECTION(cs_nWalletUnlockTime);
-
-    if (nWalletUnlockTime == 0)
-    {
-        nWalletUnlockTime = nMyWakeTime;
-
-        do
-        {
-            if (nWalletUnlockTime==0)
-                break;
-            int64_t nToSleep = nWalletUnlockTime - GetTimeMillis();
-            if (nToSleep <= 0)
-                break;
-
-            LEAVE_CRITICAL_SECTION(cs_nWalletUnlockTime);
-            MilliSleep(nToSleep);
-            ENTER_CRITICAL_SECTION(cs_nWalletUnlockTime);
-
-        } while(1);
-
-        if (nWalletUnlockTime)
-        {
-            nWalletUnlockTime = 0;
-            pwalletMain->Lock();
-        }
-    }
-    else
-    {
-        if (nWalletUnlockTime < nMyWakeTime)
-            nWalletUnlockTime = nMyWakeTime;
-    }
-
-    LEAVE_CRITICAL_SECTION(cs_nWalletUnlockTime);
-
-    delete (int64_t*)parg;
+    LOCK(cs_nWalletUnlockTime);
+    nWalletUnlockTime = 0;
+    pWallet->Lock();
 }
 
 Value walletpassphrase(const Array& params, bool fHelp)
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() < 2 || params.size() > 3))
         throw runtime_error(
-            "walletpassphrase <passphrase> <timeout> [mintonly]\n"
+            "walletpassphrase <passphrase> <timeout> [stakingonly]\n"
             "Stores the wallet decryption key in memory for <timeout> seconds.\n"
-            "if [mintonly] is true sending functions are disabled.");
+            "if [stakingonly] is true sending functions are disabled.");
     if (fHelp)
         return true;
+    if (!fServer)
+        throw JSONRPCError(RPC_SERVER_NOT_STARTED, "Error: RPC server was not started, use server=1 to change this.");
     if (!pwalletMain->IsCrypted())
         throw JSONRPCError(RPC_WALLET_WRONG_ENC_STATE, "Error: running with an unencrypted wallet, but walletpassphrase was called.");
 
-    if (!pwalletMain->IsLocked())
-        throw JSONRPCError(RPC_WALLET_ALREADY_UNLOCKED, "Error: Wallet is already unlocked, use walletlock first if need to change unlock settings.");
     // Note that the walletpassphrase is stored in params[0] which is not mlock()ed
     SecureString strWalletPass;
     strWalletPass.reserve(100);
@@ -1687,15 +1342,18 @@ Value walletpassphrase(const Array& params, bool fHelp)
             "walletpassphrase <passphrase> <timeout>\n"
             "Stores the wallet decryption key in memory for <timeout> seconds.");
 
-    NewThread(ThreadTopUpKeyPool, NULL);
-    int64_t* pnSleepTime = new int64_t(params[1].get_int64());
-    NewThread(ThreadCleanWalletPassphrase, pnSleepTime);
+    pwalletMain->TopUpKeyPool();
 
-    // PayCon: if user OS account compromised prevent trivial sendmoney commands
+    int64_t nSleepTime = params[1].get_int64();
+    LOCK(cs_nWalletUnlockTime);
+    nWalletUnlockTime = GetTime() + nSleepTime;
+    RPCRunLater("lockwallet", boost::bind(LockWallet, pwalletMain), nSleepTime);
+
+    // ppcoin: if user OS account compromised prevent trivial sendmoney commands
     if (params.size() > 2)
-        pwalletMain->fWalletUnlockMintOnly = params[2].get_bool();
+        fWalletUnlockStakingOnly = params[2].get_bool();
     else
-        pwalletMain->fWalletUnlockMintOnly = false;
+        fWalletUnlockStakingOnly = false;
 
     return Value::null;
 }
@@ -1786,112 +1444,11 @@ Value encryptwallet(const Array& params, bool fHelp)
     // slack space in .dat files; that is bad if the old data is
     // unencrypted private keys. So:
     StartShutdown();
-    return "wallet encrypted; PayCon server stopping, restart to run with encrypted wallet.  The keypool has been flushed, you need to make a new backup.";
+    return "wallet encrypted; PayCon server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.";
 }
 
-class DescribeAddressVisitor : public boost::static_visitor<Object>
-{
-public:
-    Object operator()(const CNoDestination &dest) const { return Object(); }
 
-    Object operator()(const CKeyID &keyID) const {
-        Object obj;
-        CPubKey vchPubKey;
-        pwalletMain->GetPubKey(keyID, vchPubKey);
-        obj.push_back(Pair("isscript", false));
-        obj.push_back(Pair("pubkey", HexStr(vchPubKey.Raw())));
-        obj.push_back(Pair("iscompressed", vchPubKey.IsCompressed()));
-        return obj;
-    }
-
-    Object operator()(const CScriptID &scriptID) const {
-        Object obj;
-        obj.push_back(Pair("isscript", true));
-        CScript subscript;
-        pwalletMain->GetCScript(scriptID, subscript);
-        std::vector<CTxDestination> addresses;
-        txnouttype whichType;
-        int nRequired;
-        ExtractDestinations(subscript, whichType, addresses, nRequired);
-        obj.push_back(Pair("script", GetTxnOutputType(whichType)));
-        obj.push_back(Pair("hex", HexStr(subscript.begin(), subscript.end())));
-        Array a;
-        BOOST_FOREACH(const CTxDestination& addr, addresses)
-            a.push_back(CBitcoinAddress(addr).ToString());
-        obj.push_back(Pair("addresses", a));
-        if (whichType == TX_MULTISIG)
-            obj.push_back(Pair("sigsrequired", nRequired));
-        return obj;
-    }
-};
-
-Value validateaddress(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "validateaddress <PayConaddress>\n"
-            "Return information about <PayConaddress>.");
-
-    CBitcoinAddress address(params[0].get_str());
-    bool isValid = address.IsValid();
-
-    Object ret;
-    ret.push_back(Pair("isvalid", isValid));
-    if (isValid)
-    {
-        CTxDestination dest = address.Get();
-        string currentAddress = address.ToString();
-        ret.push_back(Pair("address", currentAddress));
-        bool fMine = IsMine(*pwalletMain, dest);
-        ret.push_back(Pair("ismine", fMine));
-        if (fMine) {
-            Object detail = boost::apply_visitor(DescribeAddressVisitor(), dest);
-            ret.insert(ret.end(), detail.begin(), detail.end());
-        }
-        if (pwalletMain->mapAddressBook.count(dest))
-            ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest]));
-    }
-    return ret;
-}
-
-Value validatepubkey(const Array& params, bool fHelp)
-{
-    if (fHelp || !params.size() || params.size() > 2)
-        throw runtime_error(
-            "validatepubkey <PayConpubkey>\n"
-            "Return information about <PayConpubkey>.");
-
-    std::vector<unsigned char> vchPubKey = ParseHex(params[0].get_str());
-    CPubKey pubKey(vchPubKey);
-
-    bool isValid = pubKey.IsValid();
-    bool isCompressed = pubKey.IsCompressed();
-    CKeyID keyID = pubKey.GetID();
-
-    CBitcoinAddress address;
-    address.Set(keyID);
-
-    Object ret;
-    ret.push_back(Pair("isvalid", isValid));
-    if (isValid)
-    {
-        CTxDestination dest = address.Get();
-        string currentAddress = address.ToString();
-        ret.push_back(Pair("address", currentAddress));
-        bool fMine = IsMine(*pwalletMain, dest);
-        ret.push_back(Pair("ismine", fMine));
-        ret.push_back(Pair("iscompressed", isCompressed));
-        if (fMine) {
-            Object detail = boost::apply_visitor(DescribeAddressVisitor(), dest);
-            ret.insert(ret.end(), detail.begin(), detail.end());
-        }
-        if (pwalletMain->mapAddressBook.count(dest))
-            ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest]));
-    }
-    return ret;
-}
-
-// PayCon: reserve balance from being staked for network protection
+// ppcoin: reserve balance from being staked for network protection
 Value reservebalance(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 2)
@@ -1913,27 +1470,24 @@ Value reservebalance(const Array& params, bool fHelp)
             nAmount = (nAmount / CENT) * CENT;  // round to cent
             if (nAmount < 0)
                 throw runtime_error("amount cannot be negative.\n");
-            mapArgs["-reservebalance"] = FormatMoney(nAmount).c_str();
+            nReserveBalance = nAmount;
         }
         else
         {
             if (params.size() > 1)
                 throw runtime_error("cannot specify amount to turn off reserve.\n");
-            mapArgs["-reservebalance"] = "0";
+            nReserveBalance = 0;
         }
     }
 
     Object result;
-    int64_t nReserveBalance = 0;
-    if (mapArgs.count("-reservebalance") && !ParseMoney(mapArgs["-reservebalance"], nReserveBalance))
-        throw runtime_error("invalid reserve balance amount\n");
     result.push_back(Pair("reserve", (nReserveBalance > 0)));
     result.push_back(Pair("amount", ValueFromAmount(nReserveBalance)));
     return result;
 }
 
 
-// PayCon: check wallet integrity
+// ppcoin: check wallet integrity
 Value checkwallet(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 0)
@@ -1943,22 +1497,20 @@ Value checkwallet(const Array& params, bool fHelp)
 
     int nMismatchSpent;
     int64_t nBalanceInQuestion;
-    int nOrphansFound;
-    pwalletMain->FixSpentCoins(nMismatchSpent, nBalanceInQuestion, nOrphansFound, true);
+    pwalletMain->FixSpentCoins(nMismatchSpent, nBalanceInQuestion, true);
     Object result;
-    if (nMismatchSpent == 0 && nOrphansFound == 0)
+    if (nMismatchSpent == 0)
         result.push_back(Pair("wallet check passed", true));
     else
     {
         result.push_back(Pair("mismatched spent coins", nMismatchSpent));
         result.push_back(Pair("amount in question", ValueFromAmount(nBalanceInQuestion)));
-        result.push_back(Pair("orphan blocks found", nOrphansFound));
     }
     return result;
 }
 
 
-// PayCon: repair wallet
+// ppcoin: repair wallet
 Value repairwallet(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 0)
@@ -1968,16 +1520,14 @@ Value repairwallet(const Array& params, bool fHelp)
 
     int nMismatchSpent;
     int64_t nBalanceInQuestion;
-    int nOrphansFound;
-    pwalletMain->FixSpentCoins(nMismatchSpent, nBalanceInQuestion, nOrphansFound);
+    pwalletMain->FixSpentCoins(nMismatchSpent, nBalanceInQuestion);
     Object result;
-    if (nMismatchSpent == 0 && nOrphansFound == 0)
+    if (nMismatchSpent == 0)
         result.push_back(Pair("wallet check passed", true));
     else
     {
         result.push_back(Pair("mismatched spent coins", nMismatchSpent));
         result.push_back(Pair("amount affected by repair", ValueFromAmount(nBalanceInQuestion)));
-        result.push_back(Pair("orphan blocks removed", nOrphansFound));
     }
     return result;
 }
@@ -1996,7 +1546,7 @@ Value resendtx(const Array& params, bool fHelp)
     return Value::null;
 }
 
-// PayCon: make a public-private key pair
+// ppcoin: make a public-private key pair
 Value makekeypair(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
@@ -2015,648 +1565,355 @@ Value makekeypair(const Array& params, bool fHelp)
     CPrivKey vchPrivKey = key.GetPrivKey();
     Object result;
     result.push_back(Pair("PrivateKey", HexStr<CPrivKey::iterator>(vchPrivKey.begin(), vchPrivKey.end())));
-    result.push_back(Pair("PublicKey", HexStr(key.GetPubKey().Raw())));
+    result.push_back(Pair("PublicKey", HexStr(key.GetPubKey())));
     return result;
 }
 
-//presstab PayCon
-Value getstaketx(const Array& params, bool fHelp)
+Value settxfee(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() != 1)
+    if (fHelp || params.size() < 1 || params.size() > 1 || AmountFromValue(params[0]) < MIN_TX_FEE)
         throw runtime_error(
-            "getstaketx <txid>\n"
-            "Get detailed information about a specific stake <txid>");
+            "settxfee <amount>\n"
+            "<amount> is a real and is rounded to the nearest 0.01");
 
-    uint256 hash;
-    hash.SetHex(params[0].get_str());
+    nTransactionFee = AmountFromValue(params[0]);
+    nTransactionFee = (nTransactionFee / CENT) * CENT;  // round to cent
 
-    Object entry;
-	Array vin;
-
-    if (pwalletMain->mapWallet.count(hash))
-    {
-        const CWalletTx& wtx = pwalletMain->mapWallet[hash];
-		
-		 BOOST_FOREACH(const CTxIn& txin, wtx.vin)
-		{
-			Object in;
-			if (wtx.IsCoinBase())
-				entry.push_back(Pair("coinbase", HexStr(txin.scriptSig.begin(), txin.scriptSig.end())));
-			else
-			{
-				CTransaction& txPrev = pwalletMain->mapWallet[txin.prevout.hash]; //first transaction
-				uint64_t nTime = wtx.nTime; //stake tx time
-				uint64_t nPrevTime = txPrev.nTime; //previous tx time
-				uint64_t nTimeToStake = nTime - nPrevTime; // time to stake in seconds
-				double dDaysToStake = nTimeToStake / 60.00 / 60 / 24;
-				
-				int64_t nDebit = wtx.GetDebit();
-				int64_t nFee = (wtx.IsFromMe() ? wtx.GetValueOut() - nDebit : 0);
-
-				int64_t nGeneratedImmature, nGeneratedMature, nFee2;
-				string strSentAccount;
-                list<pair<CTxDestination, int64_t> > listReceived;
-                list<pair<CTxDestination, int64_t> > listSent;
-				wtx.GetAmounts(nGeneratedImmature, nGeneratedMature, listReceived, listSent, nFee2, strSentAccount);
-				uint64_t nGeneratedAmount = max (nGeneratedMature, nGeneratedImmature);
-				double nGeneratedAmount2 = max (nGeneratedMature, nGeneratedImmature); //uint64_t math not working
-				double percentReward = nFee / (nGeneratedAmount2 - nFee);
-				double dWeight = ((nGeneratedAmount - nFee)/ COIN) * (dDaysToStake - 2);
-				
-				entry.push_back(Pair("Stake TX Time", nTime));
-				entry.push_back(Pair("Previous Time", nPrevTime));
-				entry.push_back(Pair("Days To Stake", dDaysToStake));
-				entry.push_back(Pair("Original Amount", ValueFromAmount(nGeneratedAmount - nFee)));
-				entry.push_back(Pair("Weight", dWeight));
-				entry.push_back(Pair("PoS Reward", ValueFromAmount(nFee)));
-				entry.push_back(Pair("Reward %", percentReward));
-				entry.push_back(Pair("Total New Amount", ValueFromAmount(nGeneratedAmount)));
-				entry.push_back(Pair("Size of Each New Block", ValueFromAmount(nGeneratedAmount/2)));
-			}
-		}
-    }
-    return entry;
+    return true;
 }
 
-//presstab PayCon
-double getWeight()
-{
-	std::vector<COutput> vCoins;
-    pwalletMain->AvailableCoins(vCoins);
-	uint64_t nWeightSum = 0;
-	BOOST_FOREACH(const COutput& out, vCoins)
-    {
-		int64_t nHeight = nBestHeight - out.nDepth;
-		CBlockIndex* pindex = FindBlockByHeight(nHeight);
-		uint64_t nWeight = 0;
-		pwalletMain->GetStakeWeightFromValue(out.tx->GetTxTime(), out.tx->vout[out.i].nValue, nWeight);
-		double dAge = double(GetTime() - pindex->nTime) / (60*60*24);
-		if(dAge < 2)
-			nWeight = 0;
-		nWeightSum += nWeight;
-	}
-	return (double)nWeightSum;
-}
 
-//presstab PayCon
-Value getweight(const Array& params, bool fHelp)
+Value getnewstealthaddress(const Array& params, bool fHelp)
 {
-	if (fHelp)
+    if (fHelp || params.size() > 1)
         throw runtime_error(
-            "getweight\n"
-            "This will return your total stake weight for confirmed outputs\n");
-			
-	return getWeight();
-}
-
-// presstab HyperStake
-Value setstakesplitthreshold(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "setstakesplitthreshold <1 - 999,999>\n"
-            "This will set the output size of your stakes to never be below this number\n");
+            "getnewstealthaddress [label]\n"
+            "Returns a new PayCon stealth address for receiving payments anonymously.  ");
     
-	uint64_t nStakeSplitThreshold = boost::lexical_cast<int>(params[0].get_str());
-	if (pwalletMain->IsLocked())
-        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Unlock wallet to use this feature");
-	if (nStakeSplitThreshold > 999999)
-		return "out of range - setting split threshold failed";
-	
-	CWalletDB walletdb(pwalletMain->strWalletFile);
-	LOCK(pwalletMain->cs_wallet);
-	{
-		bool fFileBacked = pwalletMain->fFileBacked;
-		
-		Object result;
-		pwalletMain->nStakeSplitThreshold = nStakeSplitThreshold;
-		result.push_back(Pair("split stake threshold set to ", int(pwalletMain->nStakeSplitThreshold)));
-		if(fFileBacked)
-		{
-			walletdb.WriteStakeSplitThreshold(nStakeSplitThreshold);
-			result.push_back(Pair("saved to wallet.dat ", "true"));
-		}
-		else
-			result.push_back(Pair("saved to wallet.dat ", "false"));
-		
-		return result;
-	}
-}
-
-// presstab HyperStake
-Value getstakesplitthreshold(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getstakesplitthreshold\n"
-            "Returns the set splitstakethreshold\n");
-
-	Object result;
-	result.push_back(Pair("split stake threshold set to ", int(pwalletMain->nStakeSplitThreshold)));
-	return result;
-
-}
-
-Value rescanfromblock(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "rescanfromblock <block height>\n"
-            "This will rescan for transactions after a specified block\n");
-    int nHeight = params[0].get_int();
-	if (pwalletMain->IsLocked())
-        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Unlock wallet to use this feature");
-	if (nHeight > int(nBestHeight) || nHeight < 0)
-		return "out of range";
-		
-	pwalletMain->ScanForWalletTransactions(FindBlockByHeight(nHeight), true);
-	return "done";
-}
-
-/** COIN CONTROL RPC **/
-// presstab HyperStake
-Value cclistcoins(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "cclistcoins\n"
-			"CoinControl: list your spendable coins and their information\n");
-	
-	Array result;
-	
-	std::vector<COutput> vCoins;
-    pwalletMain->AvailableCoins(vCoins);
-	
-	BOOST_FOREACH(const COutput& out, vCoins)
-    {
-		Object coutput;
-		int64_t nHeight = nBestHeight - out.nDepth;
-		CBlockIndex* pindex = FindBlockByHeight(nHeight);
-		
-		CTxDestination outputAddress;
-		ExtractDestination(out.tx->vout[out.i].scriptPubKey, outputAddress);
-		coutput.push_back(Pair("Address", CBitcoinAddress(outputAddress).ToString()));
-		coutput.push_back(Pair("Output Hash", out.tx->GetHash().ToString()));
-		coutput.push_back(Pair("blockIndex", out.i));
-		double dAmount = double(out.tx->vout[out.i].nValue) / double(COIN);
-		coutput.push_back(Pair("Value", dAmount));
-		coutput.push_back(Pair("Confirmations", int(out.nDepth)));
-		double dAge = double(GetTime() - pindex->nTime);
-		coutput.push_back(Pair("Age (days)", (dAge/(60*60*24))));
-		uint64_t nWeight = 0;
-		pwalletMain->GetStakeWeightFromValue(out.tx->GetTxTime(), out.tx->vout[out.i].nValue, nWeight);
-		if(dAge < nStakeMinAge)
-			nWeight = 0;
-		coutput.push_back(Pair("Weight", int(nWeight)));
-		double nReward = (MAX_MINT_PROOF_OF_STAKE2/COIN) / 365 * dAge * dAmount;
-		nReward = min(nReward, double(30));
-		coutput.push_back(Pair("Potential Stake", nReward));
-		result.push_back(coutput);
-	}
-	return result;
-}
-
-// presstab HyperStake
-Value ccselect(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 2)
-        throw runtime_error(
-            "ccselect <Output Hash> <Output Index>\n"
-			"CoinControl: select a coin");
-	
-	uint256 hash;
-    hash.SetHex(params[0].get_str());
-	unsigned int nIndex = params[1].get_int();
-	COutPoint outpt(hash, nIndex);
-	coinControl->Select(outpt);
-
-	return "Outpoint Selected";
-}
-
-// presstab HyperStake
-Value cclistselected(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "cclistselected\n"
-			"CoinControl: list selected coins");
-	
-	std::vector<COutPoint> vOutpoints;
-	coinControl->ListSelected(vOutpoints);
-	
-	Array result;
-	BOOST_FOREACH(COutPoint& outpt, vOutpoints)
-	{
-		result.push_back(outpt.hash.ToString());
-	}
-
-	return result;
-}
-
-// ssta HyperStake
-Value ccreturnchange(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "ccreturnchange <true|false>\n"
-                        "CoinControl: sets returnchange to true or false");
-    bool rc = params[0].get_bool();
-    coinControl->fReturnChange=rc;
-    string ret = "Set ReturnChange to: ";
+    if (pwalletMain->IsLocked())
+        throw runtime_error("Failed: Wallet must be unlocked.");
     
-	if(coinControl->fReturnChange )
-		ret+= "true";
-	else
-		ret+= "false";
-		
-    return ret;
+    std::string sLabel;
+    if (params.size() > 0)
+        sLabel = params[0].get_str();
+    
+    CStealthAddress sxAddr;
+    std::string sError;
+    if (!pwalletMain->NewStealthAddress(sError, sLabel, sxAddr))
+        throw runtime_error(std::string("Could get new stealth address: ") + sError);
+    
+    if (!pwalletMain->AddStealthAddress(sxAddr))
+        throw runtime_error("Could not save to wallet.");
+    
+    return sxAddr.Encoded();
 }
 
-// ssta HyperStake
-Value cccustomchange(const Array& params, bool fHelp)
+Value liststealthaddresses(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() != 1)
+    if (fHelp || params.size() > 1)
         throw runtime_error(
-            "cccustomchange <address>\n"
-                        "CoinControl: sets address to return change to");
-    CBitcoinAddress address(params[0].get_str());
-    // check it's a valid address
-    if(!address.IsValid()) throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid PayCon address");
-
-    coinControl->destChange=address.Get();
-
-    string ret = "Set change address to: ";
-    ret+=(CBitcoinAddress(coinControl->destChange).ToString());
-    return ret;
+            "liststealthaddresses [show_secrets=0]\n"
+            "List owned stealth addresses.");
+    
+    bool fShowSecrets = false;
+    
+    if (params.size() > 0)
+    {
+        std::string str = params[0].get_str();
+        
+        if (str == "0" || str == "n" || str == "no" || str == "-" || str == "false")
+            fShowSecrets = false;
+        else
+            fShowSecrets = true;
+    };
+    
+    if (fShowSecrets)
+    {
+        if (pwalletMain->IsLocked())
+            throw runtime_error("Failed: Wallet must be unlocked.");
+    };
+    
+    Object result;
+    
+    //std::set<CStealthAddress>::iterator it;
+    //for (it = pwalletMain->stealthAddresses.begin(); it != pwalletMain->stealthAddresses.end(); ++it)
+    BOOST_FOREACH(CStealthAddress sit, pwalletMain->stealthAddresses)
+    {
+	CStealthAddress* it = &(sit);
+        if (it->scan_secret.size() < 1)
+            continue; // stealth address is not owned
+        
+        if (fShowSecrets)
+        {
+            Object objA;
+            objA.push_back(Pair("Label        ", it->label));
+            objA.push_back(Pair("Address      ", it->Encoded()));
+            objA.push_back(Pair("Scan Secret  ", HexStr(it->scan_secret.begin(), it->scan_secret.end())));
+            objA.push_back(Pair("Spend Secret ", HexStr(it->spend_secret.begin(), it->spend_secret.end())));
+            result.push_back(Pair("Stealth Address", objA));
+        } else
+        {
+            result.push_back(Pair("Stealth Address", it->Encoded() + " - " + it->label));
+        };
+    };
+    
+    return result;
 }
 
-// ssta HyperStake
-Value ccreset(const Array& params, bool fHelp)
+Value importstealthaddress(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() != 0)
+    if (fHelp || params.size() < 2)
         throw runtime_error(
-            "ccreset\n"
-                        "CoinControl: resets coin control (clears selected coins and change address)");
-    coinControl->SetNull();
-    return Value::null;
+            "importstealthaddress <scan_secret> <spend_secret> [label]\n"
+            "Import an owned stealth addresses.");
+    
+    std::string sScanSecret  = params[0].get_str();
+    std::string sSpendSecret = params[1].get_str();
+    std::string sLabel;
+    
+    
+    if (params.size() > 2)
+    {
+        sLabel = params[2].get_str();
+    };
+    
+    std::vector<uint8_t> vchScanSecret;
+    std::vector<uint8_t> vchSpendSecret;
+    
+    if (IsHex(sScanSecret))
+    {
+        vchScanSecret = ParseHex(sScanSecret);
+    } else
+    {
+        if (!DecodeBase58(sScanSecret, vchScanSecret))
+            throw runtime_error("Could not decode scan secret as hex or base58.");
+    };
+    
+    if (IsHex(sSpendSecret))
+    {
+        vchSpendSecret = ParseHex(sSpendSecret);
+    } else
+    {
+        if (!DecodeBase58(sSpendSecret, vchSpendSecret))
+            throw runtime_error("Could not decode spend secret as hex or base58.");
+    };
+    
+    if (vchScanSecret.size() != 32)
+        throw runtime_error("Scan secret is not 32 bytes.");
+    if (vchSpendSecret.size() != 32)
+        throw runtime_error("Spend secret is not 32 bytes.");
+    
+    
+    ec_secret scan_secret;
+    ec_secret spend_secret;
+    
+    memcpy(&scan_secret.e[0], &vchScanSecret[0], 32);
+    memcpy(&spend_secret.e[0], &vchSpendSecret[0], 32);
+    
+    ec_point scan_pubkey, spend_pubkey;
+    if (SecretToPublicKey(scan_secret, scan_pubkey) != 0)
+        throw runtime_error("Could not get scan public key.");
+    
+    if (SecretToPublicKey(spend_secret, spend_pubkey) != 0)
+        throw runtime_error("Could not get spend public key.");
+    
+    
+    CStealthAddress sxAddr;
+    sxAddr.label = sLabel;
+    sxAddr.scan_pubkey = scan_pubkey;
+    sxAddr.spend_pubkey = spend_pubkey;
+    
+    sxAddr.scan_secret = vchScanSecret;
+    sxAddr.spend_secret = vchSpendSecret;
+    
+    Object result;
+    bool fFound = false;
+    // -- find if address already exists
+    //std::set<CStealthAddress>::iterator it;
+    //for (it = pwalletMain->stealthAddresses.begin(); it != pwalletMain->stealthAddresses.end(); ++it)
+    BOOST_FOREACH(CStealthAddress it, pwalletMain->stealthAddresses)
+    {
+        CStealthAddress &sxAddrIt = const_cast<CStealthAddress&>(it); //*it);
+        if (sxAddrIt.scan_pubkey == sxAddr.scan_pubkey
+            && sxAddrIt.spend_pubkey == sxAddr.spend_pubkey)
+        {
+            if (sxAddrIt.scan_secret.size() < 1)
+            {
+                sxAddrIt.scan_secret = sxAddr.scan_secret;
+                sxAddrIt.spend_secret = sxAddr.spend_secret;
+                fFound = true; // update stealth address with secrets
+                break;
+            };
+            
+            result.push_back(Pair("result", "Import failed - stealth address exists."));
+            return result;
+        };
+    };
+    
+    if (fFound)
+    {
+        result.push_back(Pair("result", "Success, updated " + sxAddr.Encoded()));
+    } else
+    {
+        pwalletMain->stealthAddresses.insert(sxAddr);
+        result.push_back(Pair("result", "Success, imported " + sxAddr.Encoded()));
+    };
+    
+    
+    if (!pwalletMain->AddStealthAddress(sxAddr))
+        throw runtime_error("Could not save to wallet.");
+    
+    return result;
 }
 
-// presstab HyperStake
-Value ccsend(const Array& params, bool fHelp)
+
+Value sendtostealthaddress(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() != 2)
+    if (fHelp || params.size() < 2 || params.size() > 5)
         throw runtime_error(
-		"ccsend <PayCon Address> <amount>\n"
+            "sendtostealthaddress <stealth_address> <amount> [comment] [comment-to]\n"
             "<amount> is a real and is rounded to the nearest 0.000001"
             + HelpRequiringPassphrase());
-
-    CBitcoinAddress address(params[0].get_str());
-    if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid PayCon address");
-
-    // Amount
-    int64_t nAmount = AmountFromValue(params[1]);
-
-    if (nAmount < SOFT_MIN_TX_FEE + 1)
-        throw JSONRPCError(-101, "Send amount too small");
-
-    if (pwalletMain->IsLocked())
-        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
-
-	// Initialize things needed for the transaction
-   vector<pair<CScript, int64_t> > vecSend;
-	CWalletTx wtx;
-    CReserveKey keyChange(pwalletMain);
-    int64_t nFeeRequired = 0;
-	CScript scriptPubKey;
-        scriptPubKey.SetDestination(address.Get());
-    vecSend.push_back(make_pair(scriptPubKey, nAmount));
-	
-    bool fCreated = pwalletMain->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, 1, coinControl); // 1 = no splitblock, false for s4c, coinControl
-    if (!fCreated)
-    {
-        if (nAmount + nFeeRequired > pwalletMain->GetBalance())
-            throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "Insufficient funds");
-        throw JSONRPCError(RPC_WALLET_ERROR, "Transaction creation failed");
-    }
-    if (!pwalletMain->CommitTransaction(wtx, keyChange))
-        throw JSONRPCError(RPC_WALLET_ERROR, "Transaction commit failed");
-	
-	coinControl->SetNull();
-    return wtx.GetHash().GetHex();
-}
-
-/** END COIN CONTROL RPC **/
-
-//presstab HyperStake
-Array printMultiSend()
-{
-	Array ret;
-	Object act;
-	act.push_back(Pair("MultiSend Activated?", pwalletMain->fMultiSend));
-	ret.push_back(act);
-	if(pwalletMain->vDisabledAddresses.size() >= 1)
-	{
-		Object disAdd;
-		for(unsigned int i = 0; i < pwalletMain->vDisabledAddresses.size(); i++)
-		{
-			disAdd.push_back(Pair("Disabled From Sending", pwalletMain->vDisabledAddresses[i]));
-		}
-		ret.push_back(disAdd);
-	}
-	
-	ret.push_back("MultiSend Addresses to Send To:");
-	Object vMS;
-	for(unsigned int i = 0; i < pwalletMain->vMultiSend.size(); i++)
-	{
-		vMS.push_back(Pair("Address " + boost::lexical_cast<std::string>(i), pwalletMain->vMultiSend[i].first));
-		vMS.push_back(Pair("Percent", pwalletMain->vMultiSend[i].second));
-	}
-	ret.push_back(vMS);
-	return ret;
-}
-
-//presstab HyperStake
-Array printAddresses()
-{
-	std::vector<COutput> vCoins;
-    pwalletMain->AvailableCoins(vCoins);
-	std::map<std::string, double> mapAddresses;
-	
-	BOOST_FOREACH(const COutput& out, vCoins)
-    {
-		CTxDestination utxoAddress;
-		ExtractDestination(out.tx->vout[out.i].scriptPubKey, utxoAddress);
-		std::string strAdd = CBitcoinAddress(utxoAddress).ToString();
-
-		if(mapAddresses.find(strAdd) == mapAddresses.end()) //if strAdd is not already part of the map
-		{
-			mapAddresses[strAdd] = (double)out.tx->vout[out.i].nValue / (double)COIN;
-		}
-		else
-		{
-			mapAddresses[strAdd] += (double)out.tx->vout[out.i].nValue / (double)COIN;
-		}
-	}
-	Array ret;
-	for (map<std::string, double>::const_iterator it = mapAddresses.begin(); it != mapAddresses.end(); ++it)
-	{
-		Object obj;
-		const std::string* strAdd = &(*it).first;
-		const double* nBalance = &(*it).second;
-		obj.push_back(Pair("Address ", *strAdd));
-		obj.push_back(Pair("Balance ", *nBalance));
-		ret.push_back(obj);
-	}
-	return ret;
-}
-
-//presstab HyperStake
-unsigned int sumMultiSend()
-{
-	unsigned int sum = 0;
-	for(unsigned int i = 0; i < pwalletMain->vMultiSend.size(); i++)
-	{
-		sum += pwalletMain->vMultiSend[i].second;
-	}
-	return sum;
-}
-
-// presstab HyperStake
-Value multisend(const Array &params, bool fHelp)
-{
-    CWalletDB walletdb(pwalletMain->strWalletFile);
-	bool fFileBacked;
-	
-	//MultiSend Commands
-	if(params.size() == 1)
-	{
-		string strCommand = params[0].get_str();
-		Object ret;
-		if(strCommand == "print")
-		{
-			return printMultiSend();
-		}
-		else if(strCommand == "printaddress" || strCommand == "printaddresses")
-		{
-			return printAddresses();
-		}
-		else if(strCommand == "clear")
-		{
-			LOCK(pwalletMain->cs_wallet);
-			{
-				fFileBacked = pwalletMain->fFileBacked;
-				string strRet;
-				if(fFileBacked)
-				{
-					if(walletdb.EraseMultiSend(pwalletMain->vMultiSend))						
-						strRet += "erased MultiSend vector from database & ";
-					
-				}
-				pwalletMain->vMultiSend.clear();
-				pwalletMain->fMultiSend = false;
-				strRet += "cleared MultiSend vector from RAM";
-				return strRet;
-			}
-		}
-		else if (strCommand == "enable" || strCommand == "activate" )
-		{
-			if(pwalletMain->vMultiSend.size() < 1)
-				return "Unable to activate MultiSend, check MultiSend vector";
-			if(CBitcoinAddress(pwalletMain->vMultiSend[0].first).IsValid())
-			{
-				pwalletMain->fMultiSend = true;
-				if(!walletdb.WriteMSettings(true, pwalletMain->nLastMultiSendHeight))
-					return "MultiSend activated but writing settings to DB failed";
-				else
-				return "MultiSend activated";
-			}
-			else
-				return "Unable to activate MultiSend, check MultiSend vector";
-		}
-		else if (strCommand == "disable" || strCommand == "deactivate" )
-		{
-			pwalletMain->fMultiSend = false;
-			if(!walletdb.WriteMSettings(false, pwalletMain->nLastMultiSendHeight))
-					return "MultiSend deactivated but writing settings to DB failed";
-			return "MultiSend deactivated";
-		}
-		else if(strCommand == "enableall")
-		{
-			if(!walletdb.EraseMSDisabledAddresses(pwalletMain->vDisabledAddresses))
-				return "failed to clear old vector from walletDB";
-			else
-			{
-				pwalletMain->vDisabledAddresses.clear();
-				return "all addresses will now send MultiSend transactions";
-			}
-		}
-	}
-	if(params.size() == 2 && params[0].get_str() == "delete")
-	{
-		int del = boost::lexical_cast<int>(params[1].get_str());
-		if(!walletdb.EraseMultiSend(pwalletMain->vMultiSend))
-		   return "failed to delete old MultiSend vector from database";
-		
-		pwalletMain->vMultiSend.erase(pwalletMain->vMultiSend.begin() + del);
-		
-		if(!walletdb.WriteMultiSend(pwalletMain->vMultiSend))
-			return "walletdb WriteMultiSend failed!";
-		return printMultiSend();
-	}
-	if(params.size() == 2 && params[0].get_str() == "disable")
-	{
-		std::string disAddress = params[1].get_str();
-		if(!CBitcoinAddress(disAddress).IsValid())
-			return "address you want to disable is not valid";
-		else
-		{
-			pwalletMain->vDisabledAddresses.push_back(disAddress);
-			if(!walletdb.EraseMSDisabledAddresses(pwalletMain->vDisabledAddresses))
-				return "disabled address from sending, but failed to clear old vector from walletDB";
-			if(!walletdb.WriteMSDisabledAddresses(pwalletMain->vDisabledAddresses))
-				return "disabled address from sending, but failed to store it to walletDB";
-			else
-				return "disabled address from sending MultiSend transactions";
-		}
-		
-	}
-	//if no commands are used
-	if (fHelp || params.size() != 2)
-        throw runtime_error(
-			"multisend <command>\n"
-			"****************************************************************\n"
-			"WHAT IS MULTISEND?\n"
-			"MultiSend is a rebuild of what used to be called Stake For Charity (s4c)\n"
-			"MultiSend allows a user to automatically send a percent of their stake reward to as many addresses as you would like\n"
-			"The MultiSend transaction is sent when the staked coins mature\n"
-			"The only current restriction is that you cannot choose to send more than 100% of your stake using MultiSend\n"
-			"****************************************************************\n"
-			"MULTISEND COMMANDS (usage: multisend <command>)\n"
-			"   print - displays the current MultiSend vector \n"
-			"   clear - deletes the current MultiSend vector \n"
-			"   enable/activate - activates the current MultiSend vector \n"
-			"   disable/deactivate - disables the current MultiSend vector \n"
-			"   delete <Address #> - deletes an address from the MultiSend vector \n"
-			"   disable <address> - prevents a specific address from sending MultiSend transactions\n"
-			"   enableall - enables all addresses to be eligible to send MultiSend transactions\n"
-			
-			"****************************************************************\n"
-			"TO CREATE OR ADD TO THE MULTISEND VECTOR:\n"
-			"multisend <PayCon Address> <percent>\n"
-            "This will add a new address to the MultiSend vector\n"
-            "Percent is a whole number 1 to 100.\n"
-			"****************************************************************\n"
-            );
-	
-	//if the user is entering a new MultiSend item
-	string strAddress = params[0].get_str();
-    CBitcoinAddress address(strAddress);
-    if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid PayCon address");
-    if (boost::lexical_cast<int>(params[1].get_str()) < 0)
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, expected valid percentage");
-    if (pwalletMain->IsLocked())
-        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
-
-	
-	unsigned int nPercent = boost::lexical_cast<unsigned int>(params[1].get_str());
     
-	LOCK(pwalletMain->cs_wallet);
-	{
-		fFileBacked = pwalletMain->fFileBacked;
-		//Error if 0 is entered
-		if(nPercent == 0)
-		{
-            return "Sending 0% of stake is not valid";
-		}
-		
-		//MultiSend can only send 100% of your stake
-        if (nPercent + sumMultiSend() > 100)
-			return "Failed to add to MultiSend vector, the sum of your MultiSend is greater than 100%";
-		
-		for(unsigned int i = 0; i < pwalletMain->vMultiSend.size(); i++)
-		{
-			if(pwalletMain->vMultiSend[i].first == strAddress)
-				return "Failed to add to MultiSend vector, cannot use the same address twice";
-		}
-			
-		if(fFileBacked)
-			walletdb.EraseMultiSend(pwalletMain->vMultiSend);
-			  
-		std::pair<std::string, int> newMultiSend;
-		newMultiSend.first = strAddress;
-		newMultiSend.second = nPercent;
-		pwalletMain->vMultiSend.push_back(newMultiSend);
-		
-		if(fFileBacked)
-		{	
-			if(!walletdb.WriteMultiSend(pwalletMain->vMultiSend))
-				return "walletdb WriteMultiSend failed!";
-		}
-	}
-	return printMultiSend();
-}
-// presstab HyperStake  
-Value hashsettings(const Array& params, bool fHelp)  
-{  
-    if (fHelp || params.size() > 2 || params.size() == 0)   
-        throw runtime_error(  
-            "hashsettings <drift/interval><seconds>\n"  
-			"ex: 'hashsettings drift' will return the current drift settings\n"  
-			"ex: 'hashsettings interval' will return the current interval settings\n"  
-			"ex: hashsettings drift 45\n"  
-			"ex: hashsettings interval 20\n"  
-			"ex: 'hashsettings default' returns the settings to default\n"  
-			"hashdrift is how many second into the future your wallet will stake in one hashing burst\n"  
-			"interval is how often your client will search for new hashes\n"  
-			"if you set your hashdrift to 45, then your client will create 45 unique proof of stake hashes, the only thing changing the hash result is the timestamp included, thus you hash 45 seconds into the future.\n"  
-			"Each hash is an attempt to meet the staking target. If you don't hit the staking target, your client will pause staking for the set interval. \n"  
-			"If the interval is 22 seconds, the wallet will create 45 hashes, wait 22 seconds, then create 45 hashes. Approximately 23 of those hashes will be identical as the previous rounds hashes.\n"  
-              "WARNING: timedrift allowance is 60 seconds too high of a hash drift will cause orphans");  
-    if(params.size() < 2)  
-	{  
-		if(params[0].get_str() == "drift")   
-			return boost::lexical_cast<string>(pwalletMain->nHashDrift);  
-		else if(params[0].get_str() == "interval")   
-			return boost::lexical_cast<string>(pwalletMain->nHashInterval);  
-		else if(params[0].get_str() == "default")  
-		{  
-			CWalletDB walletdb(pwalletMain->strWalletFile);  
-			pwalletMain->nHashDrift = 45;  
-			pwalletMain->nHashInterval = 22;  
-			walletdb.WriteHashDrift(45);  
-			walletdb.WriteHashInterval(22);  
-			return "Hash Settings returned to default";  
-		}  
-	}  
-  
-	  
-	CWalletDB walletdb(pwalletMain->strWalletFile);  
-	if(params[0].get_str() == "drift")   
-	{  
-		unsigned int nHashDrift = boost::lexical_cast<unsigned int>(params[1].get_str());  
-		if(nHashDrift > 60)  
-			return "You can not set your hashdrift to be greater than 60 seconds";  
-		else if(nHashDrift < 1)  
-			return "Hash drift too low";  
-		  
-		pwalletMain->nHashDrift = nHashDrift;  
-		if(walletdb.WriteHashDrift(nHashDrift))  
-			return "Hashdrift set and save to DB";  
-		else  
-			return "Hashdrift set but failed to write to DB";  
-	}  
-	else if(params[0].get_str() == "interval")   
-	{  
-		unsigned int nHashInterval = boost::lexical_cast<unsigned int>(params[1].get_str());  
-		if(nHashInterval < 1)  
-			return "Interval too low";  
-		pwalletMain->nHashInterval = nHashInterval;  
-		if(walletdb.WriteHashInterval(nHashInterval))  
-			return "HashInterval set and save to DB";  
-		else  
-			return "HashInterval set but failed to write to DB";  
-	}
-} 
+    if (pwalletMain->IsLocked())
+        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
+    
+    std::string sEncoded = params[0].get_str();
+    int64_t nAmount = AmountFromValue(params[1]);
+    
+    std::string sNarr;
+    CStealthAddress sxAddr;
+    Object result;
+    
+    if (!sxAddr.SetEncoded(sEncoded))
+    {
+        result.push_back(Pair("result", "Invalid PayCon stealth address."));
+        return result;
+    };
+    
+    
+    CWalletTx wtx;
+    if (params.size() > 2 && params[2].type() != null_type && !params[2].get_str().empty())
+        wtx.mapValue["comment"] = params[2].get_str();
+    if (params.size() > 3 && params[3].type() != null_type && !params[3].get_str().empty())
+        wtx.mapValue["to"]      = params[3].get_str();
+    
+    std::string sError;
+    if (!pwalletMain->SendStealthMoneyToDestination(sxAddr, nAmount, sNarr, wtx, sError))
+        throw JSONRPCError(RPC_WALLET_ERROR, sError);
 
+    return wtx.GetHash().GetHex();
+    
+    result.push_back(Pair("result", "Not implemented yet."));
+    
+    return result;
+}
+
+Value scanforalltxns(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw runtime_error(
+            "scanforalltxns [fromHeight]\n"
+            "Scan blockchain for owned transactions.");
+    
+    Object result;
+    int32_t nFromHeight = 0;
+    
+    CBlockIndex *pindex = pindexGenesisBlock;
+    
+    
+    if (params.size() > 0)
+        nFromHeight = params[0].get_int();
+    
+    
+    if (nFromHeight > 0)
+    {
+        pindex = mapBlockIndex[hashBestChain];
+        while (pindex->nHeight > nFromHeight
+            && pindex->pprev)
+            pindex = pindex->pprev;
+    };
+    
+    if (pindex == NULL)
+        throw runtime_error("Genesis Block is not set.");
+    
+    {
+        LOCK2(cs_main, pwalletMain->cs_wallet);
+        
+        pwalletMain->MarkDirty();
+        
+        pwalletMain->ScanForWalletTransactions(pindex, true);
+        pwalletMain->ReacceptWalletTransactions();
+    }
+    
+    result.push_back(Pair("result", "Scan complete."));
+    
+    return result;
+}
+
+Value scanforstealthtxns(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw runtime_error(
+            "scanforstealthtxns [fromHeight]\n"
+            "Scan blockchain for owned stealth transactions.");
+    
+    Object result;
+    uint32_t nBlocks = 0;
+    uint32_t nTransactions = 0;
+    int32_t nFromHeight = 0;
+    
+    CBlockIndex *pindex = pindexGenesisBlock;
+    
+    
+    if (params.size() > 0)
+        nFromHeight = params[0].get_int();
+    
+    
+    if (nFromHeight > 0)
+    {
+        pindex = mapBlockIndex[hashBestChain];
+        while (pindex->nHeight > nFromHeight
+            && pindex->pprev)
+            pindex = pindex->pprev;
+    };
+    
+    if (pindex == NULL)
+        throw runtime_error("Genesis Block is not set.");
+    
+    // -- locks in AddToWalletIfInvolvingMe
+    
+    bool fUpdate = true;
+    
+    pwalletMain->nStealth = 0;
+    pwalletMain->nFoundStealth = 0;
+    
+    while (pindex)
+    {
+        nBlocks++;
+        CBlock block;
+        block.ReadFromDisk(pindex, true);
+        
+        BOOST_FOREACH(CTransaction& tx, block.vtx)
+        {
+            
+            nTransactions++;
+            
+            pwalletMain->AddToWalletIfInvolvingMe(tx, &block, fUpdate);
+        };
+        
+        pindex = pindex->pnext;
+    };
+    
+    printf("Scanned %u blocks, %u transactions\n", nBlocks, nTransactions);
+    printf("Found %u stealth transactions in blockchain.\n", pwalletMain->nStealth);
+    printf("Found %u new owned stealth transactions.\n", pwalletMain->nFoundStealth);
+    
+    char cbuf[256];
+    snprintf(cbuf, sizeof(cbuf), "%u new stealth transactions.", pwalletMain->nFoundStealth);
+    
+    result.push_back(Pair("result", "Scan complete."));
+    result.push_back(Pair("found", std::string(cbuf)));
+    
+    return result;
+}

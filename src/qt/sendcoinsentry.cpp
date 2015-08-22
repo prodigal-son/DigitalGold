@@ -1,11 +1,13 @@
 #include "sendcoinsentry.h"
 #include "ui_sendcoinsentry.h"
+
 #include "guiutil.h"
 #include "bitcoinunits.h"
 #include "addressbookpage.h"
 #include "walletmodel.h"
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
+#include "stealth.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -23,7 +25,7 @@ SendCoinsEntry::SendCoinsEntry(QWidget *parent) :
 #if QT_VERSION >= 0x040700
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
     ui->addAsLabel->setPlaceholderText(tr("Enter a label for this address to add it to your address book"));
-    ui->payTo->setPlaceholderText(tr("Enter a PayCon address (e.g. PfwYhBmGXcFP2Po1NpRUEiK8km2)"));
+    ui->payTo->setPlaceholderText(tr("Enter a PayCon address (e.g. FFAi6Ts6R1TY7eGt5r9oag7XTQsnLwxX4x)"));
 #endif
     setFocusPolicy(Qt::TabFocus);
     setFocusProxy(ui->payTo);
@@ -133,6 +135,12 @@ SendCoinsRecipient SendCoinsEntry::getValue()
     rv.address = ui->payTo->text();
     rv.label = ui->addAsLabel->text();
     rv.amount = ui->payAmount->value();
+
+ if (rv.address.length() > 75 
+        && IsStealthAddress(rv.address.toStdString()))
+        rv.typeInd = AddressTableModel::AT_Stealth;
+    else
+        rv.typeInd = AddressTableModel::AT_Normal;
 
     return rv;
 }

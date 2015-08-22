@@ -60,7 +60,6 @@ private:
 private slots:
     void on_deleteButton_clicked();
     void on_newAddressButton_clicked();
-	void on_deleteCheckBox_clicked();
     /** Copy address of currently selected address entry to clipboard */
     void on_copyToClipboard_clicked();
     void on_signMessage_clicked();
@@ -83,4 +82,4 @@ signals:
     void verifyMessage(QString addr);
 };
 
-#endif // ADDRESSBOOKDIALOG_H
+#endif // ADDRESSBOOKPAGE_H

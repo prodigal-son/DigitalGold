@@ -1,5 +1,5 @@
-#ifndef OPTIONSDIALOG_H
-#define OPTIONSDIALOG_H
+#ifndef ROS2SDIALOG_H
+#define ROS2SDIALOG_H
 
 #include <QDialog>
 
@@ -57,4 +57,4 @@ private:
     bool fProxyIpValid;
 };
 
-#endif // OPTIONSDIALOG_H
+#endif // ROS2SDIALOG_H

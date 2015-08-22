@@ -1,5 +1,4 @@
-// Copyright (c) 2013-2015 NovaCoin Developers
-// Copyright (c) 2015 The PayCon developers
+// Copyright (c) 2012 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #ifndef BITCOIN_MRUSET_H
@@ -31,6 +30,7 @@ public:
     bool empty() const { return set.empty(); }
     iterator find(const key_type& k) const { return set.find(k); }
     size_type count(const key_type& k) const { return set.count(k); }
+    void clear() { set.clear(); queue.clear(); }
     bool inline friend operator==(const mruset<T>& a, const mruset<T>& b) { return a.set == b.set; }
     bool inline friend operator==(const mruset<T>& a, const std::set<T>& b) { return a.set == b; }
     bool inline friend operator<(const mruset<T>& a, const mruset<T>& b) { return a.set < b.set; }

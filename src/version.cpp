@@ -1,5 +1,4 @@
-// Copyright (c) 2013-2015 NovaCoin Developers
-// Copyright (c) 2015 The PayCon developers
+// Copyright (c) 2012 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include <string>
@@ -12,7 +11,7 @@
 const std::string CLIENT_NAME("PayCon");
 
 // Client version number
-#define CLIENT_VERSION_SUFFIX   "PayCon-1.0.7"
+#define CLIENT_VERSION_SUFFIX   ""
 
 
 // The following part of the code determines the CLIENT_BUILD variable.
@@ -38,7 +37,7 @@ const std::string CLIENT_NAME("PayCon");
 #define GIT_ARCHIVE 1
 #ifdef GIT_ARCHIVE
 #    define GIT_COMMIT_ID ""
-//#    define GIT_COMMIT_DATE "$Format:%cD"
+#    define GIT_COMMIT_DATE ""
 #endif
 
 #define BUILD_DESC_FROM_COMMIT(maj,min,rev,build,commit) \

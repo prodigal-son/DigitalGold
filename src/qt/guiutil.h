@@ -4,7 +4,8 @@
 #include <QString>
 #include <QObject>
 #include <QMessageBox>
-#include <QLabel>
+
+class SendCoinsRecipient;
 
 QT_BEGIN_NAMESPACE
 class QFont;
@@ -13,9 +14,7 @@ class QWidget;
 class QDateTime;
 class QUrl;
 class QAbstractItemView;
-class QLabel;
 QT_END_NAMESPACE
-class SendCoinsRecipient;
 
 /** Utility functions used by the Bitcoin Qt UI.
  */
@@ -116,22 +115,9 @@ namespace GUIUtil
         QString coreOptions;
         QString uiOptions;
     };
-	
-	class ClickableLabel : public QLabel
-	{
-	
-	Q_OBJECT
-	 
-	public:
-		explicit ClickableLabel( const QString& text ="", QWidget * parent = 0 );
-		~ClickableLabel();
-		
-		signals:
-			void clicked();
-		
-		protected:
-			void mouseReleaseEvent ( QMouseEvent * event );
-	};
+
+    void SetBlackThemeQSS(QApplication& app);
+
 } // namespace GUIUtil
 
 #endif // GUIUTIL_H

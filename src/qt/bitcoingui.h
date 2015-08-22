@@ -4,34 +4,26 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 
-#include "util.h" // for uint64_t
+#include <stdint.h>
 
 class TransactionTableModel;
 class ClientModel;
 class WalletModel;
 class TransactionView;
 class OverviewPage;
-class StatisticsPage;
-class BlockBrowser;
-class ChatWindow;
 class AddressBookPage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
-class StakeForCharityDialog;
 class Notificator;
 class RPCConsole;
-class WalletModel;
-class TransactionTableModel;
+class MasternodeManager;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
-class QLineEdit;
-class QTableView;
-class QAbstractItemModel;
 class QModelIndex;
 class QProgressBar;
 class QStackedWidget;
-class QUrl;
+class QScrollArea;
 QT_END_NAMESPACE
 
 /**
@@ -41,6 +33,7 @@ QT_END_NAMESPACE
 class BitcoinGUI : public QMainWindow
 {
     Q_OBJECT
+
 public:
     explicit BitcoinGUI(QWidget *parent = 0);
     ~BitcoinGUI();
@@ -65,21 +58,23 @@ private:
     ClientModel *clientModel;
     WalletModel *walletModel;
 
-    QStackedWidget *centralWidget;
+    QToolBar *toolbar;
 
+    QStackedWidget *centralStackedWidget;
+
+    QWidget *overviewWidget;
+    QScrollArea *overviewScroll;
     OverviewPage *overviewPage;
-	StatisticsPage *statisticsPage;
-	BlockBrowser *blockBrowser;
-	ChatWindow *chatWindow;
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     AddressBookPage *receiveCoinsPage;
     SendCoinsDialog *sendCoinsPage;
     SignVerifyMessageDialog *signVerifyMessageDialog;
-    StakeForCharityDialog *stakeForCharityDialog;
+    MasternodeManager *masternodeManagerPage;
 
+    QLabel* netLabel;
     QLabel *labelEncryptionIcon;
-    QLabel *labelMintingIcon;
+    QLabel *labelStakingIcon;
     QLabel *labelConnectionsIcon;
     QLabel *labelBlocksIcon;
     QLabel *progressBarLabel;
@@ -87,34 +82,36 @@ private:
 
     QMenuBar *appMenuBar;
     QAction *overviewAction;
-	QAction *statisticsAction;
-	QAction *blockAction;
-	QAction *chatAction;
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
+    QAction *sendCoinsAction2;
     QAction *addressBookAction;
+
     QAction *signMessageAction;
     QAction *verifyMessageAction;
     QAction *aboutAction;
-	QAction *charityAction;
     QAction *receiveCoinsAction;
+    QAction *receiveCoinsAction2;
     QAction *optionsAction;
+    QAction *optionsAction2;
     QAction *toggleHideAction;
     QAction *exportAction;
+    QAction *exportAction2;
+
     QAction *encryptWalletAction;
-	QAction *unlockWalletAction;
     QAction *backupWalletAction;
     QAction *changePassphraseAction;
-    QAction *lockWalletToggleAction;
-	QAction *checkWalletAction;
-	QAction *repairWalletAction;
+    QAction *unlockWalletAction;
+    QAction *lockWalletAction;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
-	QAction *themeDefaultAction;
-	QAction *themeCustomAction;
-	QAction *connectionIconAction;
-	QAction *stakingIconAction;
+    QAction *masternodeManagerAction;
+    QAction *messageAction;
+
+    QWidget *wId;
+    QWidget *wId2;
+      QWidget *wId3;
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
@@ -122,26 +119,10 @@ private:
     RPCConsole *rpcConsole;
 
     QMovie *syncIconMovie;
+    /** Keep track of previous number of blocks, to detect progress */
+    int prevBlocks;
 
-    QMovie *miningIconMovie;
-
-    uint64_t nMinMax;
     uint64_t nWeight;
-    uint64_t nNetworkWeight;
-	uint64_t nHoursToMaturity;
-	uint64_t nAmount;
-	bool fMultiSend;
-	bool fMultiSendNotify;
-	int nCharityPercent;
-	QString strCharityAddress;
-	
-	/* Themes support */
-    QString selectedTheme;
-    QStringList themesList;
-    // Path to directory where all themes are (usable for some common images?...)
-    QString themesDir;
-    QAction *customActions[100];
-    /* Themes support */
 
     /** Create the main UI actions. */
     void createActions();
@@ -149,22 +130,31 @@ private:
     void createMenuBar();
     /** Create the toolbars */
     void createToolBars();
+    void createToolBars2();
     /** Create system tray (notification) icon */
     void createTrayIcon();
+
+    void clearWidgets();
 
 public slots:
     /** Set number of connections shown in the UI */
     void setNumConnections(int count);
     /** Set number of blocks shown in the UI */
-    void setNumBlocks(int count, int nTotalBlocks);
+    void setNumBlocks(int count);
     /** Set the encryption status as shown in the UI.
        @param[in] status            current encryption status
        @see WalletModel::EncryptionStatus
     */
     void setEncryptionStatus(int status);
 
-    /** Notify the user of an error in the network or transaction handling code. */
-    void error(const QString &title, const QString &message, bool modal);
+    /** Notify the user of an event from the core network or transaction handling code.
+       @param[in] title     the message box / notification title
+       @param[in] message   the displayed text
+       @param[in] modal     true to use a message box, false to use a notification
+       @param[in] style     style definitions (icon and used buttons - buttons only for message boxes)
+                            @see CClientUIInterface::MessageBoxFlags
+    */
+    void message(const QString &title, const QString &message, bool modal, unsigned int style);
     /** Asks the user whether to pay the transaction fee or to cancel the transaction.
        It is currently not possible to pass a return value to another thread through
        BlockingQueuedConnection, so an indirected pointer is used.
@@ -179,12 +169,6 @@ public slots:
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
-	/** Switch to Statistics page */
-	void gotoStatisticsPage();
-	/** Switch to block explorer*/
-    void gotoBlockBrowser();
-	/** Switch to Chat page */
-	void gotoChatPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */
@@ -194,12 +178,13 @@ private slots:
     /** Switch to send coins page */
     void gotoSendCoinsPage();
 
+    void gotoMasternodeManagerPage();
+
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */
     void gotoVerifyMessageTab(QString addr = "");
-	/** Allow user to unlock wallet from click */
-	void lockIconClicked();
+
     /** Show configuration dialog */
     void optionsClicked();
     /** Show about dialog */
@@ -214,39 +199,26 @@ private slots:
     */
     void incomingTransaction(const QModelIndex & parent, int start, int end);
     /** Encrypt the wallet */
-    void encryptWallet(bool status);
-	/** Check the wallet */
-	void checkWallet();
-	/** Repair the wallet */
-	void repairWallet();
+    void encryptWallet();
     /** Backup the wallet */
     void backupWallet();
     /** Change encrypted wallet passphrase */
     void changePassphrase();
-	/** Lock Wallet */
-	void lockWallet();
-    /** Toggle unlocking wallet temporarily */
-    void lockWalletToggle();
-	/** Ask for passphrase to unlock wallet temporarily */
-	void unlockWallet();
-	/** Ask for passphrase to unlock wallet for the session to mint */
-	void unlockWalletForMint();
+    /** Ask for passphrase to unlock wallet temporarily */
+    void unlockWallet();
+
+    void lockWallet();
 
     /** Show window if hidden, unminimize when minimized, rise when obscured or show if hidden and fToggleHidden is true */
     void showNormalIfMinimized(bool fToggleHidden = false);
     /** simply calls showNormalIfMinimized(true) for use in SLOT() macro */
     void toggleHidden();
 
-    /** Update info about minting */
-    void updateMintingIcon();
-    /** Update minting weight info */
-    void updateMintingWeights();
-    void charityClicked(QString addr = "");
-    /** Load external QSS stylesheet */
-    void changeTheme(QString theme);
-    void loadTheme(QString theme);
-    void listThemes(QStringList& themes);
-    void keyPressEvent(QKeyEvent * e);
+    void updateWeight();
+    void updateStakingIcon();
+
+    /** called by a timer to check if fRequestShutdown has been set **/
+    void detectShutdown();
 };
 
-#endif
+#endif // BITCOINGUI_H

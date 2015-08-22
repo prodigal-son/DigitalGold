@@ -8,14 +8,14 @@
 #include "csvmodelwriter.h"
 #include "guiutil.h"
 
+#ifdef USE_QRCODE
+#include "qrcodedialog.h"
+#endif
+
 #include <QSortFilterProxyModel>
 #include <QClipboard>
 #include <QMessageBox>
 #include <QMenu>
-
-#ifdef USE_QRCODE
-#include "qrcodedialog.h"
-#endif
 
 AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     QDialog(parent),
@@ -54,12 +54,10 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
         ui->labelExplanation->setVisible(false);
         ui->deleteButton->setVisible(true);
         ui->signMessage->setVisible(false);
-		ui->deleteCheckBox->setVisible(false);
         break;
     case ReceivingTab:
         ui->deleteButton->setVisible(false);
         ui->signMessage->setVisible(true);
-		ui->deleteCheckBox->setVisible(true);
         break;
     }
 
@@ -152,22 +150,6 @@ void AddressBookPage::setModel(AddressTableModel *model)
 void AddressBookPage::setOptionsModel(OptionsModel *optionsModel)
 {
     this->optionsModel = optionsModel;
-}
-
-void AddressBookPage::on_deleteCheckBox_clicked()
-{
-	if(ui->deleteCheckBox->checkState() == Qt::Checked)
-	{
-		ui->deleteButton->setEnabled(true);
-		ui->deleteButton->setVisible(true);
-		deleteAction->setEnabled(true);
-	}
-	else
-	{
-		ui->deleteButton->setEnabled(false);
-		ui->deleteButton->setVisible(false);
-		deleteAction->setEnabled(false);
-	}
 }
 
 void AddressBookPage::on_copyToClipboard_clicked()
@@ -277,15 +259,14 @@ void AddressBookPage::selectionChanged()
             ui->verifyMessage->setVisible(true);
             break;
         case ReceivingTab:
-            // Deleting receiving addresses, however,  is allowed if enabled on deleteCheckBox
-			ui->deleteButton->setVisible(false);
-			deleteAction->setEnabled(false);
+            // Deleting receiving addresses, however, is not allowed
+            ui->deleteButton->setEnabled(false);
+            ui->deleteButton->setVisible(false);
             deleteAction->setEnabled(false);
             ui->signMessage->setEnabled(true);
             ui->signMessage->setVisible(true);
             ui->verifyMessage->setEnabled(false);
             ui->verifyMessage->setVisible(false);
-            ui->deleteCheckBox->setVisible(true);
             break;
         }
         ui->copyToClipboard->setEnabled(true);

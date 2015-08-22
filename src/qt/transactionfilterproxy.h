@@ -3,12 +3,12 @@
 
 #include <QSortFilterProxyModel>
 #include <QDateTime>
-#include <inttypes.h>
 
 /** Filter the transaction list according to pre-specified rules. */
 class TransactionFilterProxy : public QSortFilterProxyModel
 {
     Q_OBJECT
+
 public:
     explicit TransactionFilterProxy(QObject *parent = 0);
 
@@ -32,9 +32,10 @@ public:
     /** Set maximum number of rows returned, -1 if unlimited. */
     void setLimit(int limit);
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    /** Set whether to show conflicted transactions. */
+    void setShowInactive(bool showInactive);
 
-    int64_t getTotalAmount() const { return totalAmount; }
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
 protected:
     bool filterAcceptsRow(int source_row, const QModelIndex & source_parent) const;
@@ -46,12 +47,7 @@ private:
     quint32 typeFilter;
     qint64 minAmount;
     int limitRows;
-    mutable int64_t totalAmount;
-
-signals:
-
-public slots:
-
+    bool showInactive;
 };
 
 #endif // TRANSACTIONFILTERPROXY_H
