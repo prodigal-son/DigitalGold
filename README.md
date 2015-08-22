@@ -12,4 +12,4 @@ Specification:
 - PoS Min Stake Time: 2 Day
 - Pos Max Stake Time: 14 Days
 
-require install libevent2 for tor
+
